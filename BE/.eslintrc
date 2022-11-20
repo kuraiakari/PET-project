@@ -1,0 +1,29 @@
+{
+    "root": true,
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": { "project": ["./tsconfig.json"] },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "prettier/prettier": [
+            "warn",
+            {
+                "arrowParens": "always",
+                "semi": false,
+                "trailingComma": "none",
+                "tabWidth": 2,
+                "endOfLine": "auto",
+                "useTabs": false,
+                "singleQuote": true,
+                "printWidth": 120,
+                "jsxSingleQuote": true
+            }
+        ]
+    },
+    "ignorePatterns": ["src/**/*.test.ts", "src/frontend/generated/*"]
+}
