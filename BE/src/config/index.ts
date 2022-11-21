@@ -1,4 +1,4 @@
-import dotEnv from 'dotEnv'
+import dotEnv from 'dotenv'
 
 if (process.env.NODE_ENV !== 'prod') {
   const configFile = `./.env`

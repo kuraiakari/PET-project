@@ -1,30 +1,37 @@
 {
-    "compilerOptions": {
-      "target": "es6",
-      "module": "commonjs",
-      "lib": [
-        "dom",
-        "es6",
-        "es2017",
-        "esnext.asynciterable"
-      ],
-      "sourceMap": true,
-      "outDir": "./dist",
-      "moduleResolution": "node",
-      "removeComments": true,
-      "allowSyntheticDefaultImports": true,
-      "esModuleInterop": true,
-      "emitDecoratorMetadata": true,
-      "experimentalDecorators": true,
-      "resolveJsonModule": true,
-      "strict": true,
-      "strictPropertyInitialization": false,
-      "typeRoots": [
-        "./src/types",
-        "./node_modules/@types"
-      ],
-      "baseUrl": "src/",
-      "noImplicitReturns": true,
-      "noFallthroughCasesInSwitch": true
-    },
-  }
+  "exclude": [
+    "node_modules",
+  ],
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+  },
+  "compilerOptions": {
+    "target": "es6",
+    "module": "ES2022",
+    "lib": [
+      "dom",
+      "es6",
+      "es2017",
+      "esnext.asynciterable"
+    ],
+    "sourceMap": true,
+    "outDir": "./dist",
+    "moduleResolution": "node",
+    "removeComments": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "resolveJsonModule": true,
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "typeRoots": [
+      "./src/types",
+      "./node_modules/@types"
+    ],
+    "baseUrl": "src/",
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
+  },
+}
