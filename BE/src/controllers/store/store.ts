@@ -61,8 +61,7 @@ class StoreControllers {
           if (err) res.json({ messageError: 'Delete Failure' })
         })
         res.status(200).json('Delete successfully')
-      }
-      else {
+      } else {
         res.status(404).json({ messageError: 'Not found store' })
       }
     })
