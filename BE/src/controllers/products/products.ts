@@ -23,7 +23,7 @@ class ProductsControllers {
       .sort(optionSortProduct)
       .exec(function (err: any, products: any) {
         if (!err) res.json(products)
-        else res.json(err)
+        else res.json({messageError:`${err}`})
       })
   }
   create = async (req: Request, res: Response) => {
@@ -37,7 +37,7 @@ class ProductsControllers {
         imageProduct: img
       }
       const handleSave = stores.findOne({ nameStore: dataProduct.store }).exec(async (err: any, store: any) => {
-        if (!store) res.status(500).json('Not found store')
+        if (!store) res.status(500).json({messageError:"Not found store"})
         else {
           const data = await products.create(dataProduct)
           await store.listProducts.push(data)
@@ -59,10 +59,10 @@ class ProductsControllers {
       imageProduct: img
     }
     const handleSave = stores.findOne({ nameStore: dataProduct.store }).exec(async (err: any, store: any) => {
-      if (!store) res.status(404).json('Not found store')
+      if (!store) res.status(404).json({messageError:"Not found store"})
       else {
         const data = await products.updateOne({ _id: req.params.id, store: dataProduct.store }, dataProduct)
-        if (!data.matchedCount) res.status(404).json('Not found product')
+        if (!data.matchedCount) res.status(404).json({messageError:"Not found product"})
         else {
           const productList = await products.findOne({ _id: req.params.id })
           await store.listProducts.forEach((product: any, index: any) => {
@@ -81,7 +81,7 @@ class ProductsControllers {
     const productList = await products.findOne({ _id: req.params.id })
     if (productList) {
       products.deleteOne({ _id: req.params.id }, function (err: any, products: any) {
-        if (err) res.json('Delete Failure')
+        if (err) res.json({messageError:"Delete Failure"})
       })
       stores.findOne({ nameStore: productList.store }).exec(async (err: any, store: any) => {
         await store.listProducts.forEach((product: any, index: any) => {
