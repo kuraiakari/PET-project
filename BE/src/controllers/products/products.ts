@@ -1,34 +1,22 @@
-import { Request, Response } from 'express'
+import { Request, response, Response } from 'express'
 import multer from 'multer'
 import path from 'path'
 
 import products from '../../database/models/products'
-
-interface Product {
-  nameProduct: String
-  amountProduct: Number
-  imageProduct: String
-  ratingProduct: Number
-  priceProduct: Number
-  promotionProduct: Number
-  size: String
-  type: String
-  producer: String
-}
+import stores from '../../database/models/stores'
 
 class ProductsControllers {
   getProducts(req: Request, res: Response) {
     let optionProduct = {}
     let optionSortProduct = {}
-    console.log(req.query)
-    if (req.query.name ) {
+    if (req.query.name) {
       optionProduct = {
-        $or: [{ nameProduct: req.query.name }, { producer: req.query.name }]
+        $or: [{ nameProduct: req.query.name }, { store: req.query.name }]
       }
     }
-    if ( req.query.sorting ) {
-      if ( req.query.sorting === 'rating' ) optionSortProduct = { ratingProduct: -1 }
-      if ( req.query.sorting === 'price' ) optionSortProduct = { priceProduct: 1 }
+    if (req.query.sorting) {
+      if (req.query.sorting === 'rating') optionSortProduct = { ratingProduct: -1 }
+      if (req.query.sorting === 'price') optionSortProduct = { priceProduct: 1 }
     }
     products
       .find(optionProduct)
@@ -38,31 +26,75 @@ class ProductsControllers {
         else res.json(err)
       })
   }
-  create(req: Request, res: Response) {
+  create = async (req: Request, res: Response) => {
+    try {
+      let img = ''
+      ;(req.files as []).forEach((file) => {
+        img += file['path'] + ','
+      })
+      const dataProduct = {
+        ...req.body,
+        imageProduct: img
+      }
+      const handleSave = stores.findOne({ nameStore: dataProduct.store }).exec(async (err: any, store: any) => {
+        if (!store) res.status(500).json('Not found store')
+        else {
+          const data = await products.create(dataProduct)
+          await store.listProducts.push(data)
+          await stores.updateOne({ nameStore: dataProduct.store }, store)
+          res.status(201).json('Create successfully')
+        }
+      })
+    } catch (err) {
+      res.status(500).json(err)
+    }
+  }
+  update(req: Request, res: Response) {
     let img = ''
     ;(req.files as []).forEach((file) => {
       img += file['path'] + ','
     })
-    const data = {
+    const dataProduct = {
       ...req.body,
       imageProduct: img
     }
-    products.create(data, function (err: any, products: any) {
-      if (err) res.json(err)
-      else res.json(products)
+    const handleSave = stores.findOne({ nameStore: dataProduct.store }).exec(async (err: any, store: any) => {
+      if (!store) res.status(404).json('Not found store')
+      else {
+        const data = await products.updateOne({ _id: req.params.id, store: dataProduct.store }, dataProduct)
+        if (!data.matchedCount) res.status(404).json('Not found product')
+        else {
+          const productList = await products.findOne({ _id: req.params.id })
+          await store.listProducts.forEach((product: any, index: any) => {
+            if (product._id.toString() === req.params.id) {
+              store.listProducts[index] = productList
+            }
+          })
+          // await store.listProducts.push(data)
+          await stores.updateOne({ nameStore: dataProduct.store }, store)
+          res.status(201).json('Update successfully')
+        }
+      }
     })
   }
-  update(req: Request, res: Response) {
-    products.updateOne({_id: req.params.id}, req.body, function (err: any, products: any) {
-      if (err) res.json(err)
-      else res.json(products)
-    })
-  }
-  delete(req: Request, res: Response) {
-    products.deleteOne({_id: req.params.id}, function (err: any, products: any) {
-      if(!err) res.json("Delete Success")
-      else res.json("Delete Failure")
-    })
+  async delete(req: Request, res: Response) {
+    const productList = await products.findOne({ _id: req.params.id })
+    if (productList) {
+      products.deleteOne({ _id: req.params.id }, function (err: any, products: any) {
+        if (err) res.json('Delete Failure')
+      })
+      stores.findOne({ nameStore: productList.store }).exec(async (err: any, store: any) => {
+        await store.listProducts.forEach((product: any, index: any) => {
+          if (product._id.toString() === productList._id.toString()) {
+            store.listProducts.splice(index, 1)
+          }
+        })
+        await stores.updateOne({ nameStore: productList.store }, store)
+        res.status(200).json("Delete successfully")
+      })
+    } else {
+      res.status(404).json('Not found store')
+    }
   }
   storage = multer.diskStorage({
     destination: (req, file, cb) => {
