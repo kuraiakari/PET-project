@@ -90,7 +90,7 @@ class ProductsControllers {
           }
         })
         await stores.updateOne({ nameStore: productList.store }, store)
-        res.status(200).json("Delete successfully")
+        res.status(200).json('Delete successfully')
       })
     } else {
       res.status(404).json('Not found store')

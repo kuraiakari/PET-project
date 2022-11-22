@@ -23,7 +23,7 @@ const products = new Schema(
     promotionProduct: String,
     size: String,
     type: String,
-    store: { type: String, required : true },
+    store: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
   },

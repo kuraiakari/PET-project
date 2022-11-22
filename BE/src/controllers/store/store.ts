@@ -5,13 +5,12 @@ import path from 'path'
 import stores from '../../database/models/stores'
 
 class StoreControllers {
-    getAll(req: Request, res: Response) {
-        stores.find({})
-      .exec(function (err: any, store: any) {
-        if (!err) res.json(store)
-        else res.json(err)
-      })
-    }
+  getAll(req: Request, res: Response) {
+    stores.find({}).exec(function (err: any, store: any) {
+      if (!err) res.json(store)
+      else res.json(err)
+    })
+  }
   create(req: Request, res: Response) {
     let img = ''
     ;(req.files as []).forEach((file) => {
@@ -22,7 +21,7 @@ class StoreControllers {
       imageStore: img
     }
     stores.create(data, function (err: any, store: any) {
-      if (err) res.json("Other store name")
+      if (err) res.json('Other store name')
       else res.json(store)
     })
   }
