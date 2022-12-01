@@ -5,6 +5,18 @@ import path from 'path'
 import products from '../../database/models/products'
 import stores from '../../database/models/stores'
 
+interface products {
+  nameProduct: string
+  amountProduct: number
+  imageProduct: string
+  ratingProduct: number
+  priceProduct: number
+  promotionProduct: number
+  size: string
+  type: string
+  store: string
+}
+
 class ProductsControllers {
   getProducts(req: Request, res: Response) {
     let optionProduct = {}
@@ -28,13 +40,12 @@ class ProductsControllers {
   }
   create = async (req: Request, res: Response) => {
     try {
-      console.log(req.files)
       let img = ''
       ;(req.files as []).forEach((file) => {
         img += file['path'] + ','
       })
       const dataProduct = {
-        ...req.body,
+        ...(req.body as products),
         imageProduct: img
       }
       const handleSave = stores.findOne({ nameStore: dataProduct.store }).exec(async (err: any, store: any) => {
