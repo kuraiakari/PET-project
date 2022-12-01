@@ -11,7 +11,7 @@ class ProductsControllers {
     let optionSortProduct = {}
     if (req.query.name) {
       optionProduct = {
-        $or: [{ nameProduct: req.query.name }, { store: req.query.name }]
+        nameProduct: req.query.name
       }
     }
     if (req.query.sorting) {
