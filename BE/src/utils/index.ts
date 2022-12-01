@@ -22,5 +22,6 @@ export const ValidateSignature = async (req: any) => {
   const signature = req.get('Authorization')
   if (signature) {
     return jwt.verify(signature.split(' ')[1], JWT_TOKEN as string)
-  } return undefined
+  }
+  return undefined
 }

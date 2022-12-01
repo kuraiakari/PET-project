@@ -7,13 +7,17 @@ import users from '../../database/models/user'
 import products from '../../database/models/products'
 
 class UserControllers {
-  async create(req: Request, res: Response) {
+  async create(req: any, res: any) {
     let salt = await GenerateSalt()
     let userPassword = await GeneratePassword(req.body.password, salt)
+    let img = ''
+    ;(req.files as []).forEach((file) => {
+      img += file['path'] + ','
+    })
     const data = {
       ...req.body,
       password: userPassword,
-      imageStore: req.file?.path,
+      avatar: img,
       salt
     }
     users.create(data, function (err: any, user: any) {
@@ -102,11 +106,13 @@ class UserControllers {
     for (const product of req.body.products) {
       await products
         .findOne({ _id: product.idProduct }, function (err: any, oldProduct: any) {
-          const data = {
-            productOrder: oldProduct,
-            amountOrder: product.amount
+          if (oldProduct) {
+            const data = {
+              productOrder: oldProduct,
+              amountOrder: product.amount
+            }
+            listProducts.push(data)
           }
-          listProducts.push(data)
         })
         .clone()
         .catch(function (err) {
@@ -146,6 +152,6 @@ class UserControllers {
       }
       cb(null, true)
     }
-  }).single('avatar')
+  }).array('avatar', 1)
 }
 export default UserControllers

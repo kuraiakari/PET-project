@@ -1,0 +1,2193 @@
+{
+	"info": {
+		"_postman_id": "7dcdd334-0874-40a4-89d9-452e064aaa84",
+		"name": "prak1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17842052"
+	},
+	"item": [
+		{
+			"name": "product",
+			"item": [
+				{
+					"name": "Create Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoaWVuMkBnbWFpbC5jb20iLCJfaWQiOiI2Mzg4MjcyYjUxMDg0YTdiYmI0YTc0MDciLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2Njk4OTE4NDgsImV4cCI6MTY2OTg5NTQ0OH0.EjJSjfFtC-YcSZi4T2TKOTmQ9ylbtlk0YyyZBhhXfNc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nameProduct",
+									"value": "shirt",
+									"type": "text"
+								},
+								{
+									"key": "store",
+									"value": "shopT",
+									"type": "text"
+								},
+								{
+									"key": "imageProduct",
+									"type": "file",
+									"src": [
+										"/C:/Users/missi/OneDrive/Máy tính/Screenshot 2022-09-30 233546.png",
+										"/C:/Users/missi/OneDrive/Máy tính/Screenshot 2022-10-29 200114.png",
+										"/C:/Users/missi/OneDrive/Máy tính/Screenshot 2022-10-29 200450.png"
+									]
+								},
+								{
+									"key": "ratingProduct",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "priceProduct",
+									"value": "877",
+									"type": "text"
+								},
+								{
+									"key": "amountProduct",
+									"value": "20",
+									"type": "text"
+								},
+								{
+									"key": "promotionProduct",
+									"value": "20",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/v1/products/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"products",
+								"create"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Not found store",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "nameProduct",
+											"value": "Jeans",
+											"type": "text"
+										},
+										{
+											"key": "imageProduct",
+											"type": "file",
+											"src": [
+												"/C:/Users/missi/OneDrive/Máy tính/Screenshot 2022-09-30 233546.png",
+												"/C:/Users/missi/OneDrive/Máy tính/Screenshot 2022-10-29 200114.png",
+												"/C:/Users/missi/OneDrive/Máy tính/Screenshot 2022-10-29 200450.png"
+											]
+										},
+										{
+											"key": "ratingProduct",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "priceProduct",
+											"value": "120",
+											"type": "text"
+										},
+										{
+											"key": "amountProduct",
+											"value": "20",
+											"type": "text"
+										},
+										{
+											"key": "promotionProduct",
+											"value": "20",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/v1/products/create",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"products",
+										"create"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"messageError\": \"Not found store\"\r\n}"
+						},
+						{
+							"name": "Create successfully",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "nameProduct",
+											"value": "Jeans",
+											"type": "text"
+										},
+										{
+											"key": "store",
+											"value": "Store of Tuan",
+											"type": "text"
+										},
+										{
+											"key": "imageProduct",
+											"type": "file",
+											"src": [
+												"/C:/Users/missi/OneDrive/Máy tính/Screenshot 2022-09-30 233546.png",
+												"/C:/Users/missi/OneDrive/Máy tính/Screenshot 2022-10-29 200114.png",
+												"/C:/Users/missi/OneDrive/Máy tính/Screenshot 2022-10-29 200450.png"
+											]
+										},
+										{
+											"key": "ratingProduct",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "priceProduct",
+											"value": "120",
+											"type": "text"
+										},
+										{
+											"key": "amountProduct",
+											"value": "20",
+											"type": "text"
+										},
+										{
+											"key": "promotionProduct",
+											"value": "20",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/v1/products/create",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"products",
+										"create"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "\"Create successfully\""
+						}
+					]
+				},
+				{
+					"name": "Get Product",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "city",
+									"value": "da nang",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/v1/products/?name=shirt&sorting=rating",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"products",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "shirt"
+								},
+								{
+									"key": "sorting",
+									"value": "rating"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Get Product",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "city",
+											"value": "da nang",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/v1/products/?sorting=rating",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"products",
+										""
+									],
+									"query": [
+										{
+											"key": "sorting",
+											"value": "rating"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "[\r\n    {\r\n        \"_id\": \"638887dab64c8636b4c13d53\",\r\n        \"nameProduct\": \"shirt\",\r\n        \"amountProduct\": \"20\",\r\n        \"imageProduct\": \"images\\\\products\\\\product1669892058711.png,images\\\\products\\\\product1669892058714.png,images\\\\products\\\\product1669892058716.png,\",\r\n        \"ratingProduct\": \"6\",\r\n        \"priceProduct\": \"900\",\r\n        \"promotionProduct\": \"20\",\r\n        \"store\": \"shopA\",\r\n        \"createdAt\": \"2022-12-01T10:54:18.734Z\",\r\n        \"updatedAt\": \"2022-12-01T10:54:18.734Z\"\r\n    },\r\n    {\r\n        \"_id\": \"6388880eb64c8636b4c13d57\",\r\n        \"nameProduct\": \"shirt\",\r\n        \"amountProduct\": \"20\",\r\n        \"imageProduct\": \"images\\\\products\\\\product1669892110711.png,images\\\\products\\\\product1669892110712.png,images\\\\products\\\\product1669892110714.png,\",\r\n        \"ratingProduct\": \"7.6\",\r\n        \"priceProduct\": \"600\",\r\n        \"promotionProduct\": \"20\",\r\n        \"store\": \"shopA\",\r\n        \"createdAt\": \"2022-12-01T10:55:10.728Z\",\r\n        \"updatedAt\": \"2022-12-01T10:55:10.728Z\"\r\n    },\r\n    {\r\n        \"_id\": \"6388881ab64c8636b4c13d5b\",\r\n        \"nameProduct\": \"jeans\",\r\n        \"amountProduct\": \"20\",\r\n        \"imageProduct\": \"images\\\\products\\\\product1669892122174.png,images\\\\products\\\\product1669892122176.png,images\\\\products\\\\product1669892122176.png,\",\r\n        \"ratingProduct\": \"7.6\",\r\n        \"priceProduct\": \"600\",\r\n        \"promotionProduct\": \"20\",\r\n        \"store\": \"shopT\",\r\n        \"createdAt\": \"2022-12-01T10:55:22.191Z\",\r\n        \"updatedAt\": \"2022-12-01T10:55:22.191Z\"\r\n    },\r\n    {\r\n        \"_id\": \"63888827b64c8636b4c13d5f\",\r\n        \"nameProduct\": \"shirt\",\r\n        \"amountProduct\": \"20\",\r\n        \"imageProduct\": \"images\\\\products\\\\product1669892135854.png,images\\\\products\\\\product1669892135861.png,images\\\\products\\\\product1669892135861.png,\",\r\n        \"ratingProduct\": \"8\",\r\n        \"priceProduct\": \"467\",\r\n        \"promotionProduct\": \"20\",\r\n        \"store\": \"shopT\",\r\n        \"createdAt\": \"2022-12-01T10:55:35.879Z\",\r\n        \"updatedAt\": \"2022-12-01T10:55:35.879Z\"\r\n    },\r\n    {\r\n        \"_id\": \"63888842b64c8636b4c13d63\",\r\n        \"nameProduct\": \"shirt\",\r\n        \"amountProduct\": \"20\",\r\n        \"imageProduct\": \"images\\\\products\\\\product1669892162775.png,images\\\\products\\\\product1669892162776.png,images\\\\products\\\\product1669892162778.png,\",\r\n        \"ratingProduct\": \"5\",\r\n        \"priceProduct\": \"877\",\r\n        \"promotionProduct\": \"20\",\r\n        \"store\": \"shopT\",\r\n        \"createdAt\": \"2022-12-01T10:56:02.790Z\",\r\n        \"updatedAt\": \"2022-12-01T10:56:02.790Z\"\r\n    }\r\n]"
+						},
+						{
+							"name": "Search name product",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "city",
+											"value": "da nang",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/v1/products/?name=shirt",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"products",
+										""
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "shirt"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "[\r\n    {\r\n        \"_id\": \"6388881ab64c8636b4c13d5b\",\r\n        \"nameProduct\": \"jeans\",\r\n        \"amountProduct\": \"20\",\r\n        \"imageProduct\": \"images\\\\products\\\\product1669892122174.png,images\\\\products\\\\product1669892122176.png,images\\\\products\\\\product1669892122176.png,\",\r\n        \"ratingProduct\": \"7.6\",\r\n        \"priceProduct\": \"600\",\r\n        \"promotionProduct\": \"20\",\r\n        \"store\": \"shopT\",\r\n        \"createdAt\": \"2022-12-01T10:55:22.191Z\",\r\n        \"updatedAt\": \"2022-12-01T10:55:22.191Z\"\r\n    }\r\n]"
+						},
+						{
+							"name": "Sort by rating",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "city",
+											"value": "da nang",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/v1/products/?sorting=rating",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"products",
+										""
+									],
+									"query": [
+										{
+											"key": "sorting",
+											"value": "rating"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "[\r\n    {\r\n        \"_id\": \"63888827b64c8636b4c13d5f\",\r\n        \"nameProduct\": \"shirt\",\r\n        \"amountProduct\": \"20\",\r\n        \"imageProduct\": \"images\\\\products\\\\product1669892135854.png,images\\\\products\\\\product1669892135861.png,images\\\\products\\\\product1669892135861.png,\",\r\n        \"ratingProduct\": \"8\",\r\n        \"priceProduct\": \"467\",\r\n        \"promotionProduct\": \"20\",\r\n        \"store\": \"shopT\",\r\n        \"createdAt\": \"2022-12-01T10:55:35.879Z\",\r\n        \"updatedAt\": \"2022-12-01T10:55:35.879Z\"\r\n    },\r\n    {\r\n        \"_id\": \"6388880eb64c8636b4c13d57\",\r\n        \"nameProduct\": \"shirt\",\r\n        \"amountProduct\": \"20\",\r\n        \"imageProduct\": \"images\\\\products\\\\product1669892110711.png,images\\\\products\\\\product1669892110712.png,images\\\\products\\\\product1669892110714.png,\",\r\n        \"ratingProduct\": \"7.6\",\r\n        \"priceProduct\": \"600\",\r\n        \"promotionProduct\": \"20\",\r\n        \"store\": \"shopA\",\r\n        \"createdAt\": \"2022-12-01T10:55:10.728Z\",\r\n        \"updatedAt\": \"2022-12-01T10:55:10.728Z\"\r\n    },\r\n    {\r\n        \"_id\": \"6388881ab64c8636b4c13d5b\",\r\n        \"nameProduct\": \"jeans\",\r\n        \"amountProduct\": \"20\",\r\n        \"imageProduct\": \"images\\\\products\\\\product1669892122174.png,images\\\\products\\\\product1669892122176.png,images\\\\products\\\\product1669892122176.png,\",\r\n        \"ratingProduct\": \"7.6\",\r\n        \"priceProduct\": \"600\",\r\n        \"promotionProduct\": \"20\",\r\n        \"store\": \"shopT\",\r\n        \"createdAt\": \"2022-12-01T10:55:22.191Z\",\r\n        \"updatedAt\": \"2022-12-01T10:55:22.191Z\"\r\n    },\r\n    {\r\n        \"_id\": \"638887dab64c8636b4c13d53\",\r\n        \"nameProduct\": \"shirt\",\r\n        \"amountProduct\": \"20\",\r\n        \"imageProduct\": \"images\\\\products\\\\product1669892058711.png,images\\\\products\\\\product1669892058714.png,images\\\\products\\\\product1669892058716.png,\",\r\n        \"ratingProduct\": \"6\",\r\n        \"priceProduct\": \"900\",\r\n        \"promotionProduct\": \"20\",\r\n        \"store\": \"shopA\",\r\n        \"createdAt\": \"2022-12-01T10:54:18.734Z\",\r\n        \"updatedAt\": \"2022-12-01T10:54:18.734Z\"\r\n    },\r\n    {\r\n        \"_id\": \"63888842b64c8636b4c13d63\",\r\n        \"nameProduct\": \"shirt\",\r\n        \"amountProduct\": \"20\",\r\n        \"imageProduct\": \"images\\\\products\\\\product1669892162775.png,images\\\\products\\\\product1669892162776.png,images\\\\products\\\\product1669892162778.png,\",\r\n        \"ratingProduct\": \"5\",\r\n        \"priceProduct\": \"877\",\r\n        \"promotionProduct\": \"20\",\r\n        \"store\": \"shopT\",\r\n        \"createdAt\": \"2022-12-01T10:56:02.790Z\",\r\n        \"updatedAt\": \"2022-12-01T10:56:02.790Z\"\r\n    }\r\n]"
+						},
+						{
+							"name": "Sort by price",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "city",
+											"value": "da nang",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/v1/products/?sorting=price",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"products",
+										""
+									],
+									"query": [
+										{
+											"key": "sorting",
+											"value": "price"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "[\r\n    {\r\n        \"_id\": \"63888827b64c8636b4c13d5f\",\r\n        \"nameProduct\": \"shirt\",\r\n        \"amountProduct\": \"20\",\r\n        \"imageProduct\": \"images\\\\products\\\\product1669892135854.png,images\\\\products\\\\product1669892135861.png,images\\\\products\\\\product1669892135861.png,\",\r\n        \"ratingProduct\": \"8\",\r\n        \"priceProduct\": \"467\",\r\n        \"promotionProduct\": \"20\",\r\n        \"store\": \"shopT\",\r\n        \"createdAt\": \"2022-12-01T10:55:35.879Z\",\r\n        \"updatedAt\": \"2022-12-01T10:55:35.879Z\"\r\n    },\r\n    {\r\n        \"_id\": \"6388880eb64c8636b4c13d57\",\r\n        \"nameProduct\": \"shirt\",\r\n        \"amountProduct\": \"20\",\r\n        \"imageProduct\": \"images\\\\products\\\\product1669892110711.png,images\\\\products\\\\product1669892110712.png,images\\\\products\\\\product1669892110714.png,\",\r\n        \"ratingProduct\": \"7.6\",\r\n        \"priceProduct\": \"600\",\r\n        \"promotionProduct\": \"20\",\r\n        \"store\": \"shopA\",\r\n        \"createdAt\": \"2022-12-01T10:55:10.728Z\",\r\n        \"updatedAt\": \"2022-12-01T10:55:10.728Z\"\r\n    },\r\n    {\r\n        \"_id\": \"6388881ab64c8636b4c13d5b\",\r\n        \"nameProduct\": \"jeans\",\r\n        \"amountProduct\": \"20\",\r\n        \"imageProduct\": \"images\\\\products\\\\product1669892122174.png,images\\\\products\\\\product1669892122176.png,images\\\\products\\\\product1669892122176.png,\",\r\n        \"ratingProduct\": \"7.6\",\r\n        \"priceProduct\": \"600\",\r\n        \"promotionProduct\": \"20\",\r\n        \"store\": \"shopT\",\r\n        \"createdAt\": \"2022-12-01T10:55:22.191Z\",\r\n        \"updatedAt\": \"2022-12-01T10:55:22.191Z\"\r\n    },\r\n    {\r\n        \"_id\": \"63888842b64c8636b4c13d63\",\r\n        \"nameProduct\": \"shirt\",\r\n        \"amountProduct\": \"20\",\r\n        \"imageProduct\": \"images\\\\products\\\\product1669892162775.png,images\\\\products\\\\product1669892162776.png,images\\\\products\\\\product1669892162778.png,\",\r\n        \"ratingProduct\": \"5\",\r\n        \"priceProduct\": \"877\",\r\n        \"promotionProduct\": \"20\",\r\n        \"store\": \"shopT\",\r\n        \"createdAt\": \"2022-12-01T10:56:02.790Z\",\r\n        \"updatedAt\": \"2022-12-01T10:56:02.790Z\"\r\n    },\r\n    {\r\n        \"_id\": \"638887dab64c8636b4c13d53\",\r\n        \"nameProduct\": \"shirt\",\r\n        \"amountProduct\": \"20\",\r\n        \"imageProduct\": \"images\\\\products\\\\product1669892058711.png,images\\\\products\\\\product1669892058714.png,images\\\\products\\\\product1669892058716.png,\",\r\n        \"ratingProduct\": \"6\",\r\n        \"priceProduct\": \"900\",\r\n        \"promotionProduct\": \"20\",\r\n        \"store\": \"shopA\",\r\n        \"createdAt\": \"2022-12-01T10:54:18.734Z\",\r\n        \"updatedAt\": \"2022-12-01T10:54:18.734Z\"\r\n    }\r\n]"
+						},
+						{
+							"name": "Multi query",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "city",
+											"value": "da nang",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/v1/products/?name=shirt&sorting=rating",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"products",
+										""
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "shirt"
+										},
+										{
+											"key": "sorting",
+											"value": "rating"
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "[\r\n    {\r\n        \"_id\": \"63888827b64c8636b4c13d5f\",\r\n        \"nameProduct\": \"shirt\",\r\n        \"amountProduct\": \"20\",\r\n        \"imageProduct\": \"images\\\\products\\\\product1669892135854.png,images\\\\products\\\\product1669892135861.png,images\\\\products\\\\product1669892135861.png,\",\r\n        \"ratingProduct\": \"8\",\r\n        \"priceProduct\": \"467\",\r\n        \"promotionProduct\": \"20\",\r\n        \"store\": \"shopT\",\r\n        \"createdAt\": \"2022-12-01T10:55:35.879Z\",\r\n        \"updatedAt\": \"2022-12-01T10:55:35.879Z\"\r\n    },\r\n    {\r\n        \"_id\": \"6388880eb64c8636b4c13d57\",\r\n        \"nameProduct\": \"shirt\",\r\n        \"amountProduct\": \"20\",\r\n        \"imageProduct\": \"images\\\\products\\\\product1669892110711.png,images\\\\products\\\\product1669892110712.png,images\\\\products\\\\product1669892110714.png,\",\r\n        \"ratingProduct\": \"7.6\",\r\n        \"priceProduct\": \"600\",\r\n        \"promotionProduct\": \"20\",\r\n        \"store\": \"shopA\",\r\n        \"createdAt\": \"2022-12-01T10:55:10.728Z\",\r\n        \"updatedAt\": \"2022-12-01T10:55:10.728Z\"\r\n    },\r\n    {\r\n        \"_id\": \"638887dab64c8636b4c13d53\",\r\n        \"nameProduct\": \"shirt\",\r\n        \"amountProduct\": \"20\",\r\n        \"imageProduct\": \"images\\\\products\\\\product1669892058711.png,images\\\\products\\\\product1669892058714.png,images\\\\products\\\\product1669892058716.png,\",\r\n        \"ratingProduct\": \"6\",\r\n        \"priceProduct\": \"900\",\r\n        \"promotionProduct\": \"20\",\r\n        \"store\": \"shopA\",\r\n        \"createdAt\": \"2022-12-01T10:54:18.734Z\",\r\n        \"updatedAt\": \"2022-12-01T10:54:18.734Z\"\r\n    },\r\n    {\r\n        \"_id\": \"63888842b64c8636b4c13d63\",\r\n        \"nameProduct\": \"shirt\",\r\n        \"amountProduct\": \"20\",\r\n        \"imageProduct\": \"images\\\\products\\\\product1669892162775.png,images\\\\products\\\\product1669892162776.png,images\\\\products\\\\product1669892162778.png,\",\r\n        \"ratingProduct\": \"5\",\r\n        \"priceProduct\": \"877\",\r\n        \"promotionProduct\": \"20\",\r\n        \"store\": \"shopT\",\r\n        \"createdAt\": \"2022-12-01T10:56:02.790Z\",\r\n        \"updatedAt\": \"2022-12-01T10:56:02.790Z\"\r\n    }\r\n]"
+						}
+					]
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoaWVuMkBnbWFpbC5jb20iLCJfaWQiOiI2Mzg4MjcyYjUxMDg0YTdiYmI0YTc0MDciLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2Njk4OTE4NDgsImV4cCI6MTY2OTg5NTQ0OH0.EjJSjfFtC-YcSZi4T2TKOTmQ9ylbtlk0YyyZBhhXfNc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nameProduct",
+									"value": "jeans",
+									"type": "text"
+								},
+								{
+									"key": "store",
+									"value": "shopA",
+									"type": "text"
+								},
+								{
+									"key": "imageProduct",
+									"type": "file",
+									"src": [
+										"/C:/Users/missi/OneDrive/Máy tính/fam.png",
+										"/C:/Users/missi/OneDrive/Máy tính/Group 4.png",
+										"/C:/Users/missi/OneDrive/Máy tính/ifconfigkali.png"
+									]
+								},
+								{
+									"key": "ratingProduct",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "priceProduct",
+									"value": "1230",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "amountProduct",
+									"value": "320",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "promotionProduct",
+									"value": "10",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/v1/products/update/63888827b64c8636b4c13d5f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"products",
+								"update",
+								"63888827b64c8636b4c13d5f"
+							],
+							"query": [
+								{
+									"key": "producer",
+									"value": "tuan",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update Product",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "nameProduct",
+											"value": "jeans",
+											"type": "text"
+										},
+										{
+											"key": "store",
+											"value": "shopA",
+											"type": "text"
+										},
+										{
+											"key": "imageProduct",
+											"type": "file",
+											"src": [
+												"/C:/Users/missi/OneDrive/Máy tính/fam.png",
+												"/C:/Users/missi/OneDrive/Máy tính/Group 4.png",
+												"/C:/Users/missi/OneDrive/Máy tính/ifconfigkali.png"
+											]
+										},
+										{
+											"key": "ratingProduct",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "priceProduct",
+											"value": "1230",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "amountProduct",
+											"value": "320",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "promotionProduct",
+											"value": "10",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/v1/products/update/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"products",
+										"update",
+										":id"
+									],
+									"query": [
+										{
+											"key": "producer",
+											"value": "tuan",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "\"Update successfully\""
+						},
+						{
+							"name": "Invaid product in store",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "nameProduct",
+											"value": "jeans",
+											"type": "text"
+										},
+										{
+											"key": "store",
+											"value": "shopA",
+											"type": "text"
+										},
+										{
+											"key": "imageProduct",
+											"type": "file",
+											"src": [
+												"/C:/Users/missi/OneDrive/Máy tính/fam.png",
+												"/C:/Users/missi/OneDrive/Máy tính/Group 4.png",
+												"/C:/Users/missi/OneDrive/Máy tính/ifconfigkali.png"
+											]
+										},
+										{
+											"key": "ratingProduct",
+											"value": "10",
+											"type": "text"
+										},
+										{
+											"key": "priceProduct",
+											"value": "1230",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "amountProduct",
+											"value": "320",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "promotionProduct",
+											"value": "10",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/v1/products/update/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"products",
+										"update",
+										":id"
+									],
+									"query": [
+										{
+											"key": "producer",
+											"value": "tuan",
+											"disabled": true
+										}
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"messageError\": \"Not found product\"\r\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/v1/products/delete/637c5ca35030ec3d7a2c5b3b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"products",
+								"delete",
+								"637c5ca35030ec3d7a2c5b3b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "store",
+			"item": [
+				{
+					"name": "Create store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoaWVuMkBnbWFpbC5jb20iLCJfaWQiOiI2Mzg4MjcyYjUxMDg0YTdiYmI0YTc0MDciLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2Njk4OTE4NDgsImV4cCI6MTY2OTg5NTQ0OH0.EjJSjfFtC-YcSZi4T2TKOTmQ9ylbtlk0YyyZBhhXfNc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imgStore",
+									"type": "file",
+									"src": [
+										"/C:/Users/missi/OneDrive/Máy tính/Group 4.png",
+										"/C:/Users/missi/OneDrive/Máy tính/ifconfigkali.png",
+										"/C:/Users/missi/OneDrive/Máy tính/ifconfigmeta.png"
+									]
+								},
+								{
+									"key": "nameStore",
+									"value": "shopB",
+									"type": "text"
+								},
+								{
+									"key": "addressStore",
+									"value": "London",
+									"type": "text"
+								},
+								{
+									"key": "telStore",
+									"value": "123123123",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/v1/store/create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"store",
+								"create"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Same store name",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "imgStore",
+											"type": "file",
+											"src": [
+												"/C:/Users/missi/OneDrive/Máy tính/Group 4.png",
+												"/C:/Users/missi/OneDrive/Máy tính/ifconfigkali.png",
+												"/C:/Users/missi/OneDrive/Máy tính/ifconfigmeta.png"
+											]
+										},
+										{
+											"key": "nameStore",
+											"value": "Store of thien",
+											"type": "text"
+										},
+										{
+											"key": "addressStore",
+											"value": "vietnam",
+											"type": "text"
+										},
+										{
+											"key": "telStore",
+											"value": "123123123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/v1/store/create",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"store",
+										"create"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"messageError\": \"Other store name\"\r\n}"
+						},
+						{
+							"name": "Create successfully",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "imgStore",
+											"type": "file",
+											"src": [
+												"/C:/Users/missi/OneDrive/Máy tính/Group 4.png",
+												"/C:/Users/missi/OneDrive/Máy tính/ifconfigkali.png",
+												"/C:/Users/missi/OneDrive/Máy tính/ifconfigmeta.png"
+											]
+										},
+										{
+											"key": "nameStore",
+											"value": "thienoccho3",
+											"type": "text"
+										},
+										{
+											"key": "addressStore",
+											"value": "vietnam",
+											"type": "text"
+										},
+										{
+											"key": "telStore",
+											"value": "123123123",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/v1/store/create",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"store",
+										"create"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"imgStore\": \"images\\\\store\\\\store1669891777704.png,images\\\\store\\\\store1669891777712.png,images\\\\store\\\\store1669891777716.png,\",\r\n    \"nameStore\": \"shopA\",\r\n    \"addressStore\": \"London\",\r\n    \"telStore\": \"123123123\",\r\n    \"listProducts\": [],\r\n    \"_id\": \"638886c1aff436c0ed677eb6\",\r\n    \"createdAt\": \"2022-12-01T10:49:37.718Z\",\r\n    \"updatedAt\": \"2022-12-01T10:49:37.718Z\"\r\n}"
+						}
+					]
+				},
+				{
+					"name": "Get all store",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/v1/store/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"store",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get one store",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/v1/store/63887dccf291ee6e6420115e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"store",
+								"63887dccf291ee6e6420115e"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Not found store",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/v1/store/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"store",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"messageError\": \"Not found store\"\r\n}"
+						},
+						{
+							"name": "Get one store",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/v1/store/:id",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"store",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": null
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"_id\": \"63887dccf291ee6e6420115e\",\r\n    \"nameStore\": \"Store of tuan\",\r\n    \"addressStore\": \"vietnam\",\r\n    \"telStore\": \"123123123\",\r\n    \"listProducts\": [\r\n        {\r\n            \"nameProduct\": \"Jeans\",\r\n            \"amountProduct\": \"20\",\r\n            \"imageProduct\": \"\",\r\n            \"ratingProduct\": \"7\",\r\n            \"priceProduct\": \"1200\",\r\n            \"promotionProduct\": \"20\",\r\n            \"store\": \"Store of tuan\",\r\n            \"_id\": \"6388808ed12dd09fd74e435b\",\r\n            \"createdAt\": \"2022-12-01T10:23:10.289Z\",\r\n            \"updatedAt\": \"2022-12-01T10:23:10.289Z\",\r\n            \"__v\": 0\r\n        },\r\n        {\r\n            \"nameProduct\": \"Jeans\",\r\n            \"amountProduct\": \"20\",\r\n            \"imageProduct\": \"\",\r\n            \"ratingProduct\": \"4\",\r\n            \"priceProduct\": \"700\",\r\n            \"promotionProduct\": \"20\",\r\n            \"store\": \"Store of tuan\",\r\n            \"_id\": \"638880bbd12dd09fd74e435f\",\r\n            \"createdAt\": \"2022-12-01T10:23:55.560Z\",\r\n            \"updatedAt\": \"2022-12-01T10:23:55.560Z\",\r\n            \"__v\": 0\r\n        },\r\n        {\r\n            \"nameProduct\": \"shirt\",\r\n            \"amountProduct\": \"20\",\r\n            \"imageProduct\": \"\",\r\n            \"ratingProduct\": \"5.6\",\r\n            \"priceProduct\": \"300\",\r\n            \"promotionProduct\": \"20\",\r\n            \"store\": \"Store of tuan\",\r\n            \"_id\": \"638880d8d12dd09fd74e4363\",\r\n            \"createdAt\": \"2022-12-01T10:24:24.926Z\",\r\n            \"updatedAt\": \"2022-12-01T10:24:24.926Z\",\r\n            \"__v\": 0\r\n        }\r\n    ],\r\n    \"createdAt\": \"2022-12-01T10:11:24.111Z\",\r\n    \"updatedAt\": \"2022-12-01T10:11:24.111Z\"\r\n}"
+						}
+					]
+				},
+				{
+					"name": "Update store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoaWVuMkBnbWFpbC5jb20iLCJfaWQiOiI2Mzg4MjcyYjUxMDg0YTdiYmI0YTc0MDciLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2Njk4ODkyMzQsImV4cCI6MTY2OTg5MjgzNH0.zH6S88LoVXOhPbeiotwcn2EVOP-X2jzP4okJtfFz6pc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "imgStore",
+									"type": "file",
+									"src": [
+										"/C:/Users/missi/OneDrive/Máy tính/Screenshot 2022-09-30 233546.png",
+										"/C:/Users/missi/OneDrive/Máy tính/Screenshot 2022-10-29 200114.png",
+										"/C:/Users/missi/OneDrive/Máy tính/Screenshot 2022-10-29 200450.png"
+									]
+								},
+								{
+									"key": "nameStore",
+									"value": "Apple",
+									"type": "text"
+								},
+								{
+									"key": "addressStore",
+									"value": "1234",
+									"type": "text"
+								},
+								{
+									"key": "telStore",
+									"value": "12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/v1/store/update/63887d41f291ee6e6420115b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"store",
+								"update",
+								"63887d41f291ee6e6420115b"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update store",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "imgStore",
+											"type": "file",
+											"src": [
+												"/C:/Users/missi/OneDrive/Máy tính/Screenshot 2022-09-30 233546.png",
+												"/C:/Users/missi/OneDrive/Máy tính/Screenshot 2022-10-29 200114.png",
+												"/C:/Users/missi/OneDrive/Máy tính/Screenshot 2022-10-29 200450.png"
+											]
+										},
+										{
+											"key": "nameStore",
+											"value": "thienoccho",
+											"type": "text"
+										},
+										{
+											"key": "addressStore",
+											"value": "1234",
+											"type": "text"
+										},
+										{
+											"key": "telStore",
+											"value": "12345",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/v1/store/update/63887d41f291ee6e6420115b",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"store",
+										"update",
+										"63887d41f291ee6e6420115b"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "\"Update successfully\""
+						},
+						{
+							"name": "Not found store",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "imgStore",
+											"type": "file",
+											"src": [
+												"/C:/Users/missi/OneDrive/Máy tính/Screenshot 2022-09-30 233546.png",
+												"/C:/Users/missi/OneDrive/Máy tính/Screenshot 2022-10-29 200114.png",
+												"/C:/Users/missi/OneDrive/Máy tính/Screenshot 2022-10-29 200450.png"
+											]
+										},
+										{
+											"key": "nameStore",
+											"value": "thienoccho",
+											"type": "text"
+										},
+										{
+											"key": "addressStore",
+											"value": "1234",
+											"type": "text"
+										},
+										{
+											"key": "telStore",
+											"value": "12345",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/v1/store/update/637c472db8cbacd65b0d8302",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"store",
+										"update",
+										"637c472db8cbacd65b0d8302"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"messageError\": \"Not found store\"\r\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete store",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoaWVuMkBnbWFpbC5jb20iLCJfaWQiOiI2Mzg4MjcyYjUxMDg0YTdiYmI0YTc0MDciLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2Njk4ODkyMzQsImV4cCI6MTY2OTg5MjgzNH0.zH6S88LoVXOhPbeiotwcn2EVOP-X2jzP4okJtfFz6pc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/v1/store/delete/63887d41f291ee6e6420115b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"store",
+								"delete",
+								"63887d41f291ee6e6420115b"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Not found store",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/v1/store/delete/637c472db8cbacd65b0d8302",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"store",
+										"delete",
+										"637c472db8cbacd65b0d8302"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"messageError\": \"Not found store\"\r\n}"
+						},
+						{
+							"name": "Delete successfully",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/v1/store/delete/63887d41f291ee6e6420115b",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"store",
+										"delete",
+										"63887d41f291ee6e6420115b"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "\"Delete successfully\""
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "thien5@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "text"
+								},
+								{
+									"key": "avatar",
+									"type": "file",
+									"src": "/C:/Users/missi/OneDrive/Máy tính/Screenshot 2022-10-29 200114.png"
+								},
+								{
+									"key": "firstName",
+									"value": "do",
+									"type": "text"
+								},
+								{
+									"key": "lastName",
+									"value": "thien",
+									"type": "text"
+								},
+								{
+									"key": "phoneUser",
+									"value": "312424",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "Male",
+									"type": "text"
+								},
+								{
+									"key": "isAdmin",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/v1/user/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"user",
+								"auth",
+								"register"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "thien@gmail.com",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"disabled": true
+								},
+								{
+									"key": "avatar",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "register",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "thien3@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "12345",
+											"type": "text"
+										},
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "/C:/Users/missi/OneDrive/Máy tính/Screenshot 2022-11-07 055557.png"
+										},
+										{
+											"key": "firstName",
+											"value": "nguyen",
+											"type": "text"
+										},
+										{
+											"key": "lastName",
+											"value": "tuan",
+											"type": "text"
+										},
+										{
+											"key": "phoneUser",
+											"value": "312424",
+											"type": "text"
+										},
+										{
+											"key": "gender",
+											"value": "Male",
+											"type": "text"
+										},
+										{
+											"key": "isAdmin",
+											"value": "true",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/v1/user/auth/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"user",
+										"auth",
+										"register"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "thien@gmail.com",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "1234",
+											"disabled": true
+										},
+										{
+											"key": "avatar",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"email\": \"thien5@gmail.com\",\r\n    \"avatar\": \"images\\\\user\\\\avatar1669893339589.png,\",\r\n    \"firstName\": \"do\",\r\n    \"lastName\": \"thien\",\r\n    \"phoneUser\": \"312424\",\r\n    \"gender\": \"Male\",\r\n    \"isAdmin\": true,\r\n    \"listOrder\": [],\r\n    \"listLikeProduct\": [],\r\n    \"_id\": \"63888cdb89cf2491f1930a0d\",\r\n    \"createdAt\": \"2022-12-01T11:15:39.693Z\",\r\n    \"updatedAt\": \"2022-12-01T11:15:39.693Z\"\r\n}"
+						},
+						{
+							"name": "duplicate email",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "thien3@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "12345",
+											"type": "text"
+										},
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "/C:/Users/missi/OneDrive/Máy tính/Screenshot 2022-11-07 055557.png"
+										},
+										{
+											"key": "firstName",
+											"value": "nguyen",
+											"type": "text"
+										},
+										{
+											"key": "lastName",
+											"value": "tuan",
+											"type": "text"
+										},
+										{
+											"key": "phoneUser",
+											"value": "312424",
+											"type": "text"
+										},
+										{
+											"key": "gender",
+											"value": "Male",
+											"type": "text"
+										},
+										{
+											"key": "isAdmin",
+											"value": "true",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/v1/user/auth/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"user",
+										"auth",
+										"register"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "thien@gmail.com",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "1234",
+											"disabled": true
+										},
+										{
+											"key": "avatar",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"messageError\": \"Other email name\"\r\n}"
+						}
+					]
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "thien5@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/v1/user/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"user",
+								"auth",
+								"login"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "thien1@gmail.com",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "12345",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "invaild email",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "thien2@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "12345",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/v1/user/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"user",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"messageError\": \"Not found user\"\r\n}"
+						},
+						{
+							"name": "invaild password",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "thien2@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "12345",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/v1/user/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"user",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"messageError\": \"Incorrect password\"\r\n}"
+						},
+						{
+							"name": "login",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "thien5@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "123454",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/v1/user/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"user",
+										"auth",
+										"login"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "thien1@gmail.com",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "12345",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoaWVuNUBnbWFpbC5jb20iLCJfaWQiOiI2Mzg4OGNkYjg5Y2YyNDkxZjE5MzBhMGQiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2Njk4OTM1OTcsImV4cCI6MTY2OTg5NzE5N30.kmmjb0OKD3QKTNNKumFvT9CtBzIfP1zeQzolB_EE0Gc\"\r\n}"
+						}
+					]
+				},
+				{
+					"name": "profile user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoaWVuNUBnbWFpbC5jb20iLCJfaWQiOiI2Mzg4OGNkYjg5Y2YyNDkxZjE5MzBhMGQiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2Njk4OTM1OTcsImV4cCI6MTY2OTg5NzE5N30.kmmjb0OKD3QKTNNKumFvT9CtBzIfP1zeQzolB_EE0Gc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/v1/user/profile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"user",
+								"profile"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "profile user",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/v1/user/profile",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"user",
+										"profile"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"_id\": \"63888cdb89cf2491f1930a0d\",\r\n    \"email\": \"thien1@gmail.com\",\r\n    \"avatar\": \"images\\\\user\\\\avatar1669893339589.png,\",\r\n    \"firstName\": \"do\",\r\n    \"lastName\": \"thien\",\r\n    \"phoneUser\": \"312424\",\r\n    \"gender\": \"Female\",\r\n    \"isAdmin\": true,\r\n    \"listOrder\": [\r\n        {\r\n            \"listProducts\": [\r\n                {\r\n                    \"productOrder\": {\r\n                        \"_id\": \"638887dab64c8636b4c13d53\",\r\n                        \"nameProduct\": \"shirt\",\r\n                        \"amountProduct\": \"20\",\r\n                        \"imageProduct\": \"images\\\\products\\\\product1669892058711.png,images\\\\products\\\\product1669892058714.png,images\\\\products\\\\product1669892058716.png,\",\r\n                        \"ratingProduct\": \"6\",\r\n                        \"priceProduct\": \"900\",\r\n                        \"promotionProduct\": \"20\",\r\n                        \"store\": \"shopA\",\r\n                        \"createdAt\": \"2022-12-01T10:54:18.734Z\",\r\n                        \"updatedAt\": \"2022-12-01T10:54:18.734Z\",\r\n                        \"__v\": 0\r\n                    },\r\n                    \"amountOrder\": \"2\"\r\n                },\r\n                {\r\n                    \"productOrder\": {\r\n                        \"_id\": \"6388880eb64c8636b4c13d57\",\r\n                        \"nameProduct\": \"shirt\",\r\n                        \"amountProduct\": \"20\",\r\n                        \"imageProduct\": \"images\\\\products\\\\product1669892110711.png,images\\\\products\\\\product1669892110712.png,images\\\\products\\\\product1669892110714.png,\",\r\n                        \"ratingProduct\": \"7.6\",\r\n                        \"priceProduct\": \"600\",\r\n                        \"promotionProduct\": \"20\",\r\n                        \"store\": \"shopA\",\r\n                        \"createdAt\": \"2022-12-01T10:55:10.728Z\",\r\n                        \"updatedAt\": \"2022-12-01T10:55:10.728Z\",\r\n                        \"__v\": 0\r\n                    },\r\n                    \"amountOrder\": \"3\"\r\n                }\r\n            ]\r\n        }\r\n    ],\r\n    \"listLikeProduct\": [\r\n        {\r\n            \"_id\": \"6388880eb64c8636b4c13d57\",\r\n            \"nameProduct\": \"shirt\",\r\n            \"amountProduct\": \"20\",\r\n            \"imageProduct\": \"images\\\\products\\\\product1669892110711.png,images\\\\products\\\\product1669892110712.png,images\\\\products\\\\product1669892110714.png,\",\r\n            \"ratingProduct\": \"7.6\",\r\n            \"priceProduct\": \"600\",\r\n            \"promotionProduct\": \"20\",\r\n            \"store\": \"shopA\",\r\n            \"createdAt\": \"2022-12-01T10:55:10.728Z\",\r\n            \"updatedAt\": \"2022-12-01T10:55:10.728Z\",\r\n            \"__v\": 0\r\n        }\r\n    ],\r\n    \"createdAt\": \"2022-12-01T11:15:39.693Z\",\r\n    \"updatedAt\": \"2022-12-01T11:15:39.693Z\"\r\n}"
+						}
+					]
+				},
+				{
+					"name": "update user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoaWVuNUBnbWFpbC5jb20iLCJfaWQiOiI2Mzg4OGNkYjg5Y2YyNDkxZjE5MzBhMGQiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2Njk4OTM1OTcsImV4cCI6MTY2OTg5NzE5N30.kmmjb0OKD3QKTNNKumFvT9CtBzIfP1zeQzolB_EE0Gc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "thien1@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "Female",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/v1/user/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "update user",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "thien1@gmail.com",
+											"type": "text"
+										},
+										{
+											"key": "gender",
+											"value": "Female",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/v1/user/update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"user",
+										"update"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "\"Update successfully\""
+						}
+					]
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoaWVuM0BnbWFpbC5jb20iLCJfaWQiOiI2Mzg4NGE1MWY1MTkzMzNlN2MyNjg2NzQiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2Njk4NzYzMDgsImV4cCI6MTY2OTg3OTkwOH0.QWcWcYOWfNiE4cM78l-7uiXqqOGAV1vjEAa33WP09Kg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/v1/user/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"user",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Like product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoaWVuNUBnbWFpbC5jb20iLCJfaWQiOiI2Mzg4OGNkYjg5Y2YyNDkxZjE5MzBhMGQiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2Njk4OTM1OTcsImV4cCI6MTY2OTg5NzE5N30.kmmjb0OKD3QKTNNKumFvT9CtBzIfP1zeQzolB_EE0Gc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "id_product",
+									"value": "638887dab64c8636b4c13d53",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/v1/user/likeproduct",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"user",
+								"likeproduct"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "successfully",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id_product",
+											"value": "637c5ca35030ec3d7a2c5b3f",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/v1/user/likeproduct",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"user",
+										"likeproduct"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "\"Create like successfully\""
+						},
+						{
+							"name": "duplicate",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "id_product",
+											"value": "637c5ca35030ec3d7a2c5b3f",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/v1/user/likeproduct",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"user",
+										"likeproduct"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"messageError\": \"Create like failed\"\r\n}"
+						}
+					]
+				},
+				{
+					"name": "unlike product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoaWVuNUBnbWFpbC5jb20iLCJfaWQiOiI2Mzg4OGNkYjg5Y2YyNDkxZjE5MzBhMGQiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2Njk4OTM1OTcsImV4cCI6MTY2OTg5NzE5N30.kmmjb0OKD3QKTNNKumFvT9CtBzIfP1zeQzolB_EE0Gc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/v1/user/likeproduct/638887dab64c8636b4c13d53",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"user",
+								"likeproduct",
+								"638887dab64c8636b4c13d53"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "successfully",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/v1/user/likeproduct/637c5ca35030ec3d7a2c5b3f",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"user",
+										"likeproduct",
+										"637c5ca35030ec3d7a2c5b3f"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "\"Delete successfully\""
+						},
+						{
+							"name": "not found product",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/v1/user/likeproduct/637c5ca35030ec3d7a2c5b3f",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"user",
+										"likeproduct",
+										"637c5ca35030ec3d7a2c5b3f"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "{\r\n    \"messageError\": \"Not found product\"\r\n}"
+						}
+					]
+				},
+				{
+					"name": "create order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRoaWVuNUBnbWFpbC5jb20iLCJfaWQiOiI2Mzg4OGNkYjg5Y2YyNDkxZjE5MzBhMGQiLCJpc0FkbWluIjp0cnVlLCJpYXQiOjE2Njk4OTM1OTcsImV4cCI6MTY2OTg5NzE5N30.kmmjb0OKD3QKTNNKumFvT9CtBzIfP1zeQzolB_EE0Gc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "products[0][idProduct]",
+									"value": "638887dab64c8636b4c13d53",
+									"type": "text"
+								},
+								{
+									"key": "products[0][amount]",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "products[1][idProduct]",
+									"value": "6388880eb64c8636b4c13d57",
+									"type": "text"
+								},
+								{
+									"key": "products[1][amount]",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:3000/v1/user/createorder",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"v1",
+								"user",
+								"createorder"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "successfully",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "products[0][idProduct]",
+											"value": "637c5ca35030ec3d7a2c5b3f",
+											"type": "text"
+										},
+										{
+											"key": "products[0][amount]",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "products[1][idProduct]",
+											"value": "63884b1af519333e7c26867b",
+											"type": "text"
+										},
+										{
+											"key": "products[1][amount]",
+											"value": "3",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "http://localhost:3000/v1/user/createorder",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"v1",
+										"user",
+										"createorder"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": "\"Create new order successfully\""
+						}
+					]
+				}
+			]
+		}
+	]
+}

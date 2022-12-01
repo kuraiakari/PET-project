@@ -73,7 +73,7 @@ class StoreControllers {
     })
     const data = {
       ...req.body,
-      imageStore: img
+      imgStore: img
     }
     stores.create(data, function (err: any, store: any) {
       if (err) res.json({ messageError: 'Other store name' })

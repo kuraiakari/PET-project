@@ -28,6 +28,7 @@ class ProductsControllers {
   }
   create = async (req: Request, res: Response) => {
     try {
+      console.log(req.files)
       let img = ''
       ;(req.files as []).forEach((file) => {
         img += file['path'] + ','

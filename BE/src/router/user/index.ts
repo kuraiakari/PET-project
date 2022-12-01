@@ -5,7 +5,6 @@ import { verifyUser } from '../middlewares'
 const router = express.Router()
 const userControllers = new UserControllers()
 
-
 router.post('/auth/register', userControllers.upload, userControllers.create)
 router.post('/auth/login', userControllers.upload, userControllers.login)
 router.get('/profile', verifyUser, userControllers.getProfile)
