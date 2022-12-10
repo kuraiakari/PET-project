@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 interface stores {
+  shopOwner: string
   imgStore: string
   nameStore: string
   addressStore: string
@@ -11,6 +12,7 @@ interface stores {
 
 const stores = new Schema(
   {
+    shopOwner: String,
     imgStore: String,
     nameStore: { type: String, unique: true },
     addressStore: String,

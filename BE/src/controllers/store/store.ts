@@ -21,7 +21,7 @@ class StoreControllers {
       }
     })
   }
-  async update(req: Request, res: Response) {
+  async update(req: any, res: Response) {
     let img = ''
     ;(req.files as []).forEach((file) => {
       img += file['path'] + ','
@@ -30,7 +30,7 @@ class StoreControllers {
       ...req.body,
       imageStore: img
     }
-    const data = await stores.updateOne({ _id: req.params.id }, dataStore)
+    const data = await stores.updateOne({ _id: req.params.id, shopOwner: req.user.email }, dataStore)
     if (!data.matchedCount) res.status(404).json({ messageError: 'Not found store' })
     else {
       if (dataStore.nameStore) {
@@ -49,9 +49,9 @@ class StoreControllers {
       res.status(200).json('Update successfully')
     }
   }
-  delete(req: Request, res: Response) {
+  delete(req: any, res: Response) {
     stores.findOne({ _id: req.params.id }).exec(async (err: any, store: any) => {
-      if (store) {
+      if (store && store.shopOwner === req.user.email) {
         await store.listProducts.forEach(async (item: any, index: any) => {
           products.deleteOne({ _id: item._id.toString() }, function (err: any, products: any) {
             if (err) res.json({ messageError: 'Delete Failure' })
@@ -66,14 +66,15 @@ class StoreControllers {
       }
     })
   }
-  create(req: Request, res: Response) {
+  create(req: any, res: Response) {
     let img = ''
     ;(req.files as []).forEach((file) => {
       img += file['path'] + ','
     })
     const data = {
       ...req.body,
-      imgStore: img
+      imgStore: img,
+      shopOwner: req.user.email
     }
     stores.create(data, function (err: any, store: any) {
       if (err) res.json({ messageError: 'Other store name' })

@@ -61,7 +61,7 @@ class ProductsControllers {
       res.status(500).json(err)
     }
   }
-  update(req: Request, res: Response) {
+  update(req: any, res: Response) {
     let img = ''
     ;(req.files as []).forEach((file) => {
       img += file['path'] + ','
@@ -70,42 +70,49 @@ class ProductsControllers {
       ...req.body,
       imageProduct: img
     }
-    const handleSave = stores.findOne({ nameStore: dataProduct.store }).exec(async (err: any, store: any) => {
-      if (!store) res.status(404).json({ messageError: 'Not found store' })
-      else {
-        const data = await products.updateOne({ _id: req.params.id, store: dataProduct.store }, dataProduct)
-        if (!data.matchedCount) res.status(404).json({ messageError: 'Not found product' })
+    const handleSave = stores
+      .findOne({ nameStore: dataProduct.store, shopOwner: req.user.email })
+      .exec(async (err: any, store: any) => {
+        if (!store) res.status(404).json({ messageError: 'Not found store' })
         else {
-          const productList = await products.findOne({ _id: req.params.id })
-          await store.listProducts.forEach((product: any, index: any) => {
-            if (product._id.toString() === req.params.id) {
-              store.listProducts[index] = productList
-            }
-          })
-          // await store.listProducts.push(data)
-          await stores.updateOne({ nameStore: dataProduct.store }, store)
-          res.status(201).json('Update successfully')
+          const data = await products.updateOne({ _id: req.params.id, store: dataProduct.store }, dataProduct)
+          if (!data.matchedCount) res.status(404).json({ messageError: 'Not found product' })
+          else {
+            const productList = await products.findOne({ _id: req.params.id })
+            await store.listProducts.forEach((product: any, index: any) => {
+              if (product._id.toString() === req.params.id) {
+                store.listProducts[index] = productList
+              }
+            })
+            // await store.listProducts.push(data)
+            await stores.updateOne({ nameStore: dataProduct.store }, store)
+            res.status(201).json('Update successfully')
+          }
         }
-      }
-    })
+      })
   }
-  async delete(req: Request, res: Response) {
+  async delete(req: any, res: Response) {
     const productList = await products.findOne({ _id: req.params.id })
     if (productList) {
-      products.deleteOne({ _id: req.params.id }, function (err: any, products: any) {
-        if (err) res.json({ messageError: 'Delete Failure' })
-      })
-      stores.findOne({ nameStore: productList.store }).exec(async (err: any, store: any) => {
-        await store.listProducts.forEach((product: any, index: any) => {
-          if (product._id.toString() === productList._id.toString()) {
-            store.listProducts.splice(index, 1)
-          }
-        })
-        await stores.updateOne({ nameStore: productList.store }, store)
-        res.status(200).json('Delete successfully')
+      stores.findOne({ nameStore: productList.store, shopOwner: req.user.email }).exec(async (err: any, store: any) => {
+        console.log(store)
+        if (store) {
+          products.deleteOne({ _id: req.params.id }, function (err: any, products: any) {
+            if (err) res.json({ messageError: 'Delete Failure' })
+          })
+          await store.listProducts.forEach((product: any, index: any) => {
+            if (product._id.toString() === productList._id.toString()) {
+              store.listProducts.splice(index, 1)
+            }
+          })
+          await stores.updateOne({ nameStore: productList.store }, store)
+          res.status(200).json('Delete successfully')
+        } else {
+          res.status(404).json('Not found store')
+        }
       })
     } else {
-      res.status(404).json('Not found store')
+      res.status(404).json('Not found product')
     }
   }
   storage = multer.diskStorage({
