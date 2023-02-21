@@ -1,0 +1,25 @@
+.search {
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+
+}
+.lineSearch {
+  height: 25px;
+  width: 1px;
+  background-color: #000;
+}
+.search .btnSearch {
+  height: 100%;
+  padding: 0 24px;
+  border-radius: 0;
+}
+.contentNav {
+  width: 40%;
+  max-width: 500px;
+}
+.contentNav .itemNav {
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+}
