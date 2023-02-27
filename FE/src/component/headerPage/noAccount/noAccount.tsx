@@ -4,9 +4,12 @@ import Form from 'react-bootstrap/Form'
 import * as Icon from 'react-bootstrap-icons'
 
 import './noAccount.css'
+import { useDispatch } from 'react-redux'
+import { addIdUser } from '../../../redux/user.reducer'
 
 function SignIn({ turnOffSignIn, ...initstateBox }: any) {
   const [stateBox, setStateBox] = useState(initstateBox.stateBox)
+  const dispatch = useDispatch()
 
   //Signin
   const emailLogin = useRef<HTMLInputElement>(null)
@@ -53,7 +56,11 @@ function SignIn({ turnOffSignIn, ...initstateBox }: any) {
           body: JSON.stringify(dataUser)
         })
           .then((response) => response.json())
-          .then((data) => console.log(data))
+          .then((data) => {
+            console.log(data.token)
+            dispatch(addIdUser(data.token))
+            turnOffSignIn()
+          })
         e.preventDefault()
         e.stopPropagation()
       }

@@ -1,4 +1,4 @@
-import React, { useState, createRef } from 'react'
+import React, { useState, createRef, useEffect } from 'react'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
@@ -7,15 +7,26 @@ import Navbar from 'react-bootstrap/Navbar'
 //import NavDropdown from 'react-bootstrap/NavDropdown'
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import * as Icon from 'react-bootstrap-icons'
+import { useSelector, useDispatch } from 'react-redux'
 
 import './Navbar.css'
 import SignIn from '../noAccount/noAccount'
+import { addIdUser } from '../../../redux/user.reducer'
+
 
 function NavbarPage() {
   const [isPerson, setIsPerson] = useState(false)
   const [signIn, setSignIn] = useState(false)
   const [stateBox, setStateBox] = useState(false) //false is signin, true is signup)
   const activeAccount = createRef()
+
+  const idUser = useSelector((state: any) => state.user.idUser)
+  const dispatch = useDispatch()
+  useEffect(() => {
+    if (idUser) setIsPerson(true)
+    else setIsPerson(false)
+  }, [idUser])
+
   const handldeSignIn = () => {
     setStateBox(false)
     setSignIn(!signIn)
@@ -24,12 +35,17 @@ function NavbarPage() {
     setStateBox(true)
     setSignIn(!signIn)
   }
+  const handleSignOut = () => {
+    console.log(1)
+    const data = ''
+    dispatch(addIdUser(data))
+  }
   return (
     <>
       {['xxl'].map((expand) => (
         <Navbar key={expand} bg='light' expand={expand} className='mb-3'>
           <Container fluid>
-            <Navbar.Brand href='/' className='ms-2'>
+            <Navbar.Brand href='/#' className='ms-2'>
               Kurai shop
             </Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
@@ -55,7 +71,7 @@ function NavbarPage() {
                 <Nav className='justify-content-end pe-3 contentNav'>
                   <div className='itemNav'>
                     <Icon.House size={25} />
-                    <Nav.Link href='/'>Home</Nav.Link>
+                    <Nav.Link href='/#'>Home</Nav.Link>
                   </div>
                   {!isPerson && (
                     <>
@@ -70,10 +86,16 @@ function NavbarPage() {
                     </>
                   )}
                   {isPerson && (
-                    <div className='itemNav'>
-                      <Icon.Person size={25} />
-                      <Nav.Link href='#action2'>Have Account</Nav.Link>
-                    </div>
+                    <>
+                      <div className='itemNav'>
+                        <Icon.Person size={25} />
+                        <Nav.Link href='#action2'>Have Account</Nav.Link>
+                      </div>
+                      <button className='itemNav' onClick={handleSignOut}>
+                        <Icon.Person size={25} />
+                        <Nav.Link href='#action2'>Logout</Nav.Link>
+                      </button>
+                    </>
                   )}
                   {/* <NavDropdown title='Dropdown' id={`offcanvasNavbarDropdown-expand-${expand}`}>
                     <NavDropdown.Item href='#action3'>Action</NavDropdown.Item>
