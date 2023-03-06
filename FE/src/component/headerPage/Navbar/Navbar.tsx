@@ -8,6 +8,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import * as Icon from 'react-bootstrap-icons'
 import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import './Navbar.css'
 import Modal from '../noAccount/noAccount'
@@ -20,10 +21,19 @@ function NavbarPage() {
   const [signIn, setsignIn] = useState(false) //false is signin, true is signup)
 
   const nameProduct = useRef<HTMLInputElement>(null)
-  const handleNameProduct = (e: any) => {
-    dispatch(addNameProduct(nameProduct.current?.value as string))
+  const navigate = useNavigate()
+  const backToHome = (e:any) => {
     e.preventDefault()
     e.stopPropagation()
+    if (nameProduct.current?.value) nameProduct.current.value = ''
+    navigate('')
+  }
+  const handleNameProduct = (e: any) => {
+    e.preventDefault()
+    e.stopPropagation()
+    if (nameProduct.current?.value) {
+      navigate(`/search?name=${nameProduct.current?.value}`)
+    }
   }
 
   const idUser = useSelector((state: any) => state.user.idUser)
@@ -62,7 +72,7 @@ function NavbarPage() {
       {['xxl'].map((expand) => (
         <Navbar key={expand} expand={expand} fixed='top'>
           <Container fluid>
-            <Navbar.Brand href='/#' className='ms-2'>
+            <Navbar.Brand className='ms-2 logoPage' onClick={backToHome}>
               Kurai shop
             </Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
@@ -92,7 +102,7 @@ function NavbarPage() {
                 <Nav className='justify-content-end pe-3 contentNav'>
                   <div className='itemNav'>
                     <Icon.House size={25} />
-                    <Nav.Link href='/#'>Home</Nav.Link>
+                    <Nav.Link onClick={backToHome}>Home</Nav.Link>
                   </div>
                   {!isPerson && (
                     <>

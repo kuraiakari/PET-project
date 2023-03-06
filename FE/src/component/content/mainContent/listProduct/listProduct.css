@@ -5,4 +5,8 @@
   flex-wrap: wrap;
   overflow: hidden;
   padding: 0.5rem;
+  width: 100%;
+}
+.headerAnswerSearch {
+  width: 100%;
 }

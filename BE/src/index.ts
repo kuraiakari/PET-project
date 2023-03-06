@@ -16,7 +16,7 @@ const StartApp = async () => {
   app.use(bodyParser.json())
 
   app.use('/v1', router)
-
+  app.use('/images', express.static('./images'))
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
 

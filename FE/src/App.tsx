@@ -1,4 +1,6 @@
 import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+
 import Headerpage from './component/headerPage/index'
 import Menu from './component/subnav'
 import ListProduct from './component/content/mainContent/listProduct/listProduct'
@@ -13,7 +15,11 @@ function App() {
             <Menu />
           </div>
           <div className='fix-col-xl-9 col-xl-9'>
-            <ListProduct />
+            <Routes>
+              <Route path='' element={<ListProduct />}>
+                <Route path='/search' element={<ListProduct />} />
+              </Route>
+            </Routes>
           </div>
         </div>
       </div>

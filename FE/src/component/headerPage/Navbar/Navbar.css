@@ -1,3 +1,7 @@
+.logoPage {
+  cursor: pointer;
+}
+
 .search {
   overflow: hidden;
   display: flex;
