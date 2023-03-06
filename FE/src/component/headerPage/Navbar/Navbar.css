@@ -15,11 +15,18 @@
   border-radius: 0;
 }
 .contentNav {
-  width: 40%;
+  width: 30%;
   max-width: 500px;
 }
 .contentNav .itemNav {
   display: flex;
   align-items: center;
   min-height: 56px;
+}
+.contentNav .itemNavIsPerson {
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  border: none;
+  background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity)) !important
 }

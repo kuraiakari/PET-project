@@ -7,8 +7,8 @@ import './noAccount.css'
 import { useDispatch } from 'react-redux'
 import { addIdUser } from '../../../redux/user.reducer'
 
-function SignIn({ turnOffSignIn, ...initstateBox }: any) {
-  const [stateBox, setStateBox] = useState(initstateBox.stateBox)
+function Modal({ turnOffSignIn, signIn }: any) {
+  const [stateBox, setStateBox] = useState(signIn)
   const dispatch = useDispatch()
 
   //Signin
@@ -189,4 +189,4 @@ function SignIn({ turnOffSignIn, ...initstateBox }: any) {
   )
 }
 
-export default SignIn
+export default Modal
