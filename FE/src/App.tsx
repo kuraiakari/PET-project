@@ -1,7 +1,7 @@
 import React from 'react'
 import Headerpage from './component/headerPage/index'
 import Menu from './component/subnav'
-import ListProduct from './component/content/mainContent/listProduct'
+import ListProduct from './component/content/mainContent/listProduct/listProduct'
 import './App.css'
 function App() {
   return (

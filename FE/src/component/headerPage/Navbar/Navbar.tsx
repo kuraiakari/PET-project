@@ -60,7 +60,7 @@ function NavbarPage() {
   return (
     <>
       {['xxl'].map((expand) => (
-        <Navbar key={expand} expand={expand}>
+        <Navbar key={expand} expand={expand} fixed='top'>
           <Container fluid>
             <Navbar.Brand href='/#' className='ms-2'>
               Kurai shop

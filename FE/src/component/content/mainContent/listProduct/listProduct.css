@@ -1,0 +1,8 @@
+.listProduct {
+  border-radius: 8px;
+  background-color: #eaecff;
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  padding: 0.5rem;
+}
