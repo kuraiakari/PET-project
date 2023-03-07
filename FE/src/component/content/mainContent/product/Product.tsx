@@ -7,7 +7,6 @@ interface ProductItem {
 }
 const Product = (props: ProductItem) => {
   const { product } = props
-  console.log(product)
   const listImageProduct = product.imageProduct.split(',')
   return (
     <>

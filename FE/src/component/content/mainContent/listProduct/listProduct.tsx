@@ -9,7 +9,6 @@ const ListProduct = () => {
   const nameProduct = searchProduct.get('name') || ''
   const sortProduct = searchProduct.get('sorting') || ''
   const [listProduct, setListProduct] = useState<any[]>()
-  console.log(sortProduct)
   useEffect(() => {
     console.log(1)
     fetch(`http://localhost:3000/v1/products/?name=${nameProduct}&sorting=${sortProduct}`)

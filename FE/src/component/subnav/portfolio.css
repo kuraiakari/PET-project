@@ -1,0 +1,16 @@
+.portfolio {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  background-color: #eaecff;
+  border-radius: 8px;
+  padding-left: 16px;
+}
+.itemPortfolio {
+  border: none;
+  background-color:  #eaecff;
+}
+
+.itemPortfolio.itemActive {
+  background-color: #333;
+}

@@ -22,7 +22,7 @@ function NavbarPage() {
 
   const nameProduct = useRef<HTMLInputElement>(null)
   const navigate = useNavigate()
-  const backToHome = (e:any) => {
+  const backToHome = (e: any) => {
     e.preventDefault()
     e.stopPropagation()
     if (nameProduct.current?.value) nameProduct.current.value = ''
@@ -70,7 +70,7 @@ function NavbarPage() {
   return (
     <>
       {['xxl'].map((expand) => (
-        <Navbar key={expand} expand={expand} fixed='top'>
+        <Navbar key={expand} bg='white' expand={expand} fixed='top'>
           <Container fluid>
             <Navbar.Brand className='ms-2 logoPage' onClick={backToHome}>
               Kurai shop
