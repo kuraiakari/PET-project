@@ -102,6 +102,7 @@ class UserControllers {
     const order = {
       listProducts: []
     }
+    console.log(req.body.products[0].amount)
     const listProducts: any[] = []
     for (const product of req.body.products) {
       await products

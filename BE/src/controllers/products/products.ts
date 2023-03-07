@@ -30,6 +30,11 @@ class ProductsControllers {
       if (req.query.sorting === 'rating') optionSortProduct = { ratingProduct: -1 }
       if (req.query.sorting === 'price') optionSortProduct = { priceProduct: 1 }
     }
+    if (req.params.id ) {
+      optionProduct = {
+        _id: req.params.id,
+      }
+    }
     products
       .find(optionProduct)
       .sort(optionSortProduct)
