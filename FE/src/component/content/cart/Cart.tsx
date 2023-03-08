@@ -1,16 +1,15 @@
-import React from 'react';
-import { Button } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import React from 'react'
+import { Button } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
 
-import ProductInCart from './ProductInCart';
-import { order } from 'src/types/order.type';
-import { response } from 'express';
+import ProductInCart from './ProductInCart'
+import { order } from 'src/types/order.type'
 
 const Cart = () => {
   const products = useSelector((state: any) => state.order.orderlist)
   const idUser = useSelector((state: any) => state.user.idUser)
   const handleAddCart = () => {
-    const data ={
+    const data = {
       products
     }
     fetch('http://localhost:3000/v1/user/createorder', {
@@ -23,10 +22,14 @@ const Cart = () => {
       body: JSON.stringify(data)
     })
   }
-  return <>
-  {products.map((product: order, index: number) => <ProductInCart key={index} product={product} index={index}/>)}
-  <Button onClick={handleAddCart}>Buy</Button>
-  </>
+  return (
+    <>
+      {products.map((product: order, index: number) => (
+        <ProductInCart key={index} product={product} index={index} />
+      ))}
+      <Button onClick={handleAddCart}>Buy</Button>
+    </>
+  )
 }
 
 export default Cart

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import { useDispatch, useSelector } from 'react-redux'
@@ -24,7 +24,6 @@ const DetailProduct = () => {
     setQuality(quality + 1)
   }
   const dispatch = useDispatch()
-  const idUser = useSelector((state: any) => state.user.idUser)
 
   const handleAddCart = () => {
     const data: order = {
@@ -34,22 +33,6 @@ const DetailProduct = () => {
       amount: quality
     }
     dispatch(addProduct(data))
-    //test
-    // const dataPost = {
-    //   products: [data]
-    // }
-    // console.log(dataPost)
-    // fetch('http://localhost:3000/v1/user/createorder', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     // 'Content-Type': 'application/x-www-form-urlencoded',
-    //     Authorization: 'Bearer ' + idUser
-    //   },
-    //   body: JSON.stringify(dataPost)
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => console.log(data))
   }
 
   //test

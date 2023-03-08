@@ -4,9 +4,9 @@ const initalOrder: order[] = []
 const initalState = {
   orderlist: initalOrder
 }
-export const addProduct = createAction<order>('order/addproduct',)
-export const removeProduct = createAction<number>('order/removeproduct',)
-export const removeAllProduct = createAction('order/removeallproduct',)
+export const addProduct = createAction<order>('order/addproduct')
+export const removeProduct = createAction<number>('order/removeproduct')
+export const removeAllProduct = createAction('order/removeallproduct')
 const orderReducer = createReducer(initalState, (builder) => {
   builder
     .addCase(addProduct, (initalState, action) => {
