@@ -2,6 +2,10 @@ import React from 'react';
 import { Button } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
 
+import ProductInCart from './ProductInCart';
+import { order } from 'src/types/order.type';
+import { response } from 'express';
+
 const Cart = () => {
   const products = useSelector((state: any) => state.order.orderlist)
   const idUser = useSelector((state: any) => state.user.idUser)
@@ -20,6 +24,7 @@ const Cart = () => {
     })
   }
   return <>
+  {products.map((product: order, index: number) => <ProductInCart key={index} product={product} index={index}/>)}
   <Button onClick={handleAddCart}>Buy</Button>
   </>
 }

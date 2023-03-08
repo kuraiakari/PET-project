@@ -22,17 +22,24 @@ function NavbarPage() {
 
   const nameProduct = useRef<HTMLInputElement>(null)
   const navigate = useNavigate()
+
+  //back to home
   const backToHome = (e: any) => {
     e.preventDefault()
     e.stopPropagation()
     if (nameProduct.current?.value) nameProduct.current.value = ''
     navigate('')
   }
+
+  //move and handle cart
+  const products = useSelector((state: any) => state.order.orderlist)
   const moveCard = (e: any) => {
     e.preventDefault()
     e.stopPropagation()
     navigate('/card')
   }
+
+  //search product
   const handleNameProduct = (e: any) => {
     e.preventDefault()
     e.stopPropagation()
@@ -41,6 +48,7 @@ function NavbarPage() {
     }
   }
 
+  //get id user
   const idUser = useSelector((state: any) => state.user.idUser)
   const dispatch = useDispatch()
   useEffect(() => {
@@ -48,6 +56,7 @@ function NavbarPage() {
     else setIsPerson(false)
   }, [idUser])
 
+  //sign in
   const handldeSignIn = () => {
     setsignIn(false)
     setModal(!modal)
@@ -56,6 +65,8 @@ function NavbarPage() {
     setsignIn(true)
     setModal(!modal)
   }
+
+  //get infor user
   const handleGetData = () => {
     fetch('http://localhost:3000/v1/user/profile', {
       method: 'GET',
@@ -68,6 +79,8 @@ function NavbarPage() {
       .then((response) => response.json())
       .then((data) => console.log(data))
   }
+
+  //sign out
   const handleSignOut = () => {
     const data = ''
     dispatch(addIdUser(data))
@@ -126,6 +139,7 @@ function NavbarPage() {
                     <>
                       <button className='itemNavIsPerson' onClick={moveCard}>
                         <Icon.Cart size={25} />
+                        <div>{products.length}</div>
                       </button>
                       <button className='itemNavIsPerson' onClick={handleGetData}>
                         <Icon.Person size={25} />

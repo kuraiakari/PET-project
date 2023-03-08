@@ -30,6 +30,7 @@ const DetailProduct = () => {
     const data: order = {
       idProduct: productDetail ? productDetail[0]._id : '',
       nameProduct: productDetail ? productDetail[0].nameProduct : '',
+      imgProduct: listImageProduct[0],
       amount: quality
     }
     dispatch(addProduct(data))
