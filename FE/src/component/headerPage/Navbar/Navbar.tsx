@@ -13,7 +13,7 @@ import { useNavigate } from 'react-router-dom'
 import './Navbar.css'
 import Modal from '../noAccount/noAccount'
 import { addIdUser } from '../../../redux/user.reducer'
-import { addNameProduct } from '../../../redux/product.reducer'
+import { removeAllProduct } from '../../../redux/cart.reducer'
 
 function NavbarPage() {
   const [isPerson, setIsPerson] = useState(false)
@@ -27,6 +27,11 @@ function NavbarPage() {
     e.stopPropagation()
     if (nameProduct.current?.value) nameProduct.current.value = ''
     navigate('')
+  }
+  const moveCard = (e: any) => {
+    e.preventDefault()
+    e.stopPropagation()
+    navigate('/card')
   }
   const handleNameProduct = (e: any) => {
     e.preventDefault()
@@ -66,6 +71,7 @@ function NavbarPage() {
   const handleSignOut = () => {
     const data = ''
     dispatch(addIdUser(data))
+    dispatch(removeAllProduct())
   }
   return (
     <>
@@ -118,13 +124,16 @@ function NavbarPage() {
                   )}
                   {isPerson && (
                     <>
+                      <button className='itemNavIsPerson' onClick={moveCard}>
+                        <Icon.Cart size={25} />
+                      </button>
                       <button className='itemNavIsPerson' onClick={handleGetData}>
                         <Icon.Person size={25} />
-                        <Nav.Link href='#action2'>Have Account</Nav.Link>
+                        Have Account
                       </button>
                       <button className='itemNavIsPerson' onClick={handleSignOut}>
                         <Icon.Person size={25} />
-                        <Nav.Link href='#action2'>Logout</Nav.Link>
+                        Logout
                       </button>
                     </>
                   )}

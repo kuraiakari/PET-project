@@ -5,6 +5,7 @@ import Headerpage from './component/headerPage/index'
 import Portfolio from './component/subnav/Portfolio'
 import ListProduct from './component/content/mainContent/listProduct/listProduct'
 import DetailProduct from './component/content/detailProduct/DatailProduct'
+import Cart from './component/content/cart/Cart'
 
 import './App.css'
 function App() {
@@ -30,6 +31,7 @@ function App() {
               <Route path='/search' element={<ListProduct />} />
             </Route>
             <Route path='/product/:idProduct' element={<DetailProduct />} />
+            <Route path='/card' element={<Cart />} />
           </Routes>
         </div>
       </div>

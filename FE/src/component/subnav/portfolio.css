@@ -5,6 +5,7 @@
   background-color: #eaecff;
   border-radius: 8px;
   padding-left: 16px;
+  overflow: hidden;
 }
 .itemPortfolio {
   border: none;
