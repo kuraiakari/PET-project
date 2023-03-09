@@ -11,9 +11,11 @@ class UserControllers {
     let salt = await GenerateSalt()
     let userPassword = await GeneratePassword(req.body.password, salt)
     let img = ''
-    ;(req.files as []).forEach((file) => {
-      img += file['path'] + ','
-    })
+    if (req.file) {
+      ;(req.files as []).forEach((file) => {
+        img += file['path'] + ','
+      })
+    }
     const data = {
       ...req.body,
       password: userPassword,

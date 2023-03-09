@@ -31,3 +31,16 @@
 .boxLogin #formBasicCheckbox:focus {
   box-shadow: none;
 }
+.headerBox {
+  display: flex;
+  justify-content: center;
+}
+.boxLogin .messError {
+  height: 1rem;
+  color: red;
+}
+.boxLogin .success {
+  display: flex;
+  justify-content: center;
+  color: green;
+}

@@ -9,6 +9,8 @@ import { addIdUser } from '../../../redux/user.reducer'
 
 function Modal({ turnOffSignIn, signIn }: any) {
   const [stateBox, setStateBox] = useState(signIn)
+  const [messErrorServer, setMessErrorServer] = useState('')
+  const [messSucces, setMessSucces] = useState('')
   const dispatch = useDispatch()
 
   //Signin
@@ -57,9 +59,13 @@ function Modal({ turnOffSignIn, signIn }: any) {
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log(data.token)
-            dispatch(addIdUser(data.token))
-            turnOffSignIn()
+            if (data.token) {
+              dispatch(addIdUser(data.token))
+              setMessErrorServer('')
+              turnOffSignIn()
+            } else {
+              setMessErrorServer(data.messageError)
+            }
           })
         e.preventDefault()
         e.stopPropagation()
@@ -82,6 +88,32 @@ function Modal({ turnOffSignIn, signIn }: any) {
         e.preventDefault()
         e.stopPropagation()
       }
+      if (confirmPasswordSignUp.current?.value !== passwordSignUp.current?.value) {
+        setMessErrorConfirmPassword('Invalid password')
+        e.preventDefault()
+        e.stopPropagation()
+      } else {
+        const data = {
+          email: emailSignUp.current?.value,
+          password: passwordSignUp.current?.value
+        }
+        fetch('http://localhost:3000/v1/user/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: JSON.stringify(data)
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.messageError) {
+              setMessErrorServer(data.messageError)
+            } else setMessSucces('Dang ki thanh cong')
+          })
+        e.preventDefault()
+        e.stopPropagation()
+      }
     }
   }
   return (
@@ -89,6 +121,7 @@ function Modal({ turnOffSignIn, signIn }: any) {
       <Form className='boxLogin d-flex flex-column justify-content-center' onSubmit={handleSubmit}>
         <Icon.XLg className='iconBoxLogin' size={40} />
         {/* SignIn */}
+        {!stateBox && <div className='headerBox mb-5'><h1>Login</h1></div>}
         {!stateBox && (
           <>
             <Form.Group className='mb-3'>
@@ -98,7 +131,10 @@ function Modal({ turnOffSignIn, signIn }: any) {
                 type='email'
                 placeholder='Enter email'
                 isInvalid={!!messErrorEmail}
-                onChange={() => setMessErrorEmail('')}
+                onChange={() => {
+                  setMessErrorEmail('')
+                  setMessErrorServer('')
+                }}
               />
               <Form.Control.Feedback type='invalid'>{messErrorEmail}</Form.Control.Feedback>
             </Form.Group>
@@ -109,13 +145,14 @@ function Modal({ turnOffSignIn, signIn }: any) {
                 type='password'
                 placeholder='Password'
                 isInvalid={!!messErrorPassword}
-                onChange={() => setMessErrorPassword('')}
+                onChange={() => {
+                  setMessErrorPassword('')
+                  setMessErrorServer('')
+                }}
               />
               <Form.Control.Feedback type='invalid'>{messErrorPassword}</Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className='mb-3' controlId='formBasicCheckbox'>
-              <Form.Check type='checkbox' label='Check me out' />
-            </Form.Group>
+            <div className='messError mb-5'>{messErrorServer && <div>{messErrorServer}</div>}</div>
             <Button type='submit'>Submit form</Button>
             <button
               type='button'
@@ -124,14 +161,16 @@ function Modal({ turnOffSignIn, signIn }: any) {
                 setStateBox(true)
                 setMessErrorEmail('')
                 setMessErrorPassword('')
+                setMessErrorServer('')
               }}
             >
               Dang ky
             </button>
           </>
         )}
+        {stateBox && <div className='headerBox mb-5'><h1>Register</h1></div>}
         {/* Signup */}
-        {stateBox && (
+        {stateBox && !messSucces && (
           <>
             <Form.Group className='mb-3'>
               <Form.Label>Email address</Form.Label>
@@ -140,7 +179,10 @@ function Modal({ turnOffSignIn, signIn }: any) {
                 type='email'
                 placeholder='Enter email'
                 isInvalid={!!messErrorEmail}
-                onChange={() => setMessErrorEmail('')}
+                onChange={() => {
+                  setMessErrorEmail('')
+                  setMessErrorServer('')
+                }}
               />
               <Form.Control.Feedback type='invalid'>{messErrorEmail}</Form.Control.Feedback>
             </Form.Group>
@@ -151,7 +193,10 @@ function Modal({ turnOffSignIn, signIn }: any) {
                 type='password'
                 placeholder='Password'
                 isInvalid={!!messErrorPassword}
-                onChange={() => setMessErrorPassword('')}
+                onChange={() => {
+                  setMessErrorPassword('')
+                  setMessErrorServer('')
+                }}
               />
               <Form.Control.Feedback type='invalid'>{messErrorPassword}</Form.Control.Feedback>
             </Form.Group>
@@ -162,13 +207,17 @@ function Modal({ turnOffSignIn, signIn }: any) {
                 type='password'
                 placeholder='Confirm password'
                 isInvalid={!!messErrorConfirmPassword}
-                onChange={() => setMessErrorConfirmPassword('')}
+                onChange={() => {
+                  setMessErrorConfirmPassword('')
+                  setMessErrorServer('')
+                }}
               />
               <Form.Control.Feedback type='invalid'>{messErrorConfirmPassword}</Form.Control.Feedback>
             </Form.Group>
-            <Form.Group className='mb-3' controlId='formBasicCheckbox'>
-              <Form.Check type='checkbox' label='Check me out' />
-            </Form.Group>
+            <div className='messError mb-5'>
+              {messErrorServer && <div>{messErrorServer}</div>}
+              {messSucces && <div className='success'>{messSucces}</div>}
+            </div>
             <Button type='submit'>Submit form</Button>
             <button
               type='button'
@@ -178,11 +227,28 @@ function Modal({ turnOffSignIn, signIn }: any) {
                 setMessErrorEmail('')
                 setMessErrorPassword('')
                 setMessErrorConfirmPassword('')
+                setMessErrorServer('')
               }}
             >
               Dang nhap
             </button>
           </>
+        )}
+        {stateBox && messSucces && (
+          <div>
+            <div className='success mb-5'><span>Your registration has been successfully completed. Press Continue to sign in</span></div>
+            <Button style={{width: '100%'}}
+              onClick={() => {
+                setStateBox(false)
+                setMessErrorEmail('')
+                setMessErrorPassword('')
+                setMessErrorConfirmPassword('')
+                setMessErrorServer('')
+              }}
+            >
+              Continue
+            </Button>
+          </div>
         )}
       </Form>
     </div>
