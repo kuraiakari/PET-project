@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import './portfolio.css'
+import quality from './img/quality.png'
+import voucher from './img/voucher.png'
 function Portfolio() {
   const [isActivePrice, setIsActivePrice] = useState(false)
   const [isActiveRating, setIsActiveRating] = useState(false)
@@ -27,17 +29,20 @@ function Portfolio() {
   return (
     <>
       <div className='portfolio'>
+        <div className='headerPortfolio'>Featured products</div>
         <button
           onClick={() => handleSearch('price')}
           className={isActivePrice ? 'itemPortfolio itemActive' : 'itemPortfolio'}
         >
-          Sort by price
+          <img src={voucher} alt='voucher' className='iconMenu me-2' />
+          Good price
         </button>
         <button
           onClick={() => handleSearch('rating')}
           className={isActiveRating ? 'itemPortfolio itemActive' : 'itemPortfolio'}
         >
-          Sort by rating
+          <img src={quality} alt='quality' className='iconMenu me-2' />
+          Quality
         </button>
       </div>
     </>

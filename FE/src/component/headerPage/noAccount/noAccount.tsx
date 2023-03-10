@@ -64,7 +64,7 @@ function Modal({ turnOffSignIn, signIn }: any) {
               setMessErrorServer('')
               turnOffSignIn()
             } else {
-              setMessErrorServer(data.messageError)
+              setMessErrorServer(data.messageError || 'Cant connect server')
             }
           })
         e.preventDefault()
@@ -121,7 +121,11 @@ function Modal({ turnOffSignIn, signIn }: any) {
       <Form className='boxLogin d-flex flex-column justify-content-center' onSubmit={handleSubmit}>
         <Icon.XLg className='iconBoxLogin' size={40} />
         {/* SignIn */}
-        {!stateBox && <div className='headerBox mb-5'><h1>Login</h1></div>}
+        {!stateBox && (
+          <div className='headerBox mb-5'>
+            <h1>Login</h1>
+          </div>
+        )}
         {!stateBox && (
           <>
             <Form.Group className='mb-3'>
@@ -168,7 +172,11 @@ function Modal({ turnOffSignIn, signIn }: any) {
             </button>
           </>
         )}
-        {stateBox && <div className='headerBox mb-5'><h1>Register</h1></div>}
+        {stateBox && (
+          <div className='headerBox mb-5'>
+            <h1>Register</h1>
+          </div>
+        )}
         {/* Signup */}
         {stateBox && !messSucces && (
           <>
@@ -236,8 +244,11 @@ function Modal({ turnOffSignIn, signIn }: any) {
         )}
         {stateBox && messSucces && (
           <div>
-            <div className='success mb-5'><span>Your registration has been successfully completed. Press Continue to sign in</span></div>
-            <Button style={{width: '100%'}}
+            <div className='success mb-5'>
+              <span>Your registration has been successfully completed. Press Continue to sign in</span>
+            </div>
+            <Button
+              style={{ width: '100%' }}
               onClick={() => {
                 setStateBox(false)
                 setMessErrorEmail('')

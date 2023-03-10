@@ -1,12 +1,36 @@
-.listProduct {
+.contentListProduct {
   border-radius: 8px;
-  background-color: #eaecff;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  width: 100%;
+  align-items: center;
+}
+.listProduct {
   display: flex;
   flex-wrap: wrap;
   overflow: hidden;
-  padding: 0.5rem;
   width: 100%;
 }
 .headerAnswerSearch {
   width: 100%;
+}
+.buttonMoreProduct {
+  cursor: pointer;
+  display: inline-block;
+  width: 240px;
+  margin-top: 12px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  border: 1px solid rgb(10, 104, 255);
+  color: rgb(10, 104, 255);
+  font-size: 16px;
+  line-height: 150%;
+  text-align: center;
+  background-color: transparent
+}
+.buttonMoreProduct:hover {
+  background-color: rgba(0, 96, 255, 0.12) !important;
+  opacity: 1 !important;
+  color: rgb(10, 104, 255);
 }
