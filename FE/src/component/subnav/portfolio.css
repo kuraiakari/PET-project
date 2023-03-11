@@ -1,12 +1,13 @@
 .portfolio {
   display: flex;
-  width: 100%;
   flex-direction: column;
   background-color: #fff;
   border-radius: 8px;
   padding-left: 16px;
   overflow: hidden;
   padding: 12px 8px;
+  position: sticky;
+  top: 86px;
 }
 .headerPortfolio {
   margin-bottom: 8px;

@@ -1,0 +1,31 @@
+.headerCart {
+  display: flex;
+}
+.productInCart {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  margin-top: 20px;
+  border-top: 1px solid #333;
+  text-decoration: none;
+  color: black;
+}
+.productInCart:hover {
+  color: black;
+  background-color: rgba(39, 39, 42, 0.12);
+}
+.imgProductInCart {
+  height: 30%;
+  width: 30%;
+}
+.sumPrice {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.btnDeleteProductIncart,
+.btnDeleteProductIncart:hover,
+.btnDeleteProductIncart:active {
+  background-color: transparent;
+  border: none;
+  color: black;
+}

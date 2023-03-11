@@ -158,18 +158,21 @@ function Modal({ turnOffSignIn, signIn }: any) {
             </Form.Group>
             <div className='messError mb-5'>{messErrorServer && <div>{messErrorServer}</div>}</div>
             <Button type='submit'>Submit form</Button>
-            <button
-              type='button'
-              className='btn btn-link'
-              onClick={() => {
-                setStateBox(true)
-                setMessErrorEmail('')
-                setMessErrorPassword('')
-                setMessErrorServer('')
-              }}
-            >
-              Dang ky
-            </button>
+            <div className='d-flex justify-content-center align-items-center'>
+              Don&apos;t have an account?
+              <button
+                type='button'
+                className='btn btn-link ps-0'
+                onClick={() => {
+                  setStateBox(true)
+                  setMessErrorEmail('')
+                  setMessErrorPassword('')
+                  setMessErrorServer('')
+                }}
+              >
+                Register
+              </button>
+            </div>
           </>
         )}
         {stateBox && (
@@ -227,19 +230,22 @@ function Modal({ turnOffSignIn, signIn }: any) {
               {messSucces && <div className='success'>{messSucces}</div>}
             </div>
             <Button type='submit'>Submit form</Button>
-            <button
-              type='button'
-              className='btn btn-link'
-              onClick={() => {
-                setStateBox(false)
-                setMessErrorEmail('')
-                setMessErrorPassword('')
-                setMessErrorConfirmPassword('')
-                setMessErrorServer('')
-              }}
-            >
-              Dang nhap
-            </button>
+            <div className='d-flex justify-content-center align-items-center'>
+              already have an account?
+              <button
+                type='button'
+                className='btn btn-link'
+                onClick={() => {
+                  setStateBox(false)
+                  setMessErrorEmail('')
+                  setMessErrorPassword('')
+                  setMessErrorConfirmPassword('')
+                  setMessErrorServer('')
+                }}
+              >
+                Login
+              </button>
+            </div>
           </>
         )}
         {stateBox && messSucces && (

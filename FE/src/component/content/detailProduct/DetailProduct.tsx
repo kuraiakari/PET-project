@@ -35,7 +35,11 @@ const DetailProduct = () => {
         idProduct: productDetail ? productDetail[0]._id : '',
         nameProduct: productDetail ? productDetail[0].nameProduct : '',
         imgProduct: listImageProduct[0],
-        amount: quantity
+        amount: quantity,
+        price: productDetail
+          ? productDetail[0].priceProduct -
+            Math.round((productDetail[0].priceProduct * productDetail[0].promotionProduct) / 100)
+          : 0
       }
       dispatch(addProduct(data))
     }
@@ -95,7 +99,11 @@ const DetailProduct = () => {
             <div className='quantityDetailProduct'>
               <div>Quantity</div>
               <div className='getQuantity'>
-                <Button className='btnQuanlityDetailProduct' onClick={decrease} disabled={quantity === 1 ? true : false}>
+                <Button
+                  className='btnQuanlityDetailProduct'
+                  onClick={decrease}
+                  disabled={quantity === 1 ? true : false}
+                >
                   -
                 </Button>
                 <input
@@ -106,13 +114,17 @@ const DetailProduct = () => {
                     setQuantity(Number(e.target.value))
                   }}
                 ></input>
-                <Button className='btnQuanlityDetailProduct' onClick={ascending}> + </Button>
+                <Button className='btnQuanlityDetailProduct' onClick={ascending}>
+                  {' '}
+                  +{' '}
+                </Button>
               </div>
             </div>
-            <Button onClick={handleAddCart} disabled={idUser ? false : true}> Add to cart </Button>
-            {!idUser && (
-              <div style={{color: 'rgb(255, 66, 78)'}}> Please login before adding products to cart</div>
-            ) }
+            <Button onClick={handleAddCart} disabled={idUser ? false : true}>
+              {' '}
+              Add to cart{' '}
+            </Button>
+            {!idUser && <div style={{ color: 'rgb(255, 66, 78)' }}> Please login before adding products to cart</div>}
           </div>
         </div>
       )}

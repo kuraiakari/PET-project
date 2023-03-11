@@ -6,12 +6,13 @@ import Product from '../product/Product'
 import { product } from 'src/types/product.type'
 const ListProduct = () => {
   const [searchProduct, setsearchProduct] = useSearchParams()
-  const [quanlity, setQuanlity] = useState(4)
+  const [quantity, setQuantity] = useState(12)
   const [loading, setLoading] = useState(false)
   const nameProduct = searchProduct.get('name') || ''
   const sortProduct = searchProduct.get('sorting') || ''
   const [listProduct, setListProduct] = useState<any[]>([])
   useEffect(() => {
+    setQuantity(12)
     fetch(`http://localhost:3000/v1/products/?name=${nameProduct}&sorting=${sortProduct}`)
       .then((response) => response.json())
       .catch(() => console.log('Not internet'))
@@ -28,11 +29,11 @@ const ListProduct = () => {
         <div className='listProduct'>
           {listProduct &&
             listProduct.map((product: product, index: number) => {
-              if (index < quanlity) return <Product key={product._id} product={product} />
+              if (index < quantity) return <Product key={product._id} product={product} />
             })}
         </div>
-        {listProduct?.length > quanlity ? (
-          <Button className='buttonMoreProduct' onClick={() => setQuanlity(quanlity + 4)}>
+        {listProduct?.length > quantity ? (
+          <Button className='buttonMoreProduct' onClick={() => setQuantity(quantity + 4)}>
             Show more
           </Button>
         ) : (
