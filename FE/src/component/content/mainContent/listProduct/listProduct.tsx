@@ -21,8 +21,8 @@ const ListProduct = () => {
     <>
       <div className='contentListProduct'>
         {nameProduct && (
-          <div className='headerAnswerSearch'>
-            <h1>Search results for {nameProduct}</h1>
+          <div className='headerAnswerSearch shadow-sm'>
+            <h1>Search results for: {nameProduct}</h1>
           </div>
         )}
         <div className='listProduct'>
@@ -33,7 +33,7 @@ const ListProduct = () => {
         </div>
         {listProduct?.length > quanlity ? (
           <Button className='buttonMoreProduct' onClick={() => setQuanlity(quanlity + 4)}>
-            Xem them
+            Show more
           </Button>
         ) : (
           false

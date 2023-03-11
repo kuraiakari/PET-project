@@ -1,0 +1,130 @@
+.detailProduct {
+  display: flex;
+}
+.wrapImgDetailProduct {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  background-color: #fff;
+  z-index: 1;
+}
+.buttonChangeImgDetailProduct {
+  width: 2rem;
+  height: 2rem;
+  background-color: transparent;
+  border-radius: 50%;
+  border: transparent;
+  position: absolute;
+  top: calc(50% - 20px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  color: black;
+}
+.wrapImgDetailProduct .buttonChangeImgDetailProduct:hover,
+.buttonChangeImgDetailProduct:active {
+  background-color: #dedee4;
+  color: black;
+}
+.buttonChangeImgDetailProduct__left {
+  left: 1em;
+}
+.buttonChangeImgDetailProduct__right {
+  right: 1em;
+}
+.imgProductDetail {
+  width: 80%;
+  height: 470px;
+}
+.infoDetailProduct {
+  margin-left: 8px;
+  background-color: #fff;
+  padding: 16px 12px;
+}
+.nameStoreDetailProduct {
+  margin: 0px;
+  color: rgb(36, 36, 36);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+}
+.nameDetailProduct {
+  margin: 16px 0px 16px;
+  color: rgb(36, 36, 36);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 32px;
+  word-break: break-word;
+  border-top: 1px solid rgb(242, 242, 242);
+  padding: 16px 0;
+  border-bottom: 1px solid rgb(242, 242, 242);
+}
+.priceDetailProduct {
+  display: flex;
+  height: 92px;
+  align-items: end;
+  border-radius: 4px;
+  background-color: rgb(227, 220, 220);
+  padding: 0px 16px 28px;
+}
+.lastPriceDetailProduct {
+  margin-right: 8px;
+  font-size: 32px;
+  line-height: 40px;
+  margin-right: 8px;
+  font-weight: 500;
+}
+.lastPriceDetailProduct--hasSale {
+  color: rgb(255, 66, 78);
+}
+.priceDetailProductNotSale {
+  text-decoration: line-through;
+  color: rgb(128, 128, 137)
+}
+.saleDetailProduct {
+  margin-left: 8px;
+  color: rgb(255, 66, 78);
+}
+.quantityDetailProduct {
+  margin: 16px 0;
+  padding: 16px 0;
+  border-top: 1px solid rgb(242, 242, 242);
+  border-bottom: 1px solid rgb(242, 242, 242);
+}
+.btnQuanlityDetailProduct {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  border-radius: 0;
+  border: 1px solid rgb(236, 236, 236);
+  background-color: #fff;
+  color: #393535;
+  font-size: 16px;
+}
+.btnQuanlityDetailProduct:hover {
+  background-color: rgb(236, 236, 236);
+  border: 1px solid rgb(236, 236, 236);
+  color: #808080
+}
+.btnQuanlityDetailProduct:disabled {
+  color: #393535;
+  background-color: rgb(236, 236, 236);
+  border: 1px solid rgb(236, 236, 236)
+}
+.inputQuanlityDetailProduct {
+  border-radius: 0;
+  border: 1px solid rgb(236, 236, 236);
+  height: 40px;
+  width: 60px;
+  text-align: center;
+}
+.getQuantity {
+  display: flex;
+  align-items: center;
+}
+

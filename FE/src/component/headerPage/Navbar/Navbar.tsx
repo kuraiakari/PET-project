@@ -8,7 +8,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import * as Icon from 'react-bootstrap-icons'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 import './Navbar.css'
 import Modal from '../noAccount/noAccount'
@@ -22,6 +22,7 @@ function NavbarPage() {
 
   const nameProduct = useRef<HTMLInputElement>(null)
   const navigate = useNavigate()
+  const location = useLocation()
 
   //back to home
   const backToHome = (e: any) => {
@@ -82,6 +83,7 @@ function NavbarPage() {
 
   //sign out
   const handleSignOut = () => {
+    if (location.pathname === '/card') navigate('')
     const data = ''
     dispatch(addIdUser(data))
     dispatch(removeAllProduct())
