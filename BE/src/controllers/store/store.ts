@@ -58,6 +58,18 @@ class StoreControllers {
             if (err) res.json({ messageError: 'Delete Failure' })
           })
         })
+        await users.findOne({ _id: req.user._id }, async function (err: any, user: any) {
+          const index = user.myShop.indexOf(store._id)
+          if (index > -1) {
+            user.myShop.splice(index, 1)
+            users.updateOne({ _id: req.user._id }, user).exec((err: any, user: any) => {
+              if (err) res.json({ messageError: 'Other email' })
+            })
+          }
+          else {
+            res.json({ messageError: 'Delete Failure' })
+          }
+        }).clone()
         await store.deleteOne({ _id: req.params.id }, function (err: any, products: any) {
           if (err) res.json({ messageError: 'Delete Failure' })
         })
@@ -81,9 +93,8 @@ class StoreControllers {
       if (err) res.json({ messageError: 'Other store name' })
       else {
         users.findOne({ _id: req.user._id }, async function (err: any, user: any) {
-          const myShop = user.myShop ? user.myShop + ',' + store._id : store._id
-          const dataNew = { ...user._doc, myShop }
-          users.updateOne({ _id: req.user._id }, dataNew).exec((err: any, user: any) => {
+          user.myShop.push(store._id)
+          users.updateOne({ _id: req.user._id }, user).exec((err: any, user: any) => {
             if (err) res.json({ messageError: 'Other email' })
           })
         })
