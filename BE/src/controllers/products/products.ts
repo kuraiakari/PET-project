@@ -43,7 +43,7 @@ class ProductsControllers {
         else res.json({ messageError: `${err}` })
       })
   }
-  create = async (req: Request, res: Response) => {
+  create = async (req: any, res: Response) => {
     try {
       let img = ''
       ;(req.files as []).forEach((file) => {
@@ -55,7 +55,7 @@ class ProductsControllers {
         lastPriceProduct: req.body.priceProduct - (req.body.priceProduct * req.body.promotionProduct) / 100
         //lam tron
       }
-      const handleSave = stores.findOne({ nameStore: dataProduct.store }).exec(async (err: any, store: any) => {
+      const handleSave = stores.findOne({ nameStore: dataProduct.store, shopOwner: req.user.email }).exec(async (err: any, store: any) => {
         if (!store) res.status(500).json({ messageError: 'Not found store' })
         else {
           const data = await products.create(dataProduct)

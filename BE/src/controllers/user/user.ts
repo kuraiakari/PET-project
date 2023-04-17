@@ -1,10 +1,11 @@
-import { Request,  Response } from 'express'
+import { Request, Response } from 'express'
 import multer from 'multer'
 import path from 'path'
 
 import { GenerateSalt, GeneratePassword, ValidatePassword, GenerateSignature } from '../../utils'
 import users from '../../database/models/user'
 import products from '../../database/models/products'
+import stores from '../../database/models/stores'
 
 class UserControllers {
   async create(req: any, res: any) {
@@ -63,7 +64,7 @@ class UserControllers {
     })
   }
   async createLikeProduct(req: any, res: any) {
-    products.findOne({ _id: req.body.id_product }, async (err: any, product: any) => {
+    await products.findOne({ _id: req.body.id_product }, async (err: any, product: any) => {
       if (err) res.json({ messageError: 'Not found product' })
       if (!product) res.json({ messageError: 'Not found product' })
       else {
@@ -105,21 +106,58 @@ class UserControllers {
       listProducts: []
     }
     const listProducts: any[] = []
+    let checkAmount = false
     for (const product of req.body.products) {
-      await products
-        .findOne({ _id: product.idProduct }, function (err: any, oldProduct: any) {
-          if (oldProduct) {
-            const data = {
-              productOrder: oldProduct,
-              amountOrder: product.amount
+      if (!checkAmount) {
+        await products
+          .findOne({ _id: product.idProduct }, async (err: any, oldProduct: any) => {
+            if (oldProduct) {
+              if (oldProduct.amountProduct - product.amount >= 0) {
+                const data = {
+                  productOrder: oldProduct,
+                  amountOrder: product.amount
+                }
+                listProducts.push(data)
+                const dataProduct = { ...oldProduct._doc, amountProduct: oldProduct.amountProduct - product.amount }
+                const dataTest = await products.updateOne({ _id: product.idProduct }, dataProduct)
+                if (!dataTest.matchedCount) {
+                  checkAmount = true
+                  res.status(404).json({ messageError: 'Not found product' })
+                }
+                await stores
+                  .findOne({ nameStore: dataProduct.store }, async (err: any, store: any) => {
+                    // console.log('ban dau:', store)
+                    if (!store) {
+                      checkAmount = true
+                      res.status(404).json({ messageError: 'Not found store' })
+                    } else {
+                      await store.listProducts.forEach((productStore: any, index: any) => {
+                        if (productStore._id.toString() === product.idProduct) {
+                          store.listProducts[index] = dataProduct
+                        }
+                      })
+                      // console.log('sau khi:', store)
+                      const dataTest1 = await stores.updateOne({ nameStore: dataProduct.store }, store)
+                    }
+                  })
+                  .clone()
+                  .catch(function (err) {
+                    console.log(err)
+                  })
+              } else {
+                checkAmount = true
+              }
             }
-            listProducts.push(data)
-          }
-        })
-        .clone()
-        .catch(function (err) {
-          console.log(err)
-        })
+          })
+          .clone()
+          .catch(function (err) {
+            console.log(err)
+          })
+      }
+    }
+    if (checkAmount) {
+      res.json('Not enough products')
+      return
     }
     order.listProducts = listProducts as []
     await users
