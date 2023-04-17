@@ -1,5 +1,5 @@
 import React from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Outlet } from 'react-router-dom'
 
 import Headerpage from './component/headerPage/index'
 import Portfolio from './component/subnav/Portfolio'
@@ -28,11 +28,12 @@ function App() {
           <Headerpage />
           <div className='row'>
             <Routes>
-              <Route path='' element={<Home />}>
-                <Route path='/search' element={<ListProduct />} />
+              <Route path='/' element={<Home />}>
+                {/* nên để đường dẫn cha có kí tự không để rỗng*/}
+                <Route path='search' element={<ListProduct />} />
               </Route>
               <Route path='/product/:idProduct' element={<DetailProduct />} />
-              <Route path='/card' element={<Cart />} />
+              <Route path='/cart' element={<Cart />} />
             </Routes>
           </div>
         </div>

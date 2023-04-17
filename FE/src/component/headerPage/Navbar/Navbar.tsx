@@ -29,15 +29,15 @@ function NavbarPage() {
     e.preventDefault()
     e.stopPropagation()
     if (nameProduct.current?.value) nameProduct.current.value = ''
-    navigate('')
+    navigate('/')
   }
 
   //move and handle cart
   const products = useSelector((state: any) => state.order.orderlist)
-  const moveCard = (e: any) => {
+  const moveCart = (e: any) => {
     e.preventDefault()
     e.stopPropagation()
-    navigate('/card')
+    navigate('/cart')
   }
 
   //search product
@@ -83,7 +83,7 @@ function NavbarPage() {
 
   //sign out
   const handleSignOut = () => {
-    if (location.pathname === '/card') navigate('')
+    if (location.pathname === '/cart') navigate('')
     const data = ''
     dispatch(addIdUser(data))
     dispatch(removeAllProduct())
@@ -139,7 +139,7 @@ function NavbarPage() {
                   )}
                   {isPerson && (
                     <>
-                      <button className='itemNavIsPerson' onClick={moveCard}>
+                      <button className='itemNavIsPerson' onClick={moveCart}>
                         <Icon.Cart size={25} />
                         <div>{products.length}</div>
                       </button>

@@ -16,14 +16,15 @@ const Schema = mongoose.Schema
 
 const products = new Schema(
   {
-    nameProduct: String,
-    amountProduct: Number,
+    nameProduct: { type: String, required: true },
+    amountProduct: { type: Number, required: true },
     imageProduct: String,
     ratingProduct: Number,
-    priceProduct: Number,
-    promotionProduct: Number,
+    priceProduct: { type: Number, required: true },
+    promotionProduct: { type: Number, required: true },
+    lastPriceProduct: { type: Number, required: true},
     size: String,
-    type: String,
+    typeProduct: { type: String, required: true },
     store: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }

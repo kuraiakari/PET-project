@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 import multer from 'multer'
 import path from 'path'
 
+import users from '../../database/models/user'
 import stores from '../../database/models/stores'
 import products from '../../database/models/products'
 
@@ -78,7 +79,16 @@ class StoreControllers {
     }
     stores.create(data, function (err: any, store: any) {
       if (err) res.json({ messageError: 'Other store name' })
-      else res.json(store)
+      else {
+        users.findOne({ _id: req.user._id }, async function (err: any, user: any) {
+          const myShop = user.myShop ? user.myShop + ',' + store._id : store._id
+          const dataNew = { ...user._doc, myShop }
+          users.updateOne({ _id: req.user._id }, dataNew).exec((err: any, user: any) => {
+            if (err) res.json({ messageError: 'Other email' })
+          })
+        })
+        res.json(store)
+      }
     })
   }
   storage = multer.diskStorage({

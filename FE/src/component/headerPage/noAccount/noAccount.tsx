@@ -109,7 +109,7 @@ function Modal({ turnOffSignIn, signIn }: any) {
           .then((data) => {
             if (data.messageError) {
               setMessErrorServer(data.messageError)
-            } else setMessSucces('Dang ki thanh cong')
+            } else setMessSucces('Sign Up Success')
           })
         e.preventDefault()
         e.stopPropagation()

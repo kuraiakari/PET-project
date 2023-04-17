@@ -21,18 +21,18 @@ class ProductsControllers {
   getProducts(req: Request, res: Response) {
     let optionProduct = {}
     let optionSortProduct = {}
-    if (req.query.name) {
+    if (req.query.textSearch) {
       optionProduct = {
-        nameProduct: req.query.name
+        $or: [{ nameProduct: req.query.textSearch }, { typeProduct: req.query.textSearch }]
       }
     }
     if (req.query.sorting) {
       if (req.query.sorting === 'rating') optionSortProduct = { ratingProduct: -1 }
-      if (req.query.sorting === 'price') optionSortProduct = { priceProduct: 1 }
+      if (req.query.sorting === 'price') optionSortProduct = { promotionProduct: -1 }
     }
-    if (req.params.id ) {
+    if (req.params.id) {
       optionProduct = {
-        _id: req.params.id,
+        _id: req.params.id
       }
     }
     products
@@ -51,7 +51,9 @@ class ProductsControllers {
       })
       const dataProduct = {
         ...(req.body as products),
-        imageProduct: img
+        imageProduct: img,
+        lastPriceProduct: req.body.priceProduct - (req.body.priceProduct * req.body.promotionProduct) / 100
+        //lam tron
       }
       const handleSave = stores.findOne({ nameStore: dataProduct.store }).exec(async (err: any, store: any) => {
         if (!store) res.status(500).json({ messageError: 'Not found store' })
