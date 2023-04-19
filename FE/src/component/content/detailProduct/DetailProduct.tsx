@@ -17,7 +17,10 @@ const DetailProduct = () => {
   useEffect(() => {
     fetch(`http://localhost:3000/v1/products/${idProduct}`)
       .then((response) => response.json())
-      .then((data) => setProductDetail(data))
+      .then((data) => {
+        if (data.messageError) setProductDetail(undefined)
+        else setProductDetail(data)
+      })
   }, [idProduct])
   let listImageProduct = ''
   if (productDetail) listImageProduct = productDetail[0].imageProduct.split(',')
@@ -47,6 +50,7 @@ const DetailProduct = () => {
 
   return (
     <>
+      {productDetail === undefined && <div>Not found product</div>}
       {productDetail && (
         <div className='detailProduct'>
           <div className='wrapImgDetailProduct col-xl-5'>

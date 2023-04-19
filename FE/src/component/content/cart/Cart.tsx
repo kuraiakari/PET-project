@@ -61,13 +61,11 @@ const Cart = () => {
       </Button>
       {successBuy && (
         <Modal show={successBuy}>
-        <Modal.Body>Success buy products</Modal.Body>
-        <Modal.Footer>
-          <Button onClick={handleClose}>
-            Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
+          <Modal.Body>Success buy products</Modal.Body>
+          <Modal.Footer>
+            <Button onClick={handleClose}>Close</Button>
+          </Modal.Footer>
+        </Modal>
       )}
     </>
   )

@@ -25,20 +25,26 @@ function NavbarPage() {
   const navigate = useNavigate()
   const location = useLocation()
 
+  //get infor user
+  // const handleGetData = () => {
+  //   fetch('http://localhost:3000/v1/user/profile', {
+  //     method: 'GET',
+  //     headers: {
+  //       Authorization: `Bearer ${idUser}`,
+  //       'Content-Type': 'application/json'
+  //       // 'Content-Type': 'application/x-www-form-urlencoded',
+  //     }
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => console.log(data))
+  // }
+
   //back to home
   const backToHome = (e: any) => {
     e.preventDefault()
     e.stopPropagation()
     if (nameProduct.current?.value) nameProduct.current.value = ''
     navigate('/')
-  }
-
-  //move and handle cart
-  const products = useSelector((state: any) => state.order.orderlist)
-  const moveCart = (e: any) => {
-    e.preventDefault()
-    e.stopPropagation()
-    navigate('/cart')
   }
 
   //search product
@@ -67,24 +73,22 @@ function NavbarPage() {
     setsignIn(true)
     setModal(!modal)
   }
-
-  //get infor user
-  const handleGetData = () => {
-    fetch('http://localhost:3000/v1/user/profile', {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${idUser}`,
-        'Content-Type': 'application/json'
-        // 'Content-Type': 'application/x-www-form-urlencoded',
-      }
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
+  //move and handle cart
+  const products = useSelector((state: any) => state.order.orderlist)
+  const moveCart = (e: any) => {
+    e.preventDefault()
+    e.stopPropagation()
+    navigate('/cart')
   }
-
+  //move history
+  const handleMoveHistory = (e: any) => {
+    e.preventDefault()
+    e.stopPropagation()
+    navigate('/history')
+  }
   //sign out
   const handleSignOut = () => {
-    if (location.pathname === '/cart') navigate('')
+    if (location.pathname === '/cart' || location.pathname === '/history') navigate('')
     const data = ''
     dispatch(addIdUser(data))
     dispatch(removeAllProduct())
@@ -141,16 +145,13 @@ function NavbarPage() {
                   {isPerson && (
                     <>
                       <button className='itemNavIsPerson' onClick={moveCart}>
-                        <Icon.Cart size={25} color='#212529'/>
+                        <Icon.Cart size={25} color='#212529' />
                         <div>{products.length}</div>
                       </button>
                       <div className='itemNavIsPerson'>
-                        <NavDropdown
-                          title='Have Account'
-                          id={`offcanvasNavbarDropdown-expand-${expand}`}
-                        >
-                          <NavDropdown.Item >Personal</NavDropdown.Item>
-                          <NavDropdown.Item >History</NavDropdown.Item>
+                        <NavDropdown title='Have Account' id={`offcanvasNavbarDropdown-expand-${expand}`}>
+                          <NavDropdown.Item>Personal</NavDropdown.Item>
+                          <NavDropdown.Item onClick={handleMoveHistory}>History</NavDropdown.Item>
                           <NavDropdown.Divider />
                           <NavDropdown.Item onClick={handleSignOut}>Logout</NavDropdown.Item>
                         </NavDropdown>

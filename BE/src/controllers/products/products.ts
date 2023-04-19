@@ -26,7 +26,6 @@ class ProductsControllers {
         $or: [{ nameProduct: req.query.name }, { typeProduct: req.query.name }]
       }
     }
-    console.log(optionProduct)
     if (req.query.sorting) {
       if (req.query.sorting === 'rating') optionSortProduct = { ratingProduct: -1 }
       if (req.query.sorting === 'price') optionSortProduct = { promotionProduct: -1 }
@@ -40,8 +39,10 @@ class ProductsControllers {
       .find(optionProduct)
       .sort(optionSortProduct)
       .exec(function (err: any, products: any) {
-        if (!err) res.json(products)
-        else res.json({ messageError: `${err}` })
+        if (!err) {
+          if (products.length > 0) res.json(products)
+          else res.json({ messageError: 'NotFound' })
+        } else res.json({ messageError: `${err}` })
       })
   }
   create = async (req: any, res: Response) => {
@@ -56,15 +57,17 @@ class ProductsControllers {
         lastPriceProduct: req.body.priceProduct - (req.body.priceProduct * req.body.promotionProduct) / 100
         //lam tron
       }
-      const handleSave = stores.findOne({ nameStore: dataProduct.store, shopOwner: req.user.email }).exec(async (err: any, store: any) => {
-        if (!store) res.status(500).json({ messageError: 'Not found store' })
-        else {
-          const data = await products.create(dataProduct)
-          await store.listProducts.push(data)
-          await stores.updateOne({ nameStore: dataProduct.store }, store)
-          res.status(201).json('Create successfully')
-        }
-      })
+      const handleSave = stores
+        .findOne({ nameStore: dataProduct.store, shopOwner: req.user.email })
+        .exec(async (err: any, store: any) => {
+          if (!store) res.status(500).json({ messageError: 'Not found store' })
+          else {
+            const data = await products.create(dataProduct)
+            await store.listProducts.push(data)
+            await stores.updateOne({ nameStore: dataProduct.store }, store)
+            res.status(201).json('Create successfully')
+          }
+        })
     } catch (err) {
       res.status(500).json(err)
     }
