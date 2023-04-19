@@ -21,11 +21,12 @@ class ProductsControllers {
   getProducts(req: Request, res: Response) {
     let optionProduct = {}
     let optionSortProduct = {}
-    if (req.query.textSearch) {
+    if (req.query.name) {
       optionProduct = {
-        $or: [{ nameProduct: req.query.textSearch }, { typeProduct: req.query.textSearch }]
+        $or: [{ nameProduct: req.query.name }, { typeProduct: req.query.name }]
       }
     }
+    console.log(optionProduct)
     if (req.query.sorting) {
       if (req.query.sorting === 'rating') optionSortProduct = { ratingProduct: -1 }
       if (req.query.sorting === 'price') optionSortProduct = { promotionProduct: -1 }
