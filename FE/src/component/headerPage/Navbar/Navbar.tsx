@@ -4,6 +4,7 @@ import Container from 'react-bootstrap/Container'
 import Form from 'react-bootstrap/Form'
 import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
+import { NavDropdown } from 'react-bootstrap'
 //import NavDropdown from 'react-bootstrap/NavDropdown'
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import * as Icon from 'react-bootstrap-icons'
@@ -140,17 +141,20 @@ function NavbarPage() {
                   {isPerson && (
                     <>
                       <button className='itemNavIsPerson' onClick={moveCart}>
-                        <Icon.Cart size={25} />
+                        <Icon.Cart size={25} color='#212529'/>
                         <div>{products.length}</div>
                       </button>
-                      <button className='itemNavIsPerson' onClick={handleGetData}>
-                        <Icon.Person size={25} />
-                        Have Account
-                      </button>
-                      <button className='itemNavIsPerson' onClick={handleSignOut}>
-                        <Icon.Person size={25} />
-                        Logout
-                      </button>
+                      <div className='itemNavIsPerson'>
+                        <NavDropdown
+                          title='Have Account'
+                          id={`offcanvasNavbarDropdown-expand-${expand}`}
+                        >
+                          <NavDropdown.Item >Personal</NavDropdown.Item>
+                          <NavDropdown.Item >History</NavDropdown.Item>
+                          <NavDropdown.Divider />
+                          <NavDropdown.Item onClick={handleSignOut}>Logout</NavDropdown.Item>
+                        </NavDropdown>
+                      </div>
                     </>
                   )}
                   {/* <NavDropdown title='Dropdown' id={`offcanvasNavbarDropdown-expand-${expand}`}>
