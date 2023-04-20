@@ -49,7 +49,12 @@ class UserControllers {
     }
   }
   async updateProfile(req: any, res: any) {
-    const dataNew = { ...req.body }
+    let img = ''
+    // console.log(req.files[0].path)
+    if (req.files) {
+      img = req.files[0].path
+    }
+    const dataNew = { ...req.body, avatar: img }
     users.updateOne({ _id: req.user._id }, dataNew).exec((err: any, user: any) => {
       if (err) res.json({ messageError: 'Other email' })
       else {
