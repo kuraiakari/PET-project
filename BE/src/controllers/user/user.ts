@@ -49,12 +49,12 @@ class UserControllers {
     }
   }
   async updateProfile(req: any, res: any) {
-    let img = ''
-    // console.log(req.files[0].path)
-    if (req.files) {
-      img = req.files[0].path
+    // console.log(req)
+    let dataNew = { ...req.body }
+    if (req.file) {
+      dataNew = { ...req.body, avatar: req.file.path }
     }
-    const dataNew = { ...req.body, avatar: img }
+    // console.log(dataNew)
     users.updateOne({ _id: req.user._id }, dataNew).exec((err: any, user: any) => {
       if (err) res.json({ messageError: 'Other email' })
       else {
@@ -188,6 +188,7 @@ class UserControllers {
   upload = multer({
     storage: this.storage,
     fileFilter: (req, file, cb) => {
+      // console.log(file)
       const fileTypes = /jpeg|jpg|png|jfif/
       const mimeType = fileTypes.test(file.mimetype)
       const extname = fileTypes.test(path.extname(file.originalname))
@@ -197,6 +198,6 @@ class UserControllers {
       }
       cb(null, true)
     }
-  }).array('avatar', 1)
+  }).single('avatar')
 }
 export default UserControllers

@@ -77,6 +77,7 @@ class ProductsControllers {
     ;(req.files as []).forEach((file) => {
       img += file['path'] + ','
     })
+    //không update ảnh thì chuỗi ảnh về rỗng 
     const dataProduct = {
       ...req.body,
       imageProduct: img

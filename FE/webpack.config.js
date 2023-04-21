@@ -50,7 +50,7 @@ module.exports = (env, argv) => {
           ]
         },
         {
-          test: /\.(png|svg|jpg|gif)$/, // Dùng để import file ảnh, nếu có video/ảnh định dạng khác thì thêm vào đây
+          test: /\.(png|svg|jpg|gif|webp)$/, // Dùng để import file ảnh, nếu có video/ảnh định dạng khác thì thêm vào đây
           use: [
             {
               loader: 'file-loader',

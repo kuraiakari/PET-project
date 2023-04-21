@@ -7,6 +7,7 @@ import ListProduct from './component/content/mainContent/listProduct/listProduct
 import DetailProduct from './component/content/detailProduct/DetailProduct'
 import Cart from './component/content/cart/Cart'
 import History from './component/content/history/history'
+import Profile from './component/content/profile/Profile'
 
 import './App.css'
 function App() {
@@ -36,6 +37,7 @@ function App() {
               <Route path='/product/:idProduct' element={<DetailProduct />} />
               <Route path='/cart' element={<Cart />} />
               <Route path='/history' element={<History />} />
+              <Route path='/profile' element={<Profile />} />
             </Routes>
           </div>
         </div>
