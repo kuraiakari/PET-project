@@ -74,12 +74,18 @@ class ProductsControllers {
   }
   update(req: any, res: Response) {
     let img = ''
-    ;(req.files as []).forEach((file) => {
-      img += file['path'] + ','
-    })
-    const dataProduct = {
-      ...req.body,
-      imageProduct: img
+    let dataProduct = {
+      ...req.body
+    }
+    if (req.files.length > 0) {
+      ;(req.files as []).forEach((file) => {
+        img += file['path'] + ','
+      })
+      dataProduct = {
+        ...dataProduct,
+        imageProduct: img
+      }
+      // console.log(req.files)
     }
     const handleSave = stores
       .findOne({ nameStore: dataProduct.store, shopOwner: req.user.email })
