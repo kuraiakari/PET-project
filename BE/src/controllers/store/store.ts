@@ -1,4 +1,4 @@
-import { Request, Response } from 'express'
+import { Request, Response, response } from 'express'
 import multer from 'multer'
 import path from 'path'
 
@@ -31,23 +31,31 @@ class StoreControllers {
       ...req.body,
       imageStore: img
     }
-    const data = await stores.updateOne({ _id: req.params.id, shopOwner: req.user.email }, dataStore)
-    if (!data.matchedCount) res.status(404).json({ messageError: 'Not found store' })
-    else {
-      if (dataStore.nameStore) {
-        stores.findOne({ _id: req.params.id }).exec(async (err: any, store: any) => {
-          await store.listProducts.forEach(async (item: any, index: any) => {
-            products.findOne({ _id: item._id.toString() }).exec(async (err: any, product: any) => {
-              // console.log(product.store)
-              product.store = dataStore.nameStore
-              await products.updateOne({ _id: item._id.toString() }, product)
-            })
-            store.listProducts[index].store = dataStore.nameStore
-          })
-          await stores.updateOne({ _id: req.params.id }, store)
+    try {
+      const data = await stores
+        .updateOne({ _id: req.params.id, shopOwner: req.user.email }, dataStore, (err: any, result: any) => {
+          if (err) return
         })
+        .clone()
+      if (!data.matchedCount) res.status(404).json({ messageError: 'Not found store' })
+      else {
+        if (dataStore.nameStore) {
+          stores.findOne({ _id: req.params.id }).exec(async (err: any, store: any) => {
+            await store.listProducts.forEach(async (item: any, index: any) => {
+              products.findOne({ _id: item._id.toString() }).exec(async (err: any, product: any) => {
+                // console.log(product.store)
+                product.store = dataStore.nameStore
+                await products.updateOne({ _id: item._id.toString() }, product)
+              })
+              store.listProducts[index].store = dataStore.nameStore
+            })
+            await stores.updateOne({ _id: req.params.id }, store)
+          })
+        }
+        res.status(200).json('Update successfully')
       }
-      res.status(200).json('Update successfully')
+    } catch (err) {
+      res.status(404).json({ messageError: 'Cant update' })
     }
   }
   delete(req: any, res: Response) {
@@ -58,18 +66,19 @@ class StoreControllers {
             if (err) res.json({ messageError: 'Delete Failure' })
           })
         })
-        await users.findOne({ _id: req.user._id }, async function (err: any, user: any) {
-          const index = user.myShop.indexOf(store._id)
-          if (index > -1) {
-            user.myShop.splice(index, 1)
-            users.updateOne({ _id: req.user._id }, user).exec((err: any, user: any) => {
-              if (err) res.json({ messageError: 'Other email' })
-            })
-          }
-          else {
-            res.json({ messageError: 'Delete Failure' })
-          }
-        }).clone()
+        await users
+          .findOne({ _id: req.user._id }, async function (err: any, user: any) {
+            const index = user.myShop.indexOf(store._id)
+            if (index > -1) {
+              user.myShop.splice(index, 1)
+              users.updateOne({ _id: req.user._id }, user).exec((err: any, user: any) => {
+                if (err) res.json({ messageError: 'Other email' })
+              })
+            } else {
+              res.json({ messageError: 'Delete Failure' })
+            }
+          })
+          .clone()
         await store.deleteOne({ _id: req.params.id }, function (err: any, products: any) {
           if (err) res.json({ messageError: 'Delete Failure' })
         })

@@ -52,13 +52,14 @@ class UserControllers {
     // console.log(req)
     let dataNew = { ...req.body }
     if (req.file) {
-      dataNew = { ...req.body, avatar: req.file.path }
+      dataNew = { ...dataNew, avatar: req.file.path }
     }
     // console.log(dataNew)
     users.updateOne({ _id: req.user._id }, dataNew).exec((err: any, user: any) => {
       if (err) res.json({ messageError: 'Other email' })
       else {
-        if (user.matchedCount) res.json('Update successfully')
+        if (!user.acknowledged) res.json('Nothing updated')
+        else if (user.matchedCount) res.json('Update successfully')
       }
     })
   }
