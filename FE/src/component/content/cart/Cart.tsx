@@ -13,7 +13,7 @@ const Cart = () => {
   const products = useSelector((state: any) => state.order.orderlist)
   const idUser = useSelector((state: any) => state.user.idUser)
   const dispatch = useDispatch()
-  const [successBuy, setSuccessBuy] = useState(false)
+  const [successBuy, setSuccessBuy] = useState('')
   const navigate = useNavigate()
   let sumPrice = 0
   const handleAddCart = () => {
@@ -31,15 +31,20 @@ const Cart = () => {
     })
       .then((response) => response.json())
       .then((data) => {
+        // console.log(data)
         if (data === 'Create new order successfully') {
-          setSuccessBuy(true)
+          setSuccessBuy(data)
+        } else {
+          setSuccessBuy(data)
         }
       })
   }
   const handleClose = () => {
-    navigate('/')
-    setSuccessBuy(false)
-    dispatch(removeAllProduct())
+    if (successBuy === 'Create new order successfully') {
+      dispatch(removeAllProduct())
+      navigate('/')
+    }
+    setSuccessBuy('')
   }
   return (
     <>
@@ -60,8 +65,8 @@ const Cart = () => {
         Buy
       </Button>
       {successBuy && (
-        <Modal show={successBuy}>
-          <Modal.Body>Success buy products</Modal.Body>
+        <Modal show={!!successBuy}>
+          <Modal.Body>{successBuy}</Modal.Body>
           <Modal.Footer>
             <Button onClick={handleClose}>Close</Button>
           </Modal.Footer>

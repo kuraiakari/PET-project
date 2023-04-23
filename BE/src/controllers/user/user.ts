@@ -113,57 +113,78 @@ class UserControllers {
     }
     const listProducts: any[] = []
     let checkAmount = false
-    for (const product of req.body.products) {
-      if (!checkAmount) {
-        await products
-          .findOne({ _id: product.idProduct }, async (err: any, oldProduct: any) => {
-            if (oldProduct) {
-              if (oldProduct.amountProduct - product.amount >= 0) {
-                const data = {
-                  productOrder: oldProduct,
-                  amountOrder: product.amount
-                }
-                listProducts.push(data)
-                const dataProduct = { ...oldProduct._doc, amountProduct: oldProduct.amountProduct - product.amount }
-                const dataTest = await products.updateOne({ _id: product.idProduct }, dataProduct)
-                if (!dataTest.matchedCount) {
-                  checkAmount = true
-                  res.status(404).json({ messageError: 'Not found product' })
-                }
-                await stores
-                  .findOne({ nameStore: dataProduct.store }, async (err: any, store: any) => {
-                    // console.log('ban dau:', store)
-                    if (!store) {
-                      checkAmount = true
-                      res.status(404).json({ messageError: 'Not found store' })
-                    } else {
-                      await store.listProducts.forEach((productStore: any, index: any) => {
-                        if (productStore._id.toString() === product.idProduct) {
-                          store.listProducts[index] = dataProduct
-                        }
-                      })
-                      // console.log('sau khi:', store)
-                      const dataTest1 = await stores.updateOne({ nameStore: dataProduct.store }, store)
-                    }
-                  })
-                  .clone()
-                  .catch(function (err) {
-                    console.log(err)
-                  })
-              } else {
-                checkAmount = true
-              }
-            }
-          })
-          .clone()
-          .catch(function (err) {
-            console.log(err)
-          })
+
+    //sort product same in listProducts
+    const idOfProduct = [...new Set(req.body.products.map((product: any) => product.idProduct))]
+    const listProduct = idOfProduct.map((id: any) => {
+      let productAns = { idProduct: '', nameProduct: '', imgProduct: '', amount: 0, price: 0 }
+      for (const product of req.body.products) {
+        if (product.idProduct === id) {
+          if (!productAns.idProduct) {
+            productAns = { ...product }
+          } else productAns.amount += product.amount
+        }
+      }
+      return productAns
+    })
+
+    //check sum amount of order with amount of shop. (check before create order)
+    for (const product of listProduct) {
+      try {
+        const data = await products.findOne({ _id: product.idProduct })
+        if (data)
+          if (product.amount > data?.amountProduct) {
+            res.json('Not enough products')
+            return
+          }
+      } catch (err) {
+        res.json('Co loi')
+        // console.log(err)
       }
     }
-    if (checkAmount) {
-      res.json('Not enough products')
-      return
+
+    // create order
+    for (const product of req.body.products) {
+      await products
+        .findOne({ _id: product.idProduct }, async (err: any, oldProduct: any) => {
+          if (oldProduct) {
+            const data = {
+              productOrder: oldProduct,
+              amountOrder: product.amount
+            }
+            listProducts.push(data)
+            const dataProduct = { ...oldProduct._doc, amountProduct: oldProduct.amountProduct - product.amount }
+            const dataTest = await products.updateOne({ _id: product.idProduct }, dataProduct)
+            if (!dataTest.matchedCount) {
+              checkAmount = true
+              res.status(404).json({ messageError: 'Not found product' })
+            }
+            await stores
+              .findOne({ nameStore: dataProduct.store }, async (err: any, store: any) => {
+                // console.log('ban dau:', store)
+                if (!store) {
+                  checkAmount = true
+                  res.status(404).json({ messageError: 'Not found store' })
+                } else {
+                  await store.listProducts.forEach((productStore: any, index: any) => {
+                    if (productStore._id.toString() === product.idProduct) {
+                      store.listProducts[index] = dataProduct
+                    }
+                  })
+                  // console.log('sau khi:', store)
+                  const dataTest1 = await stores.updateOne({ nameStore: dataProduct.store }, store)
+                }
+              })
+              .clone()
+              .catch(function (err) {
+                console.log(err)
+              })
+          }
+        })
+        .clone()
+        .catch(function (err) {
+          console.log(err)
+        })
     }
     order.listProducts = listProducts as []
     await users

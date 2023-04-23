@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Button, Form, Col, Row, Container, FormGroup } from 'react-bootstrap'
+import { Button, Form, FormGroup } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import avatarError from './avatar.webp'
 import './profile.css'

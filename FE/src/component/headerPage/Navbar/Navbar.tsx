@@ -63,7 +63,7 @@ function NavbarPage() {
     if (idUser) setIsPerson(true)
     else setIsPerson(false)
   }, [idUser])
-  
+
   //sign in
   const handldeSignIn = () => {
     setsignIn(false)
@@ -86,7 +86,7 @@ function NavbarPage() {
     e.stopPropagation()
     navigate('/profile')
   }
-  //move history 
+  //move history
   const handleMoveHistory = (e: any) => {
     e.preventDefault()
     e.stopPropagation()
@@ -94,7 +94,8 @@ function NavbarPage() {
   }
   //sign out
   const handleSignOut = () => {
-    if (location.pathname === '/cart' || location.pathname === '/history' || location.pathname === '/profile') navigate('')
+    if (location.pathname === '/cart' || location.pathname === '/history' || location.pathname === '/profile')
+      navigate('')
     const data = ''
     dispatch(addIdUser(data))
     dispatch(removeAllProduct())
@@ -151,14 +152,11 @@ function NavbarPage() {
                   {isPerson && (
                     <>
                       <button className='itemNavIsPerson' onClick={moveCart}>
-                        <Icon.Cart size={25} color='#212529'/>
+                        <Icon.Cart size={25} color='#212529' />
                         <div>{products.length}</div>
                       </button>
                       <div className='itemNavIsPerson'>
-                        <NavDropdown
-                          title='Have Account'
-                          id={`offcanvasNavbarDropdown-expand-${expand}`}
-                        >
+                        <NavDropdown title='Have Account' id={`offcanvasNavbarDropdown-expand-${expand}`}>
                           <NavDropdown.Item onClick={handleMoveProfile}>Personal</NavDropdown.Item>
                           <NavDropdown.Item onClick={handleMoveHistory}>History</NavDropdown.Item>
                           <NavDropdown.Divider />

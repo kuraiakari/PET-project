@@ -30,6 +30,7 @@ const DetailProduct = () => {
   const ascending = () => {
     setQuantity(quantity + 1)
   }
+  console.log(productDetail)
   const dispatch = useDispatch()
   // if (productDetail) console.log(productDetail[0])
   const handleAddCart = () => {
@@ -118,13 +119,25 @@ const DetailProduct = () => {
                     setQuantity(Number(e.target.value))
                   }}
                 ></input>
-                <Button className='btnQuanlityDetailProduct' onClick={ascending}>
+                <Button
+                  className='btnQuanlityDetailProduct'
+                  onClick={ascending}
+                  disabled={quantity <= productDetail[0].amountProduct ? false : true}
+                >
                   {' '}
                   +{' '}
                 </Button>
+                <div
+                  className='leftProduct ms-3'
+                  style={{ color: `${productDetail[0].amountProduct > 0 ? '#757575' : 'rgb(255, 66, 78)'}` }}
+                >
+                  {productDetail[0].amountProduct > 0
+                    ? `${productDetail[0].amountProduct} products available`
+                    : 'Product is out of stock'}
+                </div>
               </div>
             </div>
-            <Button onClick={handleAddCart} disabled={idUser ? false : true}>
+            <Button onClick={handleAddCart} disabled={idUser && productDetail[0].amountProduct !== 0 ? false : true}>
               {' '}
               Add to cart{' '}
             </Button>
