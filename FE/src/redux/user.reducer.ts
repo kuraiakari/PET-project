@@ -1,13 +1,20 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
 
-const initalState = {
-  idUser: ''
+interface initalState {
+  idUser: string
+  isAdmin: boolean
 }
-export const addIdUser = createAction<string>('user/iduser')
+
+const initalState = {
+  idUser: '',
+  isAdmin: false
+}
+export const addIdUser = createAction<initalState>('user/iduser')
 
 const userReducer = createReducer(initalState, (builder) => {
   builder.addCase(addIdUser, (initalState, action) => {
-    initalState.idUser = action.payload
+    initalState.idUser = action.payload.idUser
+    initalState.isAdmin = action.payload.isAdmin
   })
 })
 

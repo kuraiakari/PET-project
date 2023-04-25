@@ -30,7 +30,6 @@ const DetailProduct = () => {
   const ascending = () => {
     setQuantity(quantity + 1)
   }
-  console.log(productDetail)
   const dispatch = useDispatch()
   // if (productDetail) console.log(productDetail[0])
   const handleAddCart = () => {

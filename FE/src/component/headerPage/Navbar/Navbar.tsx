@@ -58,6 +58,7 @@ function NavbarPage() {
 
   //get id user
   const idUser = useSelector((state: any) => state.user.idUser)
+  const isAdmin = useSelector((state: any) => state.user.isAdmin)
   const dispatch = useDispatch()
   useEffect(() => {
     if (idUser) setIsPerson(true)
@@ -96,7 +97,10 @@ function NavbarPage() {
   const handleSignOut = () => {
     if (location.pathname === '/cart' || location.pathname === '/history' || location.pathname === '/profile')
       navigate('')
-    const data = ''
+    const data = {
+      idUser: '',
+      isAdmin: false
+    }
     dispatch(addIdUser(data))
     dispatch(removeAllProduct())
   }
@@ -159,6 +163,7 @@ function NavbarPage() {
                         <NavDropdown title='Have Account' id={`offcanvasNavbarDropdown-expand-${expand}`}>
                           <NavDropdown.Item onClick={handleMoveProfile}>Personal</NavDropdown.Item>
                           <NavDropdown.Item onClick={handleMoveHistory}>History</NavDropdown.Item>
+                          {isAdmin && <NavDropdown.Item>My shop</NavDropdown.Item>}
                           <NavDropdown.Divider />
                           <NavDropdown.Item onClick={handleSignOut}>Logout</NavDropdown.Item>
                         </NavDropdown>

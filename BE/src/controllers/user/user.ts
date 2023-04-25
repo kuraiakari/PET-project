@@ -35,7 +35,11 @@ class UserControllers {
         const validPassword = await ValidatePassword(req.body.password, user.password, user.salt)
         if (validPassword) {
           const token = await GenerateSignature({ email: user.email, _id: user._id, isAdmin: user.isAdmin })
-          res.json({ token: token })
+          const dataUser = {
+            token,
+            isAdmin: user.isAdmin,
+          }
+          res.json(dataUser)
         } else res.json({ messageError: 'Incorrect password' })
       }
     })

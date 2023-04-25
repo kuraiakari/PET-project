@@ -60,7 +60,12 @@ function Modal({ turnOffSignIn, signIn }: any) {
           .then((response) => response.json())
           .then((data) => {
             if (data.token) {
-              dispatch(addIdUser(data.token))
+              const inforUser = {
+                idUser: data.token,
+                isAdmin: data.isAdmin
+              }
+              console.log(inforUser)
+              dispatch(addIdUser(inforUser))
               setMessErrorServer('')
               turnOffSignIn()
             } else {
