@@ -112,7 +112,7 @@ class ProductsControllers {
     const productList = await products.findOne({ _id: req.params.id })
     if (productList) {
       stores.findOne({ nameStore: productList.store, shopOwner: req.user.email }).exec(async (err: any, store: any) => {
-        console.log(store)
+        // console.log(store)
         if (store) {
           products.deleteOne({ _id: req.params.id }, function (err: any, products: any) {
             if (err) res.json({ messageError: 'Delete Failure' })

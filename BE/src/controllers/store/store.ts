@@ -9,18 +9,24 @@ import products from '../../database/models/products'
 class StoreControllers {
   getAll(req: Request, res: Response) {
     stores.find({}).exec(function (err: any, store: any) {
-      if (!err) res.json(store)
+      if (!err) {
+      if(store) res.json(store)
+      else res.status(400).json({ messageError: 'Not found store' })
+      }
       else res.json(err)
     })
   }
   getStore(req: Request, res: Response) {
-    stores.findOne({ _id: req.params.id }).exec(function (err: any, store: any) {
-      if (err) res.status(400).json(err)
-      else {
-        if (store) res.status(500).json(store)
-        else res.status(400).json({ messageError: 'Not found store' })
-      }
-    })
+    // console.log(req.params.id, req.body.nameStore)
+    stores
+      .findOne({ $or: [{ _id: req.params.id }, { nameStore: req.body.nameStore }] })
+      .exec(function (err: any, store: any) {
+        if (err) res.status(400).json({ messageError: 'Not found store' })
+        else {
+          if (store) res.status(500).json(store)
+          else res.status(400).json({ messageError: 'Not found store' })
+        }
+      })
   }
   async update(req: any, res: Response) {
     let img = ''
@@ -93,22 +99,24 @@ class StoreControllers {
     ;(req.files as []).forEach((file) => {
       img += file['path'] + ','
     })
-    const data = {
+    const dataShop = {
       ...req.body,
       imgStore: img,
       shopOwner: req.user.email
     }
-    stores.create(data, function (err: any, store: any) {
-      if (err) res.json({ messageError: 'Other store name' })
-      else {
-        users.findOne({ _id: req.user._id }, async function (err: any, user: any) {
-          user.myShop.push(store._id)
-          users.updateOne({ _id: req.user._id }, user).exec((err: any, user: any) => {
-            if (err) res.json({ messageError: 'Other email' })
-          })
+    users.findOne({ _id: req.user._id }, async function (err: any, user: any) {
+      if (!user.myShop) {
+        stores.create(dataShop, function (err: any, store: any) {
+          if (err) res.json({ messageError: 'Other store name' })
+          else {
+            user.myShop = store._id
+            users.updateOne({ _id: req.user._id }, user).exec((err: any, user: any) => {
+              if (err) return res.json({ messageError: 'Have error when create shop' })
+            })
+            res.json(store)
+          }
         })
-        res.json(store)
-      }
+      } else res.json({ messageError: '1 account have only 1 shop' })
     })
   }
   storage = multer.diskStorage({

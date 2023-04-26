@@ -6,6 +6,17 @@
   overflow: hidden;
   margin-bottom: 8px;
 }
+.createproduct {
+  display: block;
+  text-decoration: none;
+  border-radius: 8px;
+  background-color: #fff;
+  overflow: hidden;
+  margin-bottom: 8px;
+  height: 342px;
+  width: 100%;
+}
+
 .imgProduct {
   width: 100%;
   height: 16rem;
@@ -14,6 +25,7 @@
   margin: 0 12px;
   padding: 8px 0;
   line-height: 1.15;
+  min-height: 86px;
 }
 .nameProduct {
   min-height: 36px;

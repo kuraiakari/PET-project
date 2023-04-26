@@ -33,7 +33,7 @@ const users = new Schema(
       type: Boolean,
       default: false
     },
-    myShop: [],
+    myShop: String,
     listOrder: [],
     listLikeProduct: [],
     createdAt: { type: Date, default: Date.now },

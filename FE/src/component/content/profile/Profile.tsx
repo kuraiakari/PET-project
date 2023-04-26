@@ -39,7 +39,7 @@ const Profile = () => {
       .then((data) => {
         setInforUser(data)
       })
-  }, [])
+  }, [idUser])
   //handleSaveInformations
   const handleSaveInformations = (e: any) => {
     e.preventDefault()

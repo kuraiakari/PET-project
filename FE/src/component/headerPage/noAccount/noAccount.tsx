@@ -62,9 +62,11 @@ function Modal({ turnOffSignIn, signIn }: any) {
             if (data.token) {
               const inforUser = {
                 idUser: data.token,
-                isAdmin: data.isAdmin
+                isAdmin: data.isAdmin,
+                myShop: data.myShop,
+                listLikeProduct: []
               }
-              console.log(inforUser)
+              // console.log(inforUser)
               dispatch(addIdUser(inforUser))
               setMessErrorServer('')
               turnOffSignIn()

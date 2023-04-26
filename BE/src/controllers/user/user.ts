@@ -35,9 +35,12 @@ class UserControllers {
         const validPassword = await ValidatePassword(req.body.password, user.password, user.salt)
         if (validPassword) {
           const token = await GenerateSignature({ email: user.email, _id: user._id, isAdmin: user.isAdmin })
+          // console.log(user)
           const dataUser = {
             token,
             isAdmin: user.isAdmin,
+            myShop: user.myShop,
+            listLikeProduct: user.listLikeProduct
           }
           res.json(dataUser)
         } else res.json({ messageError: 'Incorrect password' })
@@ -80,9 +83,11 @@ class UserControllers {
       else {
         users.findOne({ _id: req.user._id }, async function (err: any, user: any) {
           let check = 0
+          //check xem sản phẩm đã tồn tại trong list yêu thích hay chưa
           await user.listLikeProduct.forEach((product: any, index: any) => {
             if (product._id.toString() === req.body.id_product) {
               user.listLikeProduct.splice(index, 1)
+              res.json('Delete like successfully')
               check += 1
             }
           })

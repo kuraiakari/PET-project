@@ -8,6 +8,7 @@ import DetailProduct from './component/content/detailProduct/DetailProduct'
 import Cart from './component/content/cart/Cart'
 import History from './component/content/history/history'
 import Profile from './component/content/profile/Profile'
+import MyShop from './component/content/myShop/MyShop'
 
 import './App.css'
 function App() {
@@ -28,7 +29,7 @@ function App() {
       <div className='fullweb'>
         <div className='container'>
           <Headerpage />
-          <div className='row'>
+          <div className='row contentPage'>
             <Routes>
               <Route path='/' element={<Home />}>
                 {/* nên để đường dẫn cha có kí tự không để rỗng*/}
@@ -38,6 +39,7 @@ function App() {
               <Route path='/cart' element={<Cart />} />
               <Route path='/history' element={<History />} />
               <Route path='/profile' element={<Profile />} />
+              <Route path='/myshop' element={<MyShop />} />
             </Routes>
           </div>
         </div>
