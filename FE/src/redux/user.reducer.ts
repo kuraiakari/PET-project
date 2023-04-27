@@ -8,9 +8,9 @@ interface initalState {
 }
 
 const initalState = {
-  idUser: '',
-  isAdmin: false,
-  myShop: '',
+  idUser: localStorage.getItem('token') ? localStorage.getItem('token') : '',
+  isAdmin: localStorage.getItem('isAdmin') ? localStorage.getItem('isAdmin') : false,
+  myShop: localStorage.getItem('myShop') ? localStorage.getItem('myShop') : '',
   listLikeProduct: []
 }
 export const addIdUser = createAction<initalState>('user/iduser')

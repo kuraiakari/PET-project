@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 interface nameStore {
   nameStore: string
   handleCloseModalCreateProduct: any
@@ -41,13 +41,14 @@ export default function CreateProduct({ nameStore, handleCloseModalCreateProduct
           Authorization: `Bearer ${idUser}`
         },
         body: formData
-      }).then(response => response.json())
-      .then(data => {
-        if (data === 'Create successfully'){
-          handleCloseModalCreateProduct()
-          navigate('/myShop')
-        }
       })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data === 'Create successfully') {
+            handleCloseModalCreateProduct()
+            navigate(0)
+          }
+        })
     }
   }
 

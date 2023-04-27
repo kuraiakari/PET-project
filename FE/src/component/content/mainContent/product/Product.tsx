@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import * as Icon from 'react-bootstrap-icons'
-import { Button, Modal } from 'react-bootstrap'
+import { Modal } from 'react-bootstrap'
 
 import { product } from 'src/types/product.type'
 import CreateProduct from '../../myShop/createProduct'
@@ -60,7 +60,10 @@ const Product = (props: ProductItem) => {
             <Modal.Title>Create New Product</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <CreateProduct nameStore={props.product.store} handleCloseModalCreateProduct={handleCloseModalCreateProduct} />
+            <CreateProduct
+              nameStore={props.product.store}
+              handleCloseModalCreateProduct={handleCloseModalCreateProduct}
+            />
           </Modal.Body>
         </Modal>
       </>

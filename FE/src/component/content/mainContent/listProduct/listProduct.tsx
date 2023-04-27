@@ -5,9 +5,9 @@ import './listProduct.css'
 import Product from '../product/Product'
 import { product } from 'src/types/product.type'
 const ListProduct = () => {
-  const [searchProduct, setsearchProduct] = useSearchParams()
+  const [searchProduct] = useSearchParams()
   const [quantity, setQuantity] = useState(12)
-  const [loading, setLoading] = useState(false)
+  // const [loading, setLoading] = useState(false)
   const nameProduct = searchProduct.get('name') || ''
   const sortProduct = searchProduct.get('sorting') || ''
   const [listProduct, setListProduct] = useState<any[]>([])
@@ -29,7 +29,7 @@ const ListProduct = () => {
         <div className='listProduct'>
           {listProduct &&
             listProduct.map((product: product, index: number) => {
-              if (index < quantity) return <Product key={product._id} product={product} />
+              if (index < quantity) return <Product key={product._id} product={product} createProduct={false} />
             })}
         </div>
         {listProduct?.length > quantity ? (

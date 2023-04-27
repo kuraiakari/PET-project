@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { Col, Row } from 'react-bootstrap'
 import imgStoreError from './avatar.webp'
 import './myShop.css'
+import './loader.css'
 import Product from '../mainContent/product/Product'
 import { product } from 'src/types/product.type'
 interface inforShop {
@@ -13,10 +14,15 @@ interface inforShop {
 const MyShop = () => {
   const [inforShop, setInforShop] = useState<inforShop>()
   const myshop = useSelector((state: any) => state.user.myShop)
+  // console.log(inforShop)
   useEffect(() => {
     fetch(`http://localhost:3000/v1/store/${myshop}`)
       .then((response) => response.json())
-      .then((data) => setInforShop(data))
+      .then((data) => {
+        setTimeout(() => {
+          setInforShop(data)
+        }, 1000)
+      })
   }, [myshop])
   // if (inforShop) console.log(inforShop)
   return (
@@ -45,10 +51,15 @@ const MyShop = () => {
           </Row>
           <h2 className='pt-4 ps-4'>List product:</h2>
           <div className='listProduct'>
+            {!inforShop && (
+              <div className='loader-wrapper pt-5'>
+                <div className='loader'></div>
+              </div>
+            )}
             {inforShop?.listProducts?.map((product: product) => {
               return <Product key={product._id} product={product} createProduct={false} />
             })}
-            <Product product={{store: inforShop?.nameStore} as product} createProduct={true} />
+            {inforShop && <Product product={{ store: inforShop?.nameStore } as product} createProduct={true} />}
           </div>
         </>
       )}

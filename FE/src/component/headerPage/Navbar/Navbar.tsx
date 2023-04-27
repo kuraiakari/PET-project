@@ -116,6 +116,7 @@ function NavbarPage() {
     }
     dispatch(addIdUser(data))
     dispatch(removeAllProduct())
+    localStorage.clear()
   }
   return (
     <>

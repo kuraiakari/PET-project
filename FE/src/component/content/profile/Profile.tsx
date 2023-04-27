@@ -83,8 +83,7 @@ const Profile = () => {
       body: formData
     })
       .then((response) => response.json())
-      .then((data) => {
-        // console.log(data)
+      .then(() => {
         naigate('/')
       })
   }

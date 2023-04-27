@@ -15,7 +15,7 @@ const orderReducer = createReducer(initalState, (builder) => {
     .addCase(removeProduct, (initalState, action) => {
       initalState.orderlist.splice(action.payload, 1)
     })
-    .addCase(removeAllProduct, (initalState, action) => {
+    .addCase(removeAllProduct, (initalState) => {
       initalState.orderlist.splice(0)
     })
 })
