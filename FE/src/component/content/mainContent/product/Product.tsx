@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import * as Icon from 'react-bootstrap-icons'
+import { Button, Modal } from 'react-bootstrap'
 
 import { product } from 'src/types/product.type'
+import CreateProduct from '../../myShop/createProduct'
 import './product.css'
 import create from './create.png'
 interface ProductItem {
@@ -10,8 +12,12 @@ interface ProductItem {
   createProduct: boolean
 }
 const Product = (props: ProductItem) => {
+  const [show, setShow] = useState(false)
+  const handleCloseModalCreateProduct = () => setShow(false)
+  const handleShowModalCreateProduct = () => setShow(true)
   if (!props.createProduct) {
     const { product } = props
+    // console.log(product.store)
     const listImageProduct = product.imageProduct.split(',')
     return (
       <>
@@ -40,14 +46,23 @@ const Product = (props: ProductItem) => {
       </>
     )
   } else {
+    // console.log(props.product)
     return (
       <>
         <div className='col-xl-3 ps-2 pe-2'>
-          <button className='createproduct shadow-sm border border-white'>
+          <button className='createproduct shadow-sm border border-white' onClick={handleShowModalCreateProduct}>
             <img src={create} alt='product' className='imgProduct' />
             <div className='titleProduct d-flex align-items-center justify-content-center'>Create New Product</div>
           </button>
         </div>
+        <Modal show={show} onHide={handleCloseModalCreateProduct}>
+          <Modal.Header closeButton>
+            <Modal.Title>Create New Product</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <CreateProduct nameStore={props.product.store} handleCloseModalCreateProduct={handleCloseModalCreateProduct} />
+          </Modal.Body>
+        </Modal>
       </>
     )
   }

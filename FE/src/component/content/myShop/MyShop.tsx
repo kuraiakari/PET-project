@@ -48,7 +48,7 @@ const MyShop = () => {
             {inforShop?.listProducts?.map((product: product) => {
               return <Product key={product._id} product={product} createProduct={false} />
             })}
-            <Product product={{} as product} createProduct={true} />
+            <Product product={{store: inforShop?.nameStore} as product} createProduct={true} />
           </div>
         </>
       )}

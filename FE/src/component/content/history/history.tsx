@@ -17,7 +17,7 @@ const History = () => {
     })
       .then((response) => response.json())
       .then((data) => setListOrder(data.listOrder))
-  }, [])
+  }, [idUser])
   return (
     <>
       <div className='headerHistory'>

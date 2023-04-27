@@ -5,4 +5,5 @@ export interface product {
   ratingProduct: number
   priceProduct: number
   promotionProduct: number
+  store: string
 }

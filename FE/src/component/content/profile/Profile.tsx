@@ -69,7 +69,7 @@ const Profile = () => {
         })
     }
   }
-  //handleSave
+  //handleSaveImg
   const handleSaveImage = (e: any) => {
     e.preventDefault()
     e.stopPropagation()
@@ -84,7 +84,7 @@ const Profile = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        // console.log(data)
         naigate('/')
       })
   }

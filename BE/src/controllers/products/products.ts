@@ -57,6 +57,7 @@ class ProductsControllers {
         lastPriceProduct: req.body.priceProduct - (req.body.priceProduct * req.body.promotionProduct) / 100
         //lam tron
       }
+      // console.log(dataProduct.store)
       const handleSave = stores
         .findOne({ nameStore: dataProduct.store, shopOwner: req.user.email })
         .exec(async (err: any, store: any) => {
