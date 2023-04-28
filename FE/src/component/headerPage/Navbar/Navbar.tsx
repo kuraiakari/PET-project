@@ -110,12 +110,14 @@ function NavbarPage() {
       navigate('')
     const data = {
       idUser: '',
+      id: '',
       isAdmin: false,
       myShop: '',
       listLikeProduct: []
     }
     dispatch(addIdUser(data))
     dispatch(removeAllProduct())
+    navigate(0)
     localStorage.clear()
   }
   return (

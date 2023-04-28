@@ -62,12 +62,14 @@ function Modal({ turnOffSignIn, signIn }: any) {
             if (data.token) {
               const inforUser = {
                 idUser: data.token,
+                id: data.id,
                 isAdmin: data.isAdmin,
                 myShop: data.myShop,
                 listLikeProduct: []
               }
               // console.log(inforUser)
               localStorage.setItem('token', data.token)
+              localStorage.setItem('id', data.id)
               localStorage.setItem('isAdmin', data.isAdmin)
               localStorage.setItem('myShop', data.myShop)
               dispatch(addIdUser(inforUser))

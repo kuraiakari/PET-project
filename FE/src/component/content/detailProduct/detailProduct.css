@@ -40,9 +40,9 @@
   height: 470px;
 }
 .infoDetailProduct {
-  margin-left: 8px;
+  margin-left: 12px;
   background-color: #fff;
-  padding: 16px 12px;
+  padding: 16px 20px;
 }
 .nameStoreDetailProduct {
   margin: 0px;
@@ -52,15 +52,16 @@
   line-height: 20px;
 }
 .nameDetailProduct {
-  margin: 16px 0px 16px;
   color: rgb(36, 36, 36);
   font-size: 24px;
   font-weight: 400;
   line-height: 32px;
   word-break: break-word;
-  border-top: 1px solid rgb(242, 242, 242);
   padding: 16px 0;
-  border-bottom: 1px solid rgb(242, 242, 242);
+}
+.ratingProduct {
+  font-family: sans-serif;
+  line-height: normal;
 }
 .priceDetailProduct {
   display: flex;
@@ -128,3 +129,11 @@
   align-items: center;
 }
 
+.reviewcustomer {
+  background-color: #fff;
+}
+.avatarUserComment {
+  width: 5em;
+  height: 5em;
+  border-radius: 50%;
+}

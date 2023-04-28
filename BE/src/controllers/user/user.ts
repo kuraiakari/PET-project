@@ -6,7 +6,6 @@ import { GenerateSalt, GeneratePassword, ValidatePassword, GenerateSignature } f
 import users from '../../database/models/user'
 import products from '../../database/models/products'
 import stores from '../../database/models/stores'
-import { error } from 'console'
 
 class UserControllers {
   async create(req: any, res: any) {
@@ -39,6 +38,7 @@ class UserControllers {
           // console.log(user)
           const dataUser = {
             token,
+            id: user._id,
             isAdmin: user.isAdmin,
             myShop: user.myShop,
             listLikeProduct: user.listLikeProduct

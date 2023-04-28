@@ -4,6 +4,7 @@ import path from 'path'
 
 import products from '../../database/models/products'
 import stores from '../../database/models/stores'
+import users from '../../database/models/user'
 
 interface products {
   nameProduct: string
@@ -54,7 +55,8 @@ class ProductsControllers {
       const dataProduct = {
         ...(req.body as products),
         imageProduct: img,
-        lastPriceProduct: req.body.priceProduct -  Math.round((req.body.priceProduct * req.body.promotionProduct) / 100)
+        totalRating: 0,
+        lastPriceProduct: req.body.priceProduct - Math.round((req.body.priceProduct * req.body.promotionProduct) / 100)
         //product.priceProduct - Math.round((product.priceProduct * product.promotionProduct) / 100)
         //lam tron
       }
@@ -97,7 +99,10 @@ class ProductsControllers {
         if (!store) res.status(404).json({ messageError: 'Not found store' })
         else {
           const createData = await products.findOne({ _id: req.params.id, store: dataProduct.store })
-          dataProduct = { ...dataProduct, amountProduct: Number(createData?.amountProduct) + Number(dataProduct.amountProduct)}
+          dataProduct = {
+            ...dataProduct,
+            amountProduct: Number(createData?.amountProduct) + Number(dataProduct.amountProduct)
+          }
           const data = await products.updateOne({ _id: req.params.id, store: dataProduct.store }, dataProduct)
           if (!data.matchedCount) res.status(404).json({ messageError: 'Not found product' })
           else {
@@ -159,6 +164,51 @@ class ProductsControllers {
       cb(null, true)
     }
   }).array('imageProduct', 3)
+  async review(req: any, res: any) {
+    try {
+      // console.log(req.user._id, req.body)
+      const product = await products.findOne({ _id: req.body.idProduct })
+      if (product) {
+        if (!product.totalRating) product.totalRating = 0
+        let checkUserWasReview = false
+        product.quantityReview.forEach((review: any) => {
+          if (review.userId === req.user._id) {
+            checkUserWasReview = true
+            product.totalRating = Number(product.totalRating) - review.rating
+            review.rating = req.body.rating
+            product.totalRating += req.body.rating
+            product.ratingProduct = Number((product.totalRating / product.quantityReview.length).toFixed(1))
+          }
+        })
+        if (!checkUserWasReview) {
+          const data = {
+            userId: req.user._id,
+            rating: req.body.rating
+          }
+          product.totalRating += req.body.rating
+          product.quantityReview.push(data)
+          product.ratingProduct = Number((product.totalRating / product.quantityReview.length).toFixed(1))
+        }
+        if (req.body.comment) {
+          const user = await users.findOne({ _id: req.user._id })
+          if (user) {
+            const avatar = user.avatar
+            const date = new Date()
+            const data = {
+              date,
+              user: avatar,
+              comment: req.body.comment
+            }
+            product.comments.push(data)
+          }
+        }
+        const dataUpdate = await products.updateOne({ _id: req.body.idProduct }, product)
+        res.status(201).json('Update successfully')
+      }
+    } catch (err) {
+      console.log(err)
+    }
+  }
 }
 
 export default ProductsControllers
