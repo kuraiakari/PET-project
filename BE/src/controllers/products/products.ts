@@ -54,7 +54,8 @@ class ProductsControllers {
       const dataProduct = {
         ...(req.body as products),
         imageProduct: img,
-        lastPriceProduct: req.body.priceProduct - (req.body.priceProduct * req.body.promotionProduct) / 100
+        lastPriceProduct: req.body.priceProduct -  Math.round((req.body.priceProduct * req.body.promotionProduct) / 100)
+        //product.priceProduct - Math.round((product.priceProduct * product.promotionProduct) / 100)
         //lam tron
       }
       // console.log(dataProduct.store)

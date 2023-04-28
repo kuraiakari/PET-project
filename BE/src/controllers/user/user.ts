@@ -6,6 +6,7 @@ import { GenerateSalt, GeneratePassword, ValidatePassword, GenerateSignature } f
 import users from '../../database/models/user'
 import products from '../../database/models/products'
 import stores from '../../database/models/stores'
+import { error } from 'console'
 
 class UserControllers {
   async create(req: any, res: any) {
@@ -121,7 +122,6 @@ class UserControllers {
       listProducts: []
     }
     const listProducts: any[] = []
-    let checkAmount = false
 
     //sort product same in listProducts
     const idOfProduct = [...new Set(req.body.products.map((product: any) => product.idProduct))]
@@ -165,14 +165,12 @@ class UserControllers {
             const dataProduct = { ...oldProduct._doc, amountProduct: oldProduct.amountProduct - product.amount }
             const dataTest = await products.updateOne({ _id: product.idProduct }, dataProduct)
             if (!dataTest.matchedCount) {
-              checkAmount = true
               res.status(404).json({ messageError: 'Not found product' })
             }
             await stores
               .findOne({ nameStore: dataProduct.store }, async (err: any, store: any) => {
                 // console.log('ban dau:', store)
                 if (!store) {
-                  checkAmount = true
                   res.status(404).json({ messageError: 'Not found store' })
                 } else {
                   await store.listProducts.forEach((productStore: any, index: any) => {
@@ -199,6 +197,7 @@ class UserControllers {
     await users
       .findOne({ _id: req.user._id }, async function (err: any, user: any) {
         if (err) console.log(err)
+        user.listProductWasBuy = [...new Set([...user.listProductWasBuy, ...idOfProduct])]
         user.listOrder.push(order)
         await users.updateOne({ _id: req.user._id }, user)
         res.json('Create new order successfully')
@@ -207,6 +206,21 @@ class UserControllers {
       .catch(function (err) {
         console.log(err)
       })
+  }
+  async checkWasBuy(req: any, res: any) {
+    try {
+      const data = await users.findOne({ _id: req.user._id })
+      if (data) {
+        const index = data.listProductWasBuy.indexOf(req.body.idProduct)
+        if (index > -1) {
+          res.json('Was buy product')
+        } else {
+          res.json('Not was buy product')
+        }
+      }
+    } catch (err) {
+      console.log(err)
+    }
   }
   storage = multer.diskStorage({
     destination: (req, file, cb) => {

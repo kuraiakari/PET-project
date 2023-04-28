@@ -36,6 +36,7 @@ const users = new Schema(
     myShop: String,
     listOrder: [],
     listLikeProduct: [],
+    listProductWasBuy: [],
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
   },
