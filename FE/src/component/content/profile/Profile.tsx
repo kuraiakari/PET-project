@@ -45,7 +45,10 @@ const Profile = () => {
     e.preventDefault()
     e.stopPropagation()
     if (!inforUser?.firstName || !inforUser?.lastName || !inforUser?.phoneUser || !inforUser?.gender) {
-      setValidated(true)
+      if(!firstNameUser || !lastNameUser || !phoneUser || !genderUser) {
+        setValidated(true)
+        return
+      }
     }
     if (firstNameUser || lastNameUser || phoneUser || genderUser) {
       const data = {
@@ -64,7 +67,7 @@ const Profile = () => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data)
+          // console.log(data)
           navigate(0)
         })
     }
