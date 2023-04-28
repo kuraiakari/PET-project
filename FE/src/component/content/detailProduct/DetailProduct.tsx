@@ -7,13 +7,23 @@ import * as Icon from 'react-bootstrap-icons'
 import { addProduct } from '../../../redux/cart.reducer'
 import { order } from 'src/types/order.type'
 import './detailProduct.css'
+import { Modal } from 'react-bootstrap'
+import EditProduct from './editProduct'
 
 const DetailProduct = () => {
   const { idProduct } = useParams()
   const [indexImg, setIndexImg] = useState(0)
   const [productDetail, setProductDetail] = useState<any[]>()
+  const [checkNameStore, setCheckNameStore] = useState('')
   const [quantity, setQuantity] = useState(1)
   const idUser = useSelector((state: any) => state.user.idUser)
+  const myShop = useSelector((state: any) => state.user.myShop)
+
+  //modal edit product
+  const [show, setShow] = useState(false)
+  const handleCloseModalEditProduct = () => setShow(false)
+  const handleShowModalEditProduct = () => setShow(true)
+
   useEffect(() => {
     fetch(`http://localhost:3000/v1/products/${idProduct}`)
       .then((response) => response.json())
@@ -21,7 +31,12 @@ const DetailProduct = () => {
         if (data.messageError) setProductDetail(undefined)
         else setProductDetail(data)
       })
-  }, [idProduct])
+    fetch(`http://localhost:3000/v1/store/${myShop}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCheckNameStore(data.nameStore)
+      })
+  }, [idProduct, myShop])
   let listImageProduct = ''
   if (productDetail) listImageProduct = productDetail[0].imageProduct.split(',')
   const decrease = () => {
@@ -136,10 +151,30 @@ const DetailProduct = () => {
                 </div>
               </div>
             </div>
-            <Button onClick={handleAddCart} disabled={idUser && productDetail[0].amountProduct !== 0 ? false : true}>
-              {' '}
-              Add to cart{' '}
-            </Button>
+            {productDetail[0].store !== checkNameStore ? (
+              <Button onClick={handleAddCart} disabled={idUser && productDetail[0].amountProduct !== 0 ? false : true}>
+                Add to cart
+              </Button>
+            ) : (
+              <>
+                <Button onClick={handleShowModalEditProduct}>Edit</Button>
+                <Modal show={show} onHide={handleCloseModalEditProduct}>
+                  <Modal.Header closeButton>
+                    <Modal.Title>Edit Information Product</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <EditProduct
+                      idProduct={productDetail[0]._id}
+                      priceProduct={productDetail[0].priceProduct}
+                      promotionProduct={productDetail[0].promotionProduct}
+                      amountProduct={productDetail[0].amountProduct}
+                      store={productDetail[0].store}
+                      handleCloseModalEditProduct={handleCloseModalEditProduct}
+                    />
+                  </Modal.Body>
+                </Modal>
+              </>
+            )}
             {!idUser && <div style={{ color: 'rgb(255, 66, 78)' }}> Please login before adding products to cart</div>}
           </div>
         </div>

@@ -78,21 +78,25 @@ class ProductsControllers {
     let dataProduct = {
       ...req.body
     }
-    if (req.files.length > 0) {
-      ;(req.files as []).forEach((file) => {
-        img += file['path'] + ','
-      })
-      dataProduct = {
-        ...dataProduct,
-        imageProduct: img
+    if (req.files) {
+      if (req.files.length > 0) {
+        ;(req.files as []).forEach((file) => {
+          img += file['path'] + ','
+        })
+        dataProduct = {
+          ...dataProduct,
+          imageProduct: img
+        }
+        // console.log(req.files)
       }
-      // console.log(req.files)
     }
     const handleSave = stores
       .findOne({ nameStore: dataProduct.store, shopOwner: req.user.email })
       .exec(async (err: any, store: any) => {
         if (!store) res.status(404).json({ messageError: 'Not found store' })
         else {
+          const createData = await products.findOne({ _id: req.params.id, store: dataProduct.store })
+          dataProduct = { ...dataProduct, amountProduct: Number(createData?.amountProduct) + Number(dataProduct.amountProduct)}
           const data = await products.updateOne({ _id: req.params.id, store: dataProduct.store }, dataProduct)
           if (!data.matchedCount) res.status(404).json({ messageError: 'Not found product' })
           else {

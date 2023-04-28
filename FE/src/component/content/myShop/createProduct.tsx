@@ -66,12 +66,26 @@ export default function CreateProduct({ nameStore, handleCloseModalCreateProduct
       </Form.Group>
       <Form.Group className='mb-3'>
         <Form.Label>Price product</Form.Label>
-        <Form.Control required type='number' min={0} onChange={(e: any) => setPriceProduct(e.target.value)} />
+        <Form.Control
+          required
+          type='number'
+          min={0}
+          onChange={(e: any) => {
+            if (e.target.value >= 0) setPriceProduct(e.target.value)
+          }}
+        />
         <Form.Control.Feedback type='invalid'>Please input value</Form.Control.Feedback>
       </Form.Group>
       <Form.Group className='mb-3'>
         <Form.Label>Amount product</Form.Label>
-        <Form.Control required type='number' min={0} onChange={(e: any) => setAmountProduct(e.target.value)} />
+        <Form.Control
+          required
+          type='number'
+          min={0}
+          onChange={(e: any) => {
+            if (e.target.value >= 0) setAmountProduct(e.target.value)
+          }}
+        />
         <Form.Control.Feedback type='invalid'>Please input value</Form.Control.Feedback>
       </Form.Group>
       <Form.Group className='mb-3'>
@@ -80,7 +94,9 @@ export default function CreateProduct({ nameStore, handleCloseModalCreateProduct
           type='number'
           defaultValue={0}
           min={0}
-          onChange={(e: any) => setPromotionProduct(e.target.value)}
+          onChange={(e: any) => {
+            if (e.target.value >= 0) setPromotionProduct(e.target.value)
+          }}
         />
       </Form.Group>
       <Form.Group className='mb-3'>

@@ -24,7 +24,7 @@ const Profile = () => {
   const [genderUser, setGenderUSer] = useState()
 
   const [validated, setValidated] = useState(false)
-  const naigate = useNavigate()
+  const navigate = useNavigate()
   //handleGetInformationsUser
   useEffect(() => {
     fetch('http://localhost:3000/v1/user/profile', {
@@ -65,7 +65,7 @@ const Profile = () => {
         .then((response) => response.json())
         .then((data) => {
           console.log(data)
-          naigate('/')
+          navigate(0)
         })
     }
   }
@@ -84,7 +84,7 @@ const Profile = () => {
     })
       .then((response) => response.json())
       .then(() => {
-        naigate('/')
+        navigate(0)
       })
   }
   return (
