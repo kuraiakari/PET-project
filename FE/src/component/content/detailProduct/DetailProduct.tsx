@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import { useDispatch, useSelector } from 'react-redux'
 import * as Icon from 'react-bootstrap-icons'
@@ -18,12 +18,7 @@ const DetailProduct = () => {
   const [quantity, setQuantity] = useState(1)
   const idUser = useSelector((state: any) => state.user.idUser)
   const myShop = useSelector((state: any) => state.user.myShop)
-
-  //modal edit product
-  const [show, setShow] = useState(false)
-  const handleCloseModalEditProduct = () => setShow(false)
-  const handleShowModalEditProduct = () => setShow(true)
-
+  const navigate = useNavigate()
   useEffect(() => {
     fetch(`http://localhost:3000/v1/products/${idProduct}`)
       .then((response) => response.json())
@@ -62,7 +57,26 @@ const DetailProduct = () => {
       dispatch(addProduct(data))
     }
   }
-
+  //handle edit product
+  const [show, setShow] = useState(false)
+  const handleCloseModalEditProduct = () => setShow(false)
+  const handleShowModalEditProduct = () => setShow(true)
+  //handle delete product
+  const handleDeleteProduct = () => {
+    fetch(`http://localhost:3000/v1/products/delete/${idProduct}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${idUser}`
+      }
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data === 'Delete successfully') {
+          navigate('/myshop')
+        }
+      })
+  }
   return (
     <>
       {productDetail === undefined && <div>Not found product</div>}
@@ -158,6 +172,9 @@ const DetailProduct = () => {
             ) : (
               <>
                 <Button onClick={handleShowModalEditProduct}>Edit</Button>
+                <Button onClick={handleDeleteProduct} className='ms-3'>
+                  DeleteProduct
+                </Button>
                 <Modal show={show} onHide={handleCloseModalEditProduct}>
                   <Modal.Header closeButton>
                     <Modal.Title>Edit Information Product</Modal.Title>
