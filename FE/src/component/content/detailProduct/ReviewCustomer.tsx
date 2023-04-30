@@ -1,7 +1,6 @@
 import React from 'react'
 import avatarError from './avatar.webp'
 const Item = ({ comment }: any) => {
-  console.log(comment)
   const date = new Date(comment.date)
   const monthNames = [
     'January',

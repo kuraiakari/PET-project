@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-const ProductInHistory = ({ product, soluong }: any) => {
+import RatingOfProduct from '../detailProduct/ratingOfProduct'
+const ProductInHistory = ({ product, soluong, idUser }: any) => {
   const imgProduct = product.productOrder.imageProduct.split(',')[0]
   return (
     <div>
@@ -12,7 +13,14 @@ const ProductInHistory = ({ product, soluong }: any) => {
             <img className='imgProductInCart' src={'http://localhost:3000/' + imgProduct} alt='img product' />
           </div>
           <div className='col-xl-2 d-flex justify-content-center'>{product.productOrder.lastPriceProduct}</div>
-          <div className='col-xl-3 d-flex justify-content-center'></div>
+          <div className='col-xl-3 d-flex justify-content-center'>
+            <RatingOfProduct
+              idUser={idUser}
+              idProduct={product.productOrder.idProduct}
+              ratingProduct={product.productOrder.ratingProduct}
+              read={true}
+            />
+          </div>
         </Link>
       </>
     </div>

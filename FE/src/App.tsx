@@ -11,6 +11,7 @@ import Profile from './component/content/profile/Profile'
 import MyShop from './component/content/myShop/MyShop'
 
 import './App.css'
+import LikeProducts from './component/content/likeProducts/likeProducts'
 function App() {
   const Home = () => {
     return (
@@ -39,6 +40,7 @@ function App() {
               <Route path='/cart' element={<Cart />} />
               <Route path='/history' element={<History />} />
               <Route path='/profile' element={<Profile />} />
+              <Route path='/likes' element={<LikeProducts />} />
               <Route path='/myshop' element={<MyShop />} />
             </Routes>
           </div>

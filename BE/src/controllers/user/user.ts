@@ -35,13 +35,17 @@ class UserControllers {
         const validPassword = await ValidatePassword(req.body.password, user.password, user.salt)
         if (validPassword) {
           const token = await GenerateSignature({ email: user.email, _id: user._id, isAdmin: user.isAdmin })
+          let listLikeProduct: any[] = []
+          user.listLikeProduct.forEach((product: any) => {
+            listLikeProduct.push(product._id)
+          }) 
           // console.log(user)
           const dataUser = {
             token,
             id: user._id,
             isAdmin: user.isAdmin,
             myShop: user.myShop,
-            listLikeProduct: user.listLikeProduct
+            listLikeProduct
           }
           res.json(dataUser)
         } else res.json({ messageError: 'Incorrect password' })
@@ -78,45 +82,48 @@ class UserControllers {
     })
   }
   async createLikeProduct(req: any, res: any) {
-    await products.findOne({ _id: req.body.id_product }, async (err: any, product: any) => {
-      if (err) res.json({ messageError: 'Not found product' })
-      if (!product) res.json({ messageError: 'Not found product' })
-      else {
-        users.findOne({ _id: req.user._id }, async function (err: any, user: any) {
-          let check = 0
-          //check xem sản phẩm đã tồn tại trong list yêu thích hay chưa
-          await user.listLikeProduct.forEach((product: any, index: any) => {
-            if (product._id.toString() === req.body.id_product) {
-              user.listLikeProduct.splice(index, 1)
-              res.json('Delete like successfully')
-              check += 1
+    await products
+      .findOne({ _id: req.body.id_product }, async (err: any, product: any) => {
+        if (err) res.json({ messageError: 'Not found product' })
+        if (!product) res.json({ messageError: 'Not found product' })
+        else {
+          users.findOne({ _id: req.user._id }, async function (err: any, user: any) {
+            let check = 0
+            //check xem sản phẩm đã tồn tại trong list yêu thích hay chưa
+            await user.listLikeProduct.forEach(async (product: any, index: any) => {
+              if (product._id.toString() === req.body.id_product) {
+                check += 1
+                await user.listLikeProduct.splice(index, 1)
+                await users.updateOne({ _id: req.user._id }, user)
+                res.json('Delete like successfully')
+              }
+            })
+            if (check === 0) {
+              await user.listLikeProduct.push(product)
+              await users.updateOne({ _id: req.user._id }, user)
+              res.json('Create like successfully')
             }
           })
-          if (check === 0) {
-            await user.listLikeProduct.push(product)
-            await users.updateOne({ _id: req.user._id }, user)
-            res.json('Create like successfully')
-          } else res.json({ messageError: 'Create like failed' })
-        })
-      }
-    })
-  }
-  async deleteLikeProduct(req: any, res: any) {
-    users.findOne({ _id: req.user._id }, async function (err: any, user: any) {
-      let check = 0
-      await user.listLikeProduct.forEach((product: any, index: any) => {
-        if (product._id.toString() === req.params.id) {
-          user.listLikeProduct.splice(index, 1)
-          check += 1
         }
       })
-      if (check === 0) res.json({ messageError: 'Not found product' })
-      if (check > 0) {
-        await users.updateOne({ _id: req.user._id }, user)
-        res.json('Delete successfully')
-      }
-    })
+      .clone()
   }
+  // async deleteLikeProduct(req: any, res: any) {
+  //   users.findOne({ _id: req.user._id }, async function (err: any, user: any) {
+  //     let check = 0
+  //     await user.listLikeProduct.forEach((product: any, index: any) => {
+  //       if (product._id.toString() === req.params.id) {
+  //         user.listLikeProduct.splice(index, 1)
+  //         check += 1
+  //       }
+  //     })
+  //     if (check === 0) res.json({ messageError: 'Not found product' })
+  //     if (check > 0) {
+  //       await users.updateOne({ _id: req.user._id }, user)
+  //       res.json('Delete successfully')
+  //     }
+  //   })
+  // }
   async createOrder(req: any, res: any) {
     const order = {
       listProducts: []

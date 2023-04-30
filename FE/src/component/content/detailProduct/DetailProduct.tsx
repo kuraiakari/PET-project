@@ -3,26 +3,29 @@ import { useNavigate, useParams } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import { useDispatch, useSelector } from 'react-redux'
 import * as Icon from 'react-bootstrap-icons'
-import { Rating } from '@mui/material'
 import { addProduct } from '../../../redux/cart.reducer'
 import { order } from 'src/types/order.type'
 import './detailProduct.css'
-import { Form, Modal } from 'react-bootstrap'
+import { Modal } from 'react-bootstrap'
 import EditProduct from './editProduct'
 import ReviewCustomer from './ReviewCustomer'
+import RatingOfProduct from './ratingOfProduct'
+import { addProductToListLikeProduct, removeProductToListLikeProduct } from '../../../redux/user.reducer'
 
 const DetailProduct = () => {
   const { idProduct } = useParams()
   const [indexImg, setIndexImg] = useState(0)
   const [wasBuy, setWasBuy] = useState(false)
   const [rating, setRating] = useState(0)
-  const [comment, setComment] = useState('')
   const [productDetail, setProductDetail] = useState<any[]>()
   const [checkNameStore, setCheckNameStore] = useState('')
   const [quantity, setQuantity] = useState(1)
   const idUser = useSelector((state: any) => state.user.idUser)
   const id = useSelector((state: any) => state.user.id)
   const myShop = useSelector((state: any) => state.user.myShop)
+  const listLikeProduct = useSelector((state: any) => state.user.listLikeProduct)
+  console.log(listLikeProduct)
+  const [like, setLike] = useState(listLikeProduct.includes(idProduct))
   const navigate = useNavigate()
   useEffect(() => {
     fetch(`http://localhost:3000/v1/products/${idProduct}`)
@@ -83,43 +86,36 @@ const DetailProduct = () => {
       dispatch(addProduct(data))
     }
   }
-  //handle edit product
-  const [showEditProduct, setShowEditProduct] = useState(false)
-  const handleCloseModalEditProduct = () => setShowEditProduct(false)
-  const handleShowModalEditProduct = () => setShowEditProduct(true)
-  //handle show review product
-  const [showReviewProduct, setShowReviewProduct] = useState(false)
-  const handleCloseModalReviewProduct = () => setShowReviewProduct(false)
-  const handleShowModalReviewProduct = () => setShowReviewProduct(true)
-  const handleSendReview = () => {
-    const data = {
-      idProduct,
-      rating,
-      comment
-    }
-    fetch('http://localhost:3000/v1/products/review', {
+  //handle like product
+  const data = {
+    id_product: idProduct
+  }
+  const handleLikeProduct = () => {
+    fetch('http://localhost:3000/v1/user/likeproduct', {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${idUser}`,
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${idUser}`
       },
       body: JSON.stringify(data)
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data === 'Update successfully') {
-          handleCloseModalReviewProduct()
-          handleShowModalThankReviewProduct()
+        console.log(data)
+        if (data === 'Create like successfully') {
+          setLike(true)
+          dispatch(addProductToListLikeProduct(idProduct as string))
+        }
+        if (data === 'Delete like successfully') {
+          setLike(false)
+          dispatch(removeProductToListLikeProduct(idProduct as string))
         }
       })
   }
-  //handleShowThankYou
-  const [showThankReview, setShowThankReview] = useState(false)
-  const handleCloseModalThankReviewProduct = () => {
-    navigate(0)
-    setShowThankReview(false)
-  }
-  const handleShowModalThankReviewProduct = () => setShowThankReview(true)
+  //handle edit product
+  const [showEditProduct, setShowEditProduct] = useState(false)
+  const handleCloseModalEditProduct = () => setShowEditProduct(false)
+  const handleShowModalEditProduct = () => setShowEditProduct(true)
   //handle delete product
   const handleDeleteProduct = () => {
     fetch(`http://localhost:3000/v1/products/delete/${idProduct}`, {
@@ -166,62 +162,20 @@ const DetailProduct = () => {
               />
             </div>
             <div className='infoDetailProduct col-xl-7'>
-              <h6 className='nameStoreDetailProduct'>Store: {productDetail[0].store}</h6>
+              <div className='d-flex justify-content-between align-items-center'>
+                <h6 className='nameStoreDetailProduct'>Store: {productDetail[0].store}</h6>
+                {idUser && (
+                  <button style={{ border: 'none', backgroundColor: '#fff' }} onClick={handleLikeProduct}>
+                    {like ? <Icon.HeartFill size={24} fill='#f54900' /> : <Icon.Heart size={24} color='#000' />}
+                  </button>
+                )}
+              </div>
               <div className='d-flex align-items-center justify-content-between border-top border-bottom mt-3 mb-3'>
                 <h1 className='nameDetailProduct'>
                   {productDetail[0].nameProduct.charAt(0).toUpperCase() + productDetail[0].nameProduct.slice(1)}
                 </h1>
                 {wasBuy && (
-                  <>
-                    <Rating
-                      name='half-rating'
-                      value={rating}
-                      precision={0.5}
-                      className='ratingProduct'
-                      onChange={(e, newValue) => {
-                        if (newValue) {
-                          setRating(newValue)
-                          handleShowModalReviewProduct()
-                        }
-                      }}
-                    />
-                    <Modal show={showReviewProduct} onHide={handleCloseModalReviewProduct}>
-                      <Modal.Header closeButton>
-                        <Modal.Title>Review product</Modal.Title>
-                      </Modal.Header>
-                      <Modal.Body>
-                        <Form.Group className='mb-3'>
-                          <Form.Label>
-                            <h4>Rating</h4>
-                          </Form.Label>
-                          <div>
-                            <Rating
-                              name='half-rating'
-                              value={rating}
-                              className='ratingProduct'
-                              precision={0.5}
-                              size='large'
-                              readOnly
-                            />
-                          </div>
-                        </Form.Group>
-                        <Form.Group className='mb-3'>
-                          <Form.Label>
-                            <h4>Comment</h4>
-                          </Form.Label>
-                          <Form.Control as='textarea' rows={7} onChange={(e) => setComment(e.target.value)} />
-                        </Form.Group>
-                      </Modal.Body>
-                      <Modal.Footer>
-                        <Button variant='primary' onClick={handleSendReview}>
-                          Sent
-                        </Button>
-                      </Modal.Footer>
-                    </Modal>
-                    <Modal show={showThankReview} onHide={handleCloseModalThankReviewProduct}>
-                      <Modal.Body>Thank you for your feedback</Modal.Body>
-                    </Modal>
-                  </>
+                  <RatingOfProduct idUser={idUser} idProduct={idProduct || ''} ratingProduct={rating} read={false} />
                 )}
               </div>
               <div className='priceDetailProduct'>

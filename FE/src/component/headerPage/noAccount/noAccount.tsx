@@ -65,13 +65,14 @@ function Modal({ turnOffSignIn, signIn }: any) {
                 id: data.id,
                 isAdmin: data.isAdmin,
                 myShop: data.myShop,
-                listLikeProduct: []
+                listLikeProduct: data.listLikeProduct
               }
               // console.log(inforUser)
               localStorage.setItem('token', data.token)
               localStorage.setItem('id', data.id)
               localStorage.setItem('isAdmin', data.isAdmin)
               localStorage.setItem('myShop', data.myShop)
+              localStorage.setItem('listLikeProduct', data.listLikeProduct)
               dispatch(addIdUser(inforUser))
               setMessErrorServer('')
               turnOffSignIn()

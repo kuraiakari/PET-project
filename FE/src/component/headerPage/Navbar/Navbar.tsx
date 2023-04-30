@@ -93,6 +93,11 @@ function NavbarPage() {
     e.stopPropagation()
     navigate('/history')
   }
+  const handleMoveLikes = (e: any) => {
+    e.preventDefault()
+    e.stopPropagation()
+    navigate('/likes')
+  }
   //move myShop
   const handleMoveMyShop = (e: any) => {
     e.preventDefault()
@@ -105,7 +110,8 @@ function NavbarPage() {
       location.pathname === '/cart' ||
       location.pathname === '/history' ||
       location.pathname === '/profile' ||
-      location.pathname === '/myshop'
+      location.pathname === '/myshop' ||
+      location.pathname === '/likes'
     )
       navigate('')
     const data = {
@@ -115,6 +121,7 @@ function NavbarPage() {
       myShop: '',
       listLikeProduct: []
     }
+    // animation kem
     dispatch(addIdUser(data))
     dispatch(removeAllProduct())
     navigate(0)
@@ -179,6 +186,7 @@ function NavbarPage() {
                         <NavDropdown title='Have Account' id={`offcanvasNavbarDropdown-expand-${expand}`}>
                           <NavDropdown.Item onClick={handleMoveProfile}>Personal</NavDropdown.Item>
                           <NavDropdown.Item onClick={handleMoveHistory}>History</NavDropdown.Item>
+                          <NavDropdown.Item onClick={handleMoveLikes}>Favorite products</NavDropdown.Item>
                           {isAdmin && <NavDropdown.Item onClick={handleMoveMyShop}>My shop</NavDropdown.Item>}
                           <NavDropdown.Divider />
                           <NavDropdown.Item onClick={handleSignOut}>Logout</NavDropdown.Item>
