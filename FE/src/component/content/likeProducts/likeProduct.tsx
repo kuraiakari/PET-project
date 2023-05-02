@@ -14,13 +14,18 @@ interface product {
 export default function LikeProduct({ index, idUser, idProduct }: idProduct) {
   const [dataProduct, setDataProduct] = useState<Array<product>>()
   const imgProduct = dataProduct ? dataProduct[0].imageProduct.split(',')[0] : ''
+  console.log(dataProduct)
   useEffect(() => {
     fetch(`http://localhost:3000/v1/products/${idProduct}`)
       .then((response) => response.json())
-      .then((data) => setDataProduct(data))
+      .then((data) => {
+        if (data.messageError === 'NotFound') setDataProduct(undefined)
+        else setDataProduct(data)
+      })
   }, [idProduct])
   return (
     <>
+      {!dataProduct && <></>}
       {dataProduct && (
         <Link to={`/product/${idProduct}`} className='productInHistory'>
           <div className='col-xl-1 d-flex justify-content-center'>{index + 1}</div>
