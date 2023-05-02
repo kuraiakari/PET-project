@@ -11,7 +11,7 @@ interface initalState {
 const initalState = {
   idUser: localStorage.getItem('token') ? localStorage.getItem('token') : '',
   id: localStorage.getItem('id') ? localStorage.getItem('id') : '',
-  isAdmin: localStorage.getItem('isAdmin') ? localStorage.getItem('isAdmin') : false,
+  isAdmin: localStorage.getItem('isAdmin') ? (localStorage.getItem('isAdmin') === 'true' ? true : false) : false,
   myShop: localStorage.getItem('myShop') ? localStorage.getItem('myShop') : '',
   listLikeProduct: localStorage.getItem('listLikeProduct')
     ? localStorage.getItem('listLikeProduct')?.split(',')
