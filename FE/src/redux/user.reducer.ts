@@ -35,8 +35,9 @@ const userReducer = createReducer(initalState, (builder) => {
   })
   builder.addCase(removeProductToListLikeProduct, (initalState, action) => {
     const index = initalState.listLikeProduct?.indexOf(action.payload)
-    if (index) {
-      if (index > -1) initalState.listLikeProduct?.splice(index, 1)
+    if (typeof index === 'number' && index > -1) {
+      console.log(index)
+      initalState.listLikeProduct?.splice(index, 1)
       const data = initalState.listLikeProduct?.toString()
       if (data) localStorage.setItem('listLikeProduct', data)
     }

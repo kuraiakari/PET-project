@@ -101,7 +101,7 @@ const DetailProduct = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data)
+        console.log(data)
         if (data === 'Create like successfully') {
           setLike(true)
           dispatch(addProductToListLikeProduct(idProduct as string))
