@@ -11,12 +11,7 @@ class UserControllers {
   async create(req: any, res: any) {
     let salt = await GenerateSalt()
     let userPassword = await GeneratePassword(req.body.password, salt)
-    let img = ''
-    if (req.file) {
-      ;(req.files as []).forEach((file) => {
-        img += file['path'] + ','
-      })
-    }
+    let img = req.file ? req.file.path : ''
     const data = {
       ...req.body,
       password: userPassword,
@@ -24,7 +19,7 @@ class UserControllers {
       salt
     }
     users.create(data, function (err: any, user: any) {
-      if (err) res.json({ messageError: 'Other email name' })
+      if (err) res.json({ messageError: err })
       else res.json(user)
     })
   }

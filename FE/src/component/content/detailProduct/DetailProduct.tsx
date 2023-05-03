@@ -24,7 +24,7 @@ const DetailProduct = () => {
   const id = useSelector((state: any) => state.user.id)
   const myShop = useSelector((state: any) => state.user.myShop)
   const listLikeProduct = useSelector((state: any) => state.user.listLikeProduct)
-  console.log(listLikeProduct)
+  // console.log(listLikeProduct)
   const [like, setLike] = useState(listLikeProduct.includes(idProduct))
   const navigate = useNavigate()
   useEffect(() => {
@@ -101,7 +101,7 @@ const DetailProduct = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        // console.log(data)
         if (data === 'Create like successfully') {
           setLike(true)
           dispatch(addProductToListLikeProduct(idProduct as string))

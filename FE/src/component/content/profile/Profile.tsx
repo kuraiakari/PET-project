@@ -37,7 +37,9 @@ const Profile = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setInforUser(data)
+        setTimeout(() => {
+          setInforUser(data)
+        }, 1000)
       })
   }, [idUser])
   //handleSaveInformations
@@ -93,72 +95,81 @@ const Profile = () => {
   return (
     <>
       <h1 className='d-flex justify-content-center align-items-center '>User Personal Information</h1>
-      <div className='col-xl-3 d-flex flex-column justify-content-center align-items-center '>
-        <div>
-          <img
-            src={'http://localhost:3000/' + inforUser?.avatar}
-            onError={({ currentTarget }) => {
-              currentTarget.onerror = null // prevents looping
-              currentTarget.src = avatarError
-            }}
-            alt='avatarUser'
-            className='avatarUser'
-          />
+      {!inforUser && (
+        <div className='loader-wrapper pt-5'>
+          <div className='loader'></div>
         </div>
-        <input type='file' id='avatar' name='avatar' ref={imageAvatar} className='mt-3 mb-3'></input>
-        <Button type='submit' onClick={handleSaveImage}>
-          Save Image
-        </Button>
-      </div>
-      <div className='col-xl-9'>
-        <Form noValidate validated={validated} onSubmit={handleSaveInformations}>
-          <Form.Group>
-            <Form.Label>Email</Form.Label>
-            <Form.Control required type='email' placeholder={inforUser?.email} disabled />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>First name</Form.Label>
-            <Form.Control
-              required
-              type='text'
-              placeholder={inforUser?.firstName || 'First Name'}
-              onChange={(e: any) => setFirstNameUSer(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Last name</Form.Label>
-            <Form.Control
-              required
-              type='text'
-              placeholder={inforUser?.lastName || 'Last name'}
-              onChange={(e: any) => setLastNameUSer(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group>
-            <Form.Label>Phone</Form.Label>
-            <Form.Control
-              required
-              type='text'
-              placeholder={inforUser?.phoneUser || 'Phone user'}
-              onChange={(e: any) => setPhoneUSer(e.target.value)}
-            />
-          </Form.Group>
-          <FormGroup>
-            <Form.Label>Gender</Form.Label>
-            <Form.Select required onChange={(e: any) => setGenderUSer(e.target.value)}>
-              <option value={inforUser?.gender || ''}>{inforUser?.gender || 'Choose gender'}</option>
-              <option value='Male'>Male</option>
-              <option value='Female'>Female</option>
-              <option value='Other'>Other</option>
-            </Form.Select>
-          </FormGroup>
-          <div className='d-flex justify-content-center mt-3'>
-            <Button type='submit' disabled={!firstNameUser && !lastNameUser && !phoneUser && !genderUser}>
-              Save Information
+      )}
+      {inforUser && (
+        <>
+          <div className='col-xl-3 d-flex flex-column justify-content-center align-items-center '>
+            <div>
+              <img
+                src={'http://localhost:3000/' + inforUser?.avatar}
+                onError={({ currentTarget }) => {
+                  currentTarget.onerror = null // prevents looping
+                  currentTarget.src = avatarError
+                }}
+                alt='avatarUser'
+                className='avatarUser'
+              />
+            </div>
+            <input type='file' id='avatar' name='avatar' ref={imageAvatar} className='mt-3 mb-3'></input>
+            <Button type='submit' onClick={handleSaveImage}>
+              Save Image
             </Button>
           </div>
-        </Form>
-      </div>
+          <div className='col-xl-9'>
+            <Form noValidate validated={validated} onSubmit={handleSaveInformations}>
+              <Form.Group>
+                <Form.Label>Email</Form.Label>
+                <Form.Control required type='email' placeholder={inforUser?.email} disabled />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>First name</Form.Label>
+                <Form.Control
+                  required
+                  type='text'
+                  placeholder={inforUser?.firstName || 'First Name'}
+                  onChange={(e: any) => setFirstNameUSer(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Last name</Form.Label>
+                <Form.Control
+                  required
+                  type='text'
+                  placeholder={inforUser?.lastName || 'Last name'}
+                  onChange={(e: any) => setLastNameUSer(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Phone</Form.Label>
+                <Form.Control
+                  required
+                  type='text'
+                  placeholder={inforUser?.phoneUser || 'Phone user'}
+                  onChange={(e: any) => setPhoneUSer(e.target.value)}
+                />
+              </Form.Group>
+              <FormGroup>
+                <Form.Label>Gender</Form.Label>
+                <Form.Select required onChange={(e: any) => setGenderUSer(e.target.value)}>
+                  <option value={inforUser?.gender || ''}>{inforUser?.gender || 'Choose gender'}</option>
+                  <option value='Male'>Male</option>
+                  <option value='Female'>Female</option>
+                  <option value='Other'>Other</option>
+                </Form.Select>
+              </FormGroup>
+              <div className='d-flex justify-content-center mt-3'>
+                <Button type='submit' disabled={!firstNameUser && !lastNameUser && !phoneUser && !genderUser}>
+                  Save Information
+                </Button>
+              </div>
+            </Form>
+          </div>
+        </>
+      )}
     </>
   )
 }

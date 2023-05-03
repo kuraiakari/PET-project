@@ -38,7 +38,9 @@ const Product = (props: ProductItem) => {
                 <div className='priceProductCost'>
                   {product.priceProduct - Math.round((product.priceProduct * product.promotionProduct) / 100)}₽
                 </div>
-                {product.promotionProduct && <div className='promotionProduct ms-2'>-{product.promotionProduct}%</div>}
+                {product.promotionProduct > 0 && (
+                  <div className='promotionProduct ms-2'>-{product.promotionProduct}%</div>
+                )}
               </div>
             </div>
           </Link>

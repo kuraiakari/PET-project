@@ -28,7 +28,7 @@
   min-height: 86px;
 }
 .nameProduct {
-  min-height: 36px;
+  min-height: 100px;
   font-weight: 400;
   font-size: 18px;
   line-height: 150%;
@@ -37,6 +37,7 @@
   word-break: break-word;
 }
 .ratingFull {
+  min-height: 17px;
   display: flex;
   align-items: center;
   font-size: 14px;

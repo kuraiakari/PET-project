@@ -10,10 +10,9 @@ class StoreControllers {
   getAll(req: Request, res: Response) {
     stores.find({}).exec(function (err: any, store: any) {
       if (!err) {
-      if(store) res.json(store)
-      else res.status(400).json({ messageError: 'Not found store' })
-      }
-      else res.json(err)
+        if (store) res.json(store)
+        else res.status(400).json({ messageError: 'Not found store' })
+      } else res.json(err)
     })
   }
   getStore(req: Request, res: Response) {
@@ -64,35 +63,37 @@ class StoreControllers {
       res.status(404).json({ messageError: 'Cant update' })
     }
   }
-  delete(req: any, res: Response) {
-    stores.findOne({ _id: req.params.id }).exec(async (err: any, store: any) => {
-      if (store && store.shopOwner === req.user.email) {
-        await store.listProducts.forEach(async (item: any, index: any) => {
-          products.deleteOne({ _id: item._id.toString() }, function (err: any, products: any) {
-            if (err) res.json({ messageError: 'Delete Failure' })
-          })
-        })
-        await users
-          .findOne({ _id: req.user._id }, async function (err: any, user: any) {
-            const index = user.myShop.indexOf(store._id)
-            if (index > -1) {
-              user.myShop.splice(index, 1)
-              users.updateOne({ _id: req.user._id }, user).exec((err: any, user: any) => {
-                if (err) res.json({ messageError: 'Other email' })
+  async delete(req: any, res: Response) {
+    await users
+      .findOne({ _id: req.user._id }, async function (err: any, user: any) {
+        if (!user) {
+          res.json('You are not authenticated!')
+          return
+        } else {
+          stores.findOne({ _id: req.params.id }).exec(async (err: any, store: any) => {
+            if (store && store.shopOwner === req.user.email) {
+              await store.listProducts.forEach(async (item: any, index: any) => {
+                await products.deleteOne({ _id: item._id.toString() }, function (err: any, product: any) {
+                  if (err) res.json({ messageError: 'Delete Failure' })
+                })
               })
+              if (user.myShop === store._id.toString()) {
+                user.myShop = ''
+                users.updateOne({ _id: req.user._id }, user).exec((err: any, user: any) => {
+                  if (err) res.json({ messageError: 'Other email' })
+                })
+              }
+              await store.deleteOne({ _id: req.params.id }, function (err: any, products: any) {
+                if (err) res.json({ messageError: 'Delete Failure' })
+              })
+              res.status(200).json('Delete successfully')
             } else {
-              res.json({ messageError: 'Delete Failure' })
+              res.json('You are not authenticated!')
             }
           })
-          .clone()
-        await store.deleteOne({ _id: req.params.id }, function (err: any, products: any) {
-          if (err) res.json({ messageError: 'Delete Failure' })
-        })
-        res.status(200).json('Delete successfully')
-      } else {
-        res.status(404).json({ messageError: 'Not found store' })
-      }
-    })
+        }
+      })
+      .clone()
   }
   create(req: any, res: Response) {
     let img = ''
@@ -105,6 +106,10 @@ class StoreControllers {
       shopOwner: req.user.email
     }
     users.findOne({ _id: req.user._id }, async function (err: any, user: any) {
+      if (!user) {
+        res.json('You are not authenticated!')
+        return
+      }
       if (!user.myShop) {
         stores.create(dataShop, function (err: any, store: any) {
           if (err) res.json({ messageError: 'Other store name' })

@@ -28,6 +28,7 @@ const ListProduct = () => {
         )}
         <div className='listProduct'>
           {listProduct &&
+            listProduct.length > 0 &&
             listProduct.map((product: product, index: number) => {
               if (index < quantity) return <Product key={product._id} product={product} createProduct={false} />
             })}

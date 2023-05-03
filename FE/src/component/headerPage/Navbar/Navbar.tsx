@@ -127,7 +127,7 @@ function NavbarPage() {
     navigate(0)
     localStorage.clear()
   }
-  console.log(isAdmin)
+  // console.log(isAdmin)
   return (
     <>
       {['xxl'].map((expand) => (

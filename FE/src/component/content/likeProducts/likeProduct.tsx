@@ -14,7 +14,7 @@ interface product {
 export default function LikeProduct({ index, idUser, idProduct }: idProduct) {
   const [dataProduct, setDataProduct] = useState<Array<product>>()
   const imgProduct = dataProduct ? dataProduct[0].imageProduct.split(',')[0] : ''
-  console.log(dataProduct)
+  // console.log(dataProduct)
   useEffect(() => {
     fetch(`http://localhost:3000/v1/products/${idProduct}`)
       .then((response) => response.json())
