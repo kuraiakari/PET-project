@@ -19,7 +19,7 @@ class UserControllers {
       salt
     }
     users.create(data, function (err: any, user: any) {
-      if (err) res.json({ messageError: err })
+      if (err) res.json({ messageError: 'Other email' })
       else res.json(user)
     })
   }
