@@ -29,7 +29,9 @@ export default function LikeProduct({ index, idUser, idProduct }: idProduct) {
       {dataProduct && (
         <Link to={`/product/${idProduct}`} className='productInHistory'>
           <div className='col-xl-1 d-flex justify-content-center'>{index + 1}</div>
-          <div className='col-xl-3 d-flex justify-content-center'>{dataProduct[0].nameProduct}</div>
+          <div className='col-xl-3 d-flex justify-content-start'>
+            {dataProduct[0].nameProduct.charAt(0).toUpperCase() + dataProduct[0].nameProduct.slice(1)}
+          </div>
           <div className='col-xl-4 d-flex justify-content-center'>
             <img className='imgProductInCart' src={'http://localhost:3000/' + imgProduct} alt='img product' />
           </div>

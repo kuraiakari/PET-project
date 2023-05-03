@@ -8,7 +8,9 @@ const ProductInHistory = ({ product, soluong, idUser }: any) => {
       <>
         <Link to={`/product/${product.productOrder._id}`} className='productInHistory'>
           <div className='col-xl-1 d-flex justify-content-center'>{soluong}</div>
-          <div className='col-xl-3 d-flex justify-content-center'>{product.productOrder.nameProduct}</div>
+          <div className='col-xl-3 d-flex justify-content-start'>
+            {product.productOrder.nameProduct.charAt(0).toUpperCase() + product.productOrder.nameProduct.slice(1)}
+          </div>
           <div className='col-xl-3 d-flex justify-content-center'>
             <img className='imgProductInCart' src={'http://localhost:3000/' + imgProduct} alt='img product' />
           </div>

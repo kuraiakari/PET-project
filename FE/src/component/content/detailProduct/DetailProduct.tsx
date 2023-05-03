@@ -171,11 +171,13 @@ const DetailProduct = () => {
                 )}
               </div>
               <div className='d-flex align-items-center justify-content-between border-top border-bottom mt-3 mb-3'>
-                <h1 className='nameDetailProduct'>
+                <h1 className='nameDetailProduct col-xl-9'>
                   {productDetail[0].nameProduct.charAt(0).toUpperCase() + productDetail[0].nameProduct.slice(1)}
                 </h1>
                 {wasBuy && (
-                  <RatingOfProduct idUser={idUser} idProduct={idProduct || ''} ratingProduct={rating} read={false} />
+                  <div className='col-xl-3 d-flex justify-content-end'>
+                    <RatingOfProduct idUser={idUser} idProduct={idProduct || ''} ratingProduct={rating} read={false} />
+                  </div>
                 )}
               </div>
               <div className='priceDetailProduct'>
