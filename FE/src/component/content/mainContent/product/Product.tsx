@@ -28,12 +28,14 @@ const Product = (props: ProductItem) => {
               <h3 className='nameProduct'>
                 {product.nameProduct.charAt(0).toUpperCase() + product.nameProduct.slice(1)}
               </h3>
-              {product.ratingProduct && (
-                <div className='ratingFull'>
-                  <span>{product.ratingProduct}</span>
-                  <Icon.StarFill size={12} className='ms-1' />
-                </div>
-              )}
+              <div className='ratingFull'>
+                {product.ratingProduct && (
+                  <>
+                    <span>{product.ratingProduct}</span>
+                    <Icon.StarFill size={12} className='ms-1' />
+                  </>
+                )}
+              </div>
               <div className={`priceProduct ${product.promotionProduct ? 'haspromotion' : ''}`}>
                 <div className='priceProductCost'>
                   {product.priceProduct - Math.round((product.priceProduct * product.promotionProduct) / 100)}₽
