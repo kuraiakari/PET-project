@@ -110,7 +110,7 @@ function Modal({ turnOffSignIn, signIn }: any) {
           email: emailSignUp.current?.value,
           password: passwordSignUp.current?.value
         }
-        console.log(data)
+        // console.log(data)
         fetch('http://localhost:3000/v1/user/auth/register', {
           method: 'POST',
           headers: {
@@ -121,7 +121,7 @@ function Modal({ turnOffSignIn, signIn }: any) {
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log(data)
+            // console.log(data)
             if (data.messageError) {
               setMessErrorServer(data.messageError)
             } else setMessSucces('Sign Up Success')
@@ -183,6 +183,7 @@ function Modal({ turnOffSignIn, signIn }: any) {
                   setMessErrorEmail('')
                   setMessErrorPassword('')
                   setMessErrorServer('')
+                  setMessSucces('')
                 }}
               >
                 Register
@@ -246,7 +247,7 @@ function Modal({ turnOffSignIn, signIn }: any) {
             </div>
             <Button type='submit'>Submit form</Button>
             <div className='d-flex justify-content-center align-items-center'>
-              already have an account?
+              Already have an account?
               <button
                 type='button'
                 className='btn btn-link'
