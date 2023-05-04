@@ -133,7 +133,7 @@ function NavbarPage() {
       {['xxl'].map((expand) => (
         <Navbar key={expand} bg='white' expand={expand} fixed='top'>
           <Container fluid>
-            <Navbar.Brand className='ms-2 logoPage' onClick={backToHome}>
+            <Navbar.Brand className='logoPage' onClick={backToHome}>
               Kurai shop
             </Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
@@ -184,7 +184,7 @@ function NavbarPage() {
                         <div>{products.length}</div>
                       </button>
                       <div className='itemNavIsPerson'>
-                        <NavDropdown title='Have Account' id={`offcanvasNavbarDropdown-expand-${expand}`}>
+                        <NavDropdown title='Account' id={`offcanvasNavbarDropdown-expand-${expand}`}>
                           <NavDropdown.Item onClick={handleMoveProfile}>Personal</NavDropdown.Item>
                           <NavDropdown.Item onClick={handleMoveHistory}>History</NavDropdown.Item>
                           <NavDropdown.Item onClick={handleMoveLikes}>Favorite products</NavDropdown.Item>

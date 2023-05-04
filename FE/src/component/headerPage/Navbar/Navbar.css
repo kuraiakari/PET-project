@@ -1,4 +1,5 @@
 .logoPage {
+  margin-left: 7rem;
   cursor: pointer;
 }
 
@@ -35,4 +36,7 @@
   background-color: #fff;
   color: var(--bs-nav-link-color);
   margin: 0 6px;
+}
+.contentNav .itemNavIsPerson:last-child {
+  min-width: 10rem;
 }
