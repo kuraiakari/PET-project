@@ -102,7 +102,7 @@ const Profile = () => {
       )}
       {inforUser && (
         <>
-          <div className='col-xl-3 d-flex flex-column justify-content-center align-items-center '>
+          <div className='col-xl-3 d-flex flex-column align-items-center '>
             <div>
               <img
                 src={'http://localhost:3000/' + inforUser?.avatar}

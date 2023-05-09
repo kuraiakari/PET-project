@@ -12,6 +12,7 @@ import MyShop from './component/content/myShop/MyShop'
 
 import './App.css'
 import LikeProducts from './component/content/likeProducts/likeProducts'
+import Footer from './component/footer/footer'
 function App() {
   const Home = () => {
     return (
@@ -30,7 +31,7 @@ function App() {
       <div className='fullweb'>
         <div className='container'>
           <Headerpage />
-          <div className='row contentPage'>
+          <div className='row contentPage min-vh-100 mb-2'>
             <Routes>
               <Route path='/' element={<Home />}>
                 {/* nên để đường dẫn cha có kí tự không để rỗng*/}
@@ -45,6 +46,7 @@ function App() {
             </Routes>
           </div>
         </div>
+        <Footer />
       </div>
     </>
   )

@@ -31,15 +31,17 @@ const DetailProduct = () => {
     fetch(`http://localhost:3000/v1/products/${idProduct}`)
       .then((response) => response.json())
       .then((data) => {
-        if (data.messageError) setProductDetail(undefined)
-        else {
-          data[0].quantityReview.forEach((item: any) => {
-            if (item.userId === id) {
-              setRating(item.rating)
-            }
-          })
-          setProductDetail(data)
-        }
+        setTimeout(() => {
+          if (data.messageError) setProductDetail([])
+          else {
+            data[0].quantityReview.forEach((item: any) => {
+              if (item.userId === id) {
+                setRating(item.rating)
+              }
+            })
+            setProductDetail(data)
+          }
+        }, 1000)
       })
     fetch(`http://localhost:3000/v1/store/${myShop}`)
       .then((response) => response.json())
@@ -134,8 +136,13 @@ const DetailProduct = () => {
   }
   return (
     <>
-      {productDetail === undefined && <div>Not found product</div>}
-      {productDetail && (
+      {!productDetail && (
+        <div className='loader-wrapper pt-5'>
+          <div className='loader'></div>
+        </div>
+      )}
+      {productDetail?.length === 0 && <div>Not found product</div>}
+      {productDetail && productDetail?.length > 0 && (
         <>
           <div className='detailProduct ps-0'>
             <div className='wrapImgDetailProduct col-xl-5'>

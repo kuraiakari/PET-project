@@ -166,7 +166,7 @@ function NavbarPage() {
                     <Nav.Link onClick={backToHome}>Home</Nav.Link>
                   </div>
                   {!isPerson && (
-                    <>
+                    <div className='d-flex me-2 pe-5'>
                       <div className='itemNav'>
                         <Icon.Person size={25} />
                         <Nav.Link onClick={handldeSignUp}>Sign up</Nav.Link>
@@ -175,7 +175,7 @@ function NavbarPage() {
                         <Icon.Person size={25} />
                         <Nav.Link onClick={handldeSignIn}>Sign in</Nav.Link>
                       </div>
-                    </>
+                    </div>
                   )}
                   {isPerson && (
                     <>
