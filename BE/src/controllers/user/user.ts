@@ -33,7 +33,7 @@ class UserControllers {
           let listLikeProduct: any[] = []
           user.listLikeProduct.forEach((product: any) => {
             listLikeProduct.push(product._id)
-          }) 
+          })
           // console.log(user)
           const dataUser = {
             token,
@@ -164,7 +164,11 @@ class UserControllers {
               amountOrder: product.amount
             }
             listProducts.push(data)
-            const dataProduct = { ...oldProduct._doc, amountProduct: oldProduct.amountProduct - product.amount }
+            const dataProduct = {
+              ...oldProduct._doc,
+              amountProduct: oldProduct.amountProduct - product.amount,
+              soldProduct: oldProduct.soldProduct + product.amount
+            }
             const dataTest = await products.updateOne({ _id: product.idProduct }, dataProduct)
             if (!dataTest.matchedCount) {
               res.status(404).json({ messageError: 'Not found product' })

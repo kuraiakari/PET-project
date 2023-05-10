@@ -29,7 +29,7 @@ function Portfolio() {
   return (
     <>
       <div className='portfolio'>
-        <div className='headerPortfolio'>Featured products</div>
+        <div className='headerPortfolio'>Outstanding</div>
         <button
           onClick={() => handleSearch('price')}
           className={isActivePrice ? 'itemPortfolio itemActive' : 'itemPortfolio'}

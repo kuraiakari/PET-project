@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 import { useDispatch, useSelector } from 'react-redux'
@@ -6,6 +6,7 @@ import * as Icon from 'react-bootstrap-icons'
 import { addProduct } from '../../../redux/cart.reducer'
 import { order } from 'src/types/order.type'
 import './detailProduct.css'
+import Rating from '@mui/material/Rating/Rating'
 import { Modal } from 'react-bootstrap'
 import EditProduct from './editProduct'
 import ReviewCustomer from './ReviewCustomer'
@@ -16,6 +17,7 @@ const DetailProduct = () => {
   const { idProduct } = useParams()
   const [indexImg, setIndexImg] = useState(0)
   const [wasBuy, setWasBuy] = useState(false)
+  const [ratingProduct, setRatingProduct] = useState(0)
   const [rating, setRating] = useState(0)
   const [productDetail, setProductDetail] = useState<any[]>()
   const [checkNameStore, setCheckNameStore] = useState('')
@@ -27,6 +29,12 @@ const DetailProduct = () => {
   // console.log(listLikeProduct)
   const [like, setLike] = useState(listLikeProduct.includes(idProduct))
   const navigate = useNavigate()
+  // console.log(productDetail)
+  //scrollToReview
+  const review = useRef<HTMLInputElement>(null)
+  const moveToReview = () => {
+    review.current?.scrollIntoView()
+  }
   useEffect(() => {
     fetch(`http://localhost:3000/v1/products/${idProduct}`)
       .then((response) => response.json())
@@ -39,6 +47,7 @@ const DetailProduct = () => {
                 setRating(item.rating)
               }
             })
+            setRatingProduct(data[0].ratingProduct)
             setProductDetail(data)
           }
         }, 1000)
@@ -177,10 +186,24 @@ const DetailProduct = () => {
                   </button>
                 )}
               </div>
-              <div className='d-flex align-items-center justify-content-between border-top border-bottom mt-3 mb-3'>
-                <h1 className='nameDetailProduct col-xl-9'>
+              <div className='d-flex flex-column border-top border-bottom mt-3 mb-3'>
+                <h1 className='nameDetailProduct'>
                   {productDetail[0].nameProduct.charAt(0).toUpperCase() + productDetail[0].nameProduct.slice(1)}
                 </h1>
+                <div className='d-flex align-items-center mb-2' style={{ color: 'rgb(120, 120, 120)' }}>
+                  <Rating defaultValue={ratingProduct} size='small' readOnly />
+                  <button
+                    className='ms-2 me-2'
+                    style={{ fontSize: '14px', border: 'none', backgroundColor: '#fff' }}
+                    onClick={moveToReview}
+                  >
+                    {`(See ${productDetail[0].quantityReview.length} review)`}
+                  </button>
+                  <div style={{ height: '14px', borderLeft: '1px solid #333' }}></div>
+                  <div className='ms-2' style={{ fontSize: '14px' }}>
+                    Sold {productDetail[0].soldProduct}
+                  </div>
+                </div>
                 {wasBuy && (
                   <div className='col-xl-3 d-flex justify-content-end'>
                     <RatingOfProduct idUser={idUser} idProduct={idProduct || ''} ratingProduct={rating} read={false} />
@@ -275,7 +298,7 @@ const DetailProduct = () => {
               {!idUser && <div style={{ color: 'rgb(255, 66, 78)' }}> Please login before adding products to cart</div>}
             </div>
           </div>
-          <ReviewCustomer data={productDetail} />
+          <ReviewCustomer ref={review} data={productDetail} />
         </>
       )}
     </>

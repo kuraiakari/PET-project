@@ -14,7 +14,8 @@ interface products {
   priceProduct: number
   promotionProduct: number
   size: string
-  type: string
+  typeProduct: string
+  categoryProduct: string
   store: string
 }
 
@@ -56,6 +57,7 @@ class ProductsControllers {
         ...(req.body as products),
         imageProduct: img,
         totalRating: 0,
+        soldProduct: 0,
         lastPriceProduct: req.body.priceProduct - Math.round((req.body.priceProduct * req.body.promotionProduct) / 100)
         //product.priceProduct - Math.round((product.priceProduct * product.promotionProduct) / 100)
         //lam tron

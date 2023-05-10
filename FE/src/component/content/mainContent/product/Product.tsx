@@ -21,7 +21,7 @@ const Product = (props: ProductItem) => {
     return (
       <>
         <div className='col-xl-3 ps-2 pe-2'>
-          <Link to={`/product/${product._id}`} className='product shadow-sm'>
+          <Link to={`/product/${product._id}`} className='product'>
             <img src={'http://localhost:3000/' + listImageProduct[0]} alt='product' className='imgProduct' />
             <div className='titleProduct'>
               <h3 className='nameProduct'>
@@ -59,10 +59,7 @@ const Product = (props: ProductItem) => {
                 <Icon.Plus size={40} />
               </div>
             </div>
-            <div
-              className='titleProduct d-flex align-items-center justify-content-center'
-              style={{ minHeight: '151px' }}
-            >
+            <div className='titleProduct d-flex align-items-center justify-content-center' style={{ height: '105px' }}>
               Create New Product
             </div>
           </button>

@@ -16,6 +16,7 @@ export default function CreateProduct({ nameStore, handleCloseModalCreateProduct
   const [amountProduct, setAmountProduct] = useState(0)
   const [promotionProduct, setPromotionProduct] = useState(0)
   const [typeProduct, setTypeProduct] = useState('')
+  const [category, setCategory] = useState('')
   const handleSubmit = (e: any) => {
     const form = e.currentTarget
     e.preventDefault()
@@ -35,6 +36,7 @@ export default function CreateProduct({ nameStore, handleCloseModalCreateProduct
       formData.append('amountProduct', amountProduct.toString())
       formData.append('promotionProduct', promotionProduct.toString())
       formData.append('typeProduct', typeProduct)
+      formData.append('categoryProduct', category)
       fetch('http://localhost:3000/v1/products/create', {
         method: 'POST',
         headers: {
@@ -105,11 +107,11 @@ export default function CreateProduct({ nameStore, handleCloseModalCreateProduct
         <Form.Control.Feedback type='invalid'>Please input value</Form.Control.Feedback>
       </Form.Group>
       {/* category */}
-      {/* <Form.Group className='mb-3'>
-        <Form.Label>Type product</Form.Label>
-        <Form.Control required type='text' onChange={(e: any) => setTypeProduct(e.target.value)} />
+      <Form.Group className='mb-3'>
+        <Form.Label>Category product</Form.Label>
+        <Form.Control required type='text' onChange={(e: any) => setCategory(e.target.value)} />
         <Form.Control.Feedback type='invalid'>Please input value</Form.Control.Feedback>
-      </Form.Group> */}
+      </Form.Group>
       <Button type='submit'>Submit form</Button>
     </Form>
   )

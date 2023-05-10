@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import avatarError from './avatar.webp'
 const Item = ({ comment }: any) => {
   const date = new Date(comment.date)
@@ -36,14 +36,17 @@ const Item = ({ comment }: any) => {
     </div>
   )
 }
-export default function ReviewCustomer(props: any) {
-  // console.log(props.data[0].comments)
+const ReviewCustomer = forwardRef(function ReviewCustomer(props: any, ref: any) {
+  // console.log(props.ref)
   return (
     <div className='d-flex align-items-center flex-column pt-4 mt-4 mb-5 reviewcustomer'>
-      <h1 className='mt-3 mb-3'>Review customer</h1>
+      <h1 ref={ref} className='mt-3 mb-3'>
+        Review customer
+      </h1>
       {props.data[0].comments.map((comment: any, index: number) => {
         return <Item key={index} comment={comment} />
       })}
     </div>
   )
-}
+})
+export default ReviewCustomer

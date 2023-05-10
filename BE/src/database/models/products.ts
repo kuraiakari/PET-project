@@ -18,6 +18,7 @@ const products = new Schema(
   {
     nameProduct: { type: String, required: true },
     amountProduct: { type: Number, required: true },
+    soldProduct: Number,
     imageProduct: String,
     ratingProduct: Number,
     totalRating: Number,
@@ -28,6 +29,7 @@ const products = new Schema(
     lastPriceProduct: { type: Number, required: true},
     size: String,
     typeProduct: { type: String, required: true },
+    categoryProduct: { type: String, required: true},
     store: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }

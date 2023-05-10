@@ -47,7 +47,12 @@
   min-height: 86px;
 }
 .nameProduct {
-  min-height: 100px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  height: 54px;
   font-weight: 400;
   font-size: 18px;
   line-height: 150%;

@@ -9,6 +9,7 @@ import Cart from './component/content/cart/Cart'
 import History from './component/content/history/history'
 import Profile from './component/content/profile/Profile'
 import MyShop from './component/content/myShop/MyShop'
+import ScrollButton from './BackToTop'
 
 import './App.css'
 import LikeProducts from './component/content/likeProducts/likeProducts'
@@ -47,6 +48,7 @@ function App() {
           </div>
         </div>
         <Footer />
+        <ScrollButton />
       </div>
     </>
   )
