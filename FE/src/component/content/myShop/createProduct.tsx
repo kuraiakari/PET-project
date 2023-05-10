@@ -104,6 +104,12 @@ export default function CreateProduct({ nameStore, handleCloseModalCreateProduct
         <Form.Control required type='text' onChange={(e: any) => setTypeProduct(e.target.value)} />
         <Form.Control.Feedback type='invalid'>Please input value</Form.Control.Feedback>
       </Form.Group>
+      {/* category */}
+      {/* <Form.Group className='mb-3'>
+        <Form.Label>Type product</Form.Label>
+        <Form.Control required type='text' onChange={(e: any) => setTypeProduct(e.target.value)} />
+        <Form.Control.Feedback type='invalid'>Please input value</Form.Control.Feedback>
+      </Form.Group> */}
       <Button type='submit'>Submit form</Button>
     </Form>
   )

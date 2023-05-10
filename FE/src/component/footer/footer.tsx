@@ -5,10 +5,10 @@ export default function Footer() {
     <div className='footer w-100 pt-5 pb-5' style={{ backgroundColor: '#000' }}>
       <div className='container d-flex justify-content-between' style={{ color: '#fff' }}>
         <div className='col-xl-4 d-flex flex-column align-items-start'>
-          <div>About us</div>
-          <div>Programs</div>
-          <div>Events</div>
-          <div>Blog</div>
+          <div className='mb-1'>About us</div>
+          <div className='mb-1'>Programs</div>
+          <div className='mb-1'>Events</div>
+          <div className='mb-1'>Blog</div>
           <div className='mb-3'>Join Our Team</div>
           <div>
             <Icon.Facebook size={22} className='me-2' />

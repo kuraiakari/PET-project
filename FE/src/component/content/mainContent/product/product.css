@@ -13,10 +13,29 @@
   background-color: #fff;
   overflow: hidden;
   margin-bottom: 8px;
-  height: 342px;
   width: 100%;
+  padding: 0;
 }
-
+.headerCreateProduct {
+  background-color: #919191;
+  height: 256px;
+  position: relative;
+}
+.iconCreate {
+  --widthCreate: 70px;
+  --heightCreate: 70px;
+  width: var(--widthCreate);
+  height: var(--heightCreate);
+  background-color: #fff;
+  position: absolute;
+  top: calc(100% - var(--widthCreate) / 2);
+  left: calc(50% - var(--heightCreate) / 2);
+  border: 1px solid #000;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .imgProduct {
   width: 100%;
   height: 16rem;
@@ -44,7 +63,7 @@
   color: rgb(128, 128, 137);
 }
 .ratingFull > svg {
-  color: #fdd836
+  color: #fdd836;
 }
 .priceProduct {
   display: flex;

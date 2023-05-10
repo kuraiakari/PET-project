@@ -6,7 +6,6 @@ import { Modal } from 'react-bootstrap'
 import { product } from 'src/types/product.type'
 import CreateProduct from '../../myShop/createProduct'
 import './product.css'
-import create from './create.png'
 interface ProductItem {
   product: product
   createProduct: boolean
@@ -53,10 +52,19 @@ const Product = (props: ProductItem) => {
     // console.log(props.product)
     return (
       <>
-        <div className='col-xl-3 ps-2 pe-2'>
+        <div className='col-xl-3'>
           <button className='createproduct shadow-sm border border-white' onClick={handleShowModalCreateProduct}>
-            <img src={create} alt='product' className='imgProduct' />
-            <div className='titleProduct d-flex align-items-center justify-content-center'>Create New Product</div>
+            <div className='headerCreateProduct'>
+              <div className='iconCreate'>
+                <Icon.Plus size={40} />
+              </div>
+            </div>
+            <div
+              className='titleProduct d-flex align-items-center justify-content-center'
+              style={{ minHeight: '151px' }}
+            >
+              Create New Product
+            </div>
           </button>
         </div>
         <Modal show={show} onHide={handleCloseModalCreateProduct}>
