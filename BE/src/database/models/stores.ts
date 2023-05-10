@@ -8,6 +8,7 @@ interface stores {
   nameStore: string
   addressStore: string
   telStore: string
+  description: string
 }
 
 const stores = new Schema(
@@ -17,6 +18,7 @@ const stores = new Schema(
     nameStore: { type: String, unique: true },
     addressStore: String,
     telStore: String,
+    description: String,
     listProducts: [],
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
