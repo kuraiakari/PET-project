@@ -13,7 +13,7 @@ import ScrollButton from './BackToTop'
 
 import './App.css'
 import LikeProducts from './component/content/likeProducts/likeProducts'
-import Footer from './component/footer/footer'
+import Footer from './component/footer/Footer'
 function App() {
   const Home = () => {
     return (

@@ -1,32 +1,41 @@
 import React from 'react'
-import * as Icon from 'react-bootstrap-icons'
+import facebook from './iconFooter/facebook.svg'
+import behance from './iconFooter/behance.svg'
+import instagram from './iconFooter/instagram.svg'
+import pinterest from './iconFooter/pinterest.svg'
+import send from './iconFooter/send.svg'
+
+import './Footer.css'
 export default function Footer() {
   return (
-    <div className='footer w-100 pt-5 pb-5' style={{ backgroundColor: '#000' }}>
-      <div className='container d-flex justify-content-between' style={{ color: '#fff' }}>
-        <div className='col-xl-4 d-flex flex-column align-items-start'>
-          <div className='mb-1'>About us</div>
-          <div className='mb-1'>Programs</div>
-          <div className='mb-1'>Events</div>
-          <div className='mb-1'>Blog</div>
-          <div className='mb-3'>Join Our Team</div>
-          <div>
-            <Icon.Facebook size={22} className='me-2' />
-            <Icon.Instagram size={22} className='me-2' />
-            <Icon.Twitter size={22} />
+    <div className='footer'>
+      <div className='contentFooter'>
+        <div className='col-xl-3'>
+          <div>SUPPORT</div>
+          <div>RETURNS & EXCHANGES</div>
+          <div>PRIVACY POLICY</div>
+          <div>TERMS & CONDITIONS</div>
+          <div>SHIPPING FAQ</div>
+        </div>
+        <div className='col-xl-3'>
+          <div>COMPANY</div>
+          <div>ABOUT US</div>
+          <div>INSPIRATION BLOG</div>
+          <div>CONTACT US</div>
+        </div>
+        <div className='col-xl-6'>
+          <div>WONDER DELIVERED TO YOUR INBOX.</div>
+          <div className='emailFooter'>
+            <div>EMAIL ADDRESS</div>
+            <img src={send} alt='send' />
           </div>
         </div>
-        <div className='col-xl-4 d-flex flex-column align-items-end'>
-          <div className='mb-3 d-flex align-items-center'>
-            Send Us A Message
-            <Icon.ArrowRight className='ms-2' />
-          </div>
-          <div className='mb-4'>(963)-243-5510</div>
-          <div className='mb-4'>Vyazemsky Ln, 5/7, St Petersburg, 197022</div>
-          <div>
-            <h3>Kurai shop</h3>
-          </div>
-        </div>
+      </div>
+      <div className='iconSocialNetwork'>
+        <img src={facebook} alt='facebook' />
+        <img src={instagram} alt='instagram' />
+        <img src={pinterest} alt='pinterest' />
+        <img src={behance} alt='behance' />
       </div>
     </div>
   )
