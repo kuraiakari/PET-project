@@ -28,6 +28,7 @@ const products = new Schema(
     promotionProduct: { type: Number, required: true },
     lastPriceProduct: { type: Number, required: true},
     size: String,
+    descriptionProduct: String,
     typeProduct: { type: String, required: true },
     categoryProduct: { type: String, required: true},
     store: { type: String, required: true },
