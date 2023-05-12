@@ -1,13 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
-import Button from 'react-bootstrap/Button'
-import Container from 'react-bootstrap/Container'
-import Form from 'react-bootstrap/Form'
-import Nav from 'react-bootstrap/Nav'
-import Navbar from 'react-bootstrap/Navbar'
-import { NavDropdown } from 'react-bootstrap'
+import { NavDropdown, Button, Container, Form, Nav, Navbar } from 'react-bootstrap'
 //import NavDropdown from 'react-bootstrap/NavDropdown'
 import Offcanvas from 'react-bootstrap/Offcanvas'
-import * as Icon from 'react-bootstrap-icons'
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
 
@@ -16,6 +10,13 @@ import Modal from '../noAccount/noAccount'
 import { addIdUser } from '../../../redux/user.reducer'
 import { removeAllProduct } from '../../../redux/cart.reducer'
 
+//image
+// import logo from './iconNavbar/logo.svg'
+import search from './iconNavbar/search.svg'
+import home from './iconNavbar/home.svg'
+import person from './iconNavbar/person.svg'
+import cart from './iconNavbar/cart.svg'
+import down from './iconNavbar/down.svg'
 function NavbarPage() {
   const [isPerson, setIsPerson] = useState(false)
   const [modal, setModal] = useState(false)
@@ -24,20 +25,6 @@ function NavbarPage() {
   const nameProduct = useRef<HTMLInputElement>(null)
   const navigate = useNavigate()
   const location = useLocation()
-
-  //get infor user
-  // const handleGetData = () => {
-  //   fetch('http://localhost:3000/v1/user/profile', {
-  //     method: 'GET',
-  //     headers: {
-  //       Authorization: `Bearer ${idUser}`,
-  //       'Content-Type': 'application/json'
-  //       // 'Content-Type': 'application/x-www-form-urlencoded',
-  //     }
-  //   })
-  //     .then((response) => response.json())
-  //     .then((data) => console.log(data))
-  // }
 
   //back to home
   const backToHome = (e: any) => {
@@ -128,13 +115,17 @@ function NavbarPage() {
     localStorage.clear()
   }
   // console.log(isAdmin)
+  //handleForcusInput
+  const handleFocusInput = () => {
+    nameProduct.current?.focus()
+  }
   return (
     <>
       {['xxl'].map((expand) => (
-        <Navbar key={expand} bg='white' expand={expand} fixed='top'>
+        <Navbar key={expand} expand={expand} fixed='top' className='navBar'>
           <Container fluid>
-            <Navbar.Brand className='logoPage' onClick={backToHome}>
-              Kurai shop
+            <Navbar.Brand className='logoPage italiana' onClick={backToHome}>
+              LiLies
             </Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
             <Navbar.Offcanvas
@@ -143,53 +134,75 @@ function NavbarPage() {
               placement='end'
             >
               <Offcanvas.Body>
-                <Form
-                  className='d-flex align-items-center flex-grow-1 border rounded-2 border-dark search ms-5'
-                  onSubmit={handleNameProduct}
-                >
-                  <Icon.Search size={25} className='me-2 ms-4' />
-                  <Form.Control
-                    ref={nameProduct}
-                    type='search'
-                    placeholder='Search'
-                    className='me-2 border-0 shadow-none'
-                    aria-label='Search'
-                  />
+                <Form className='d-flex align-items-center border border-dark search' onSubmit={handleNameProduct}>
+                  <div
+                    className='d-flex align-items-center flex-grow-1 h-100 mx-16'
+                    onClick={handleFocusInput}
+                    aria-hidden='true'
+                  >
+                    <img src={search} alt='search' />
+                    <Form.Control
+                      ref={nameProduct}
+                      type='search'
+                      placeholder='Search'
+                      className='border-0 shadow-none textSearch kumbhSans'
+                      aria-label='Search'
+                    />
+                  </div>
                   <div className='lineSearch'></div>
-                  <Button className='btnSearch border-0 btn-light' onClick={handleNameProduct}>
+                  <Button className='btnSearch border-0 btn-light px-32 kumbhSans' onClick={handleNameProduct}>
                     Search
                   </Button>
                 </Form>
-                <Nav className='justify-content-end pe-3 contentNav'>
-                  <div className='itemNav'>
-                    <Icon.House size={25} />
-                    <Nav.Link onClick={backToHome}>Home</Nav.Link>
+                <Nav className='justify-content-end contentNav'>
+                  <div className='itemNav kumbhSans'>
+                    <Nav.Link style={{ color: '#000' }} onClick={backToHome}>
+                      Home
+                    </Nav.Link>
+                    <img src={home} alt='home' />
                   </div>
                   {!isPerson && (
-                    <div className='d-flex me-2 pe-5'>
-                      <div className='itemNav'>
-                        <Icon.Person size={25} />
-                        <Nav.Link onClick={handldeSignUp}>Sign up</Nav.Link>
+                    <div className='d-flex'>
+                      <div className='itemNav kumbhSans ms-2'>
+                        <Nav.Link style={{ color: '#000' }} onClick={handldeSignUp}>
+                          Sign up
+                        </Nav.Link>
+                        <img src={person} alt='person' />
                       </div>
-                      <div className='itemNav'>
-                        <Icon.Person size={25} />
-                        <Nav.Link onClick={handldeSignIn}>Sign in</Nav.Link>
+                      <div className='itemNav kumbhSans ms-2'>
+                        <Nav.Link style={{ color: '#000' }} onClick={handldeSignIn}>
+                          Sign in
+                        </Nav.Link>
+                        <img src={person} alt='person' />
                       </div>
                     </div>
                   )}
                   {isPerson && (
                     <>
-                      <button className='itemNavIsPerson' onClick={moveCart}>
-                        <Icon.Cart size={25} color='#212529' />
-                        <div>{products.length}</div>
+                      <button className='itemNavIsPerson kumbhSans ms-2' onClick={moveCart}>
+                        <div className='px-2' style={{ color: '#000' }}>
+                          {products.length}
+                        </div>
+                        <img src={cart} alt='cart' />
                       </button>
-                      <div className='itemNavIsPerson'>
-                        <NavDropdown title='Account' id={`offcanvasNavbarDropdown-expand-${expand}`}>
+                      <div className='itemNavIsPerson kumbhSans ms-2'>
+                        <NavDropdown
+                          title={
+                            <>
+                              <img src={down} alt='down' style={{ width: '10px', height: '16px' }} />
+                              <span className='kumbhSans px-2' style={{ color: '#000' }}>
+                                Account
+                              </span>
+                              <img src={person} alt='person' />
+                            </>
+                          }
+                          id={`offcanvasNavbarDropdown-expand-${expand}`}
+                        >
                           <NavDropdown.Item onClick={handleMoveProfile}>Personal</NavDropdown.Item>
                           <NavDropdown.Item onClick={handleMoveHistory}>History</NavDropdown.Item>
-                          <NavDropdown.Item onClick={handleMoveLikes}>Favorite products</NavDropdown.Item>
+                          <NavDropdown.Item onClick={handleMoveLikes}>Favorite</NavDropdown.Item>
                           {isAdmin && <NavDropdown.Item onClick={handleMoveMyShop}>My shop</NavDropdown.Item>}
-                          <NavDropdown.Divider />
+                          <NavDropdown.Divider style={{ borderTopColor: '#000' }} />
                           <NavDropdown.Item onClick={handleSignOut}>Logout</NavDropdown.Item>
                         </NavDropdown>
                       </div>

@@ -81,6 +81,7 @@ class ProductsControllers {
   update(req: any, res: Response) {
     let img = ''
     let dataProduct = {
+      amountProduct: 0, 
       ...req.body
     }
     if (req.files) {
@@ -156,7 +157,7 @@ class ProductsControllers {
   upload = multer({
     storage: this.storage,
     fileFilter: (req, file, cb) => {
-      const fileTypes = /jpeg|jpg|png|jfif/
+      const fileTypes = /jpeg|jpg|png|jfif|webp/
       const mimeType = fileTypes.test(file.mimetype)
       const extname = fileTypes.test(path.extname(file.originalname))
 
@@ -165,7 +166,7 @@ class ProductsControllers {
       }
       cb(null, true)
     }
-  }).array('imageProduct', 3)
+  }).array('imageProduct')
   async review(req: any, res: any) {
     try {
       // console.log(req.user._id, req.body)

@@ -14,6 +14,7 @@ function Portfolio() {
       searchProduct.set('sorting', payload)
       setsearchProduct(searchProduct)
     } else {
+      // toggle click
       searchProduct.delete('sorting')
       setsearchProduct(searchProduct)
     }

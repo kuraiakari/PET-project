@@ -3,7 +3,7 @@ import * as Icon from 'react-bootstrap-icons'
 import './App.css'
 const ScrollButton = () => {
   const [visible, setVisible] = useState(false)
-  console.log(visible)
+  // console.log(visible)
   const toggleVisible = () => {
     const scrolled = document.documentElement.scrollTop
     if (scrolled > 300) {

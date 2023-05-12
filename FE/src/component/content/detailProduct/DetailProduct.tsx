@@ -163,7 +163,8 @@ const DetailProduct = () => {
                   <Icon.ChevronLeft size={16} />
                 </Button>
               )}
-              {indexImg < 2 && (
+              {/* phần tử cuối cùng là phần tử rỗng do hàm split tạo ra */}
+              {indexImg < listImageProduct.length - 2 && (
                 <Button
                   className='buttonChangeImgDetailProduct buttonChangeImgDetailProduct__right'
                   onClick={() => setIndexImg(indexImg + 1)}
