@@ -29,9 +29,12 @@ const ListProduct = () => {
         <div className='listProduct'>
           {listProduct &&
             listProduct.length > 0 &&
-            listProduct.map((product: product, index: number) => {
-              if (index < quantity) return <Product key={product._id} product={product} createProduct={false} />
-            })}
+            listProduct
+              .slice(0)
+              .reverse()
+              .map((product: product, index: number) => {
+                if (index < quantity) return <Product key={product._id} product={product} createProduct={false} />
+              })}
         </div>
         {listProduct?.length > quantity ? (
           <Button className='buttonMoreProduct' onClick={() => setQuantity(quantity + 4)}>
