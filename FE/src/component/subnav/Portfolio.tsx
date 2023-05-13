@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import './portfolio.css'
-import quality from './img/quality.png'
-import voucher from './img/voucher.png'
+import goodPrice from './iconSubNav/goodPrice.svg'
+import quality from './iconSubNav/quality.svg'
 function Portfolio() {
   const [isActivePrice, setIsActivePrice] = useState(false)
   const [isActiveRating, setIsActiveRating] = useState(false)
@@ -28,25 +28,56 @@ function Portfolio() {
     }
   }
   return (
-    <>
-      <div className='portfolio'>
-        <div className='headerPortfolio'>Outstanding</div>
+    <div className='subNav'>
+      <div className='filter'>
+        <div className='kumbhSans headerFilter'>Filter</div>
         <button
           onClick={() => handleSearch('price')}
-          className={isActivePrice ? 'itemPortfolio itemActive' : 'itemPortfolio'}
+          className={isActivePrice ? 'itemFilter itemActive' : 'itemFilter'}
         >
-          <img src={voucher} alt='voucher' className='iconMenu me-2' />
-          Good price
+          <img src={goodPrice} alt='goodPrice' className='iconMenu me-2' />
+          <div className='kumbhSans' style={{ lineHeight: '25px' }}>
+            Good price
+          </div>
         </button>
         <button
           onClick={() => handleSearch('rating')}
-          className={isActiveRating ? 'itemPortfolio itemActive' : 'itemPortfolio'}
+          className={isActiveRating ? 'itemFilter itemActive' : 'itemFilter'}
         >
           <img src={quality} alt='quality' className='iconMenu me-2' />
-          Quality
+          <div className='kumbhSans' style={{ lineHeight: '25px' }}>
+            Rating
+          </div>
         </button>
       </div>
-    </>
+      <div className='category'>
+        <div className='kumbhSans headerCategory'>Category</div>
+        <button className={isActivePrice ? 'itemCategory itemActive' : 'itemCategory'}>
+          <img src={goodPrice} alt='goodPrice' className='iconMenu me-2' />
+          <div className='kumbhSans' style={{ lineHeight: '25px' }}>
+            Phones - Tablets
+          </div>
+        </button>
+        <button className={isActivePrice ? 'itemCategory itemActive' : 'itemCategory'}>
+          <img src={goodPrice} alt='goodPrice' className='iconMenu me-2' />
+          <div className='kumbhSans' style={{ lineHeight: '25px' }}>
+            Men&apos;s Fashion
+          </div>
+        </button>
+        <button className={isActivePrice ? 'itemCategory itemActive' : 'itemCategory'}>
+          <img src={goodPrice} alt='goodPrice' className='iconMenu me-2' />
+          <div className='kumbhSans' style={{ lineHeight: '25px' }}>
+            Women&apos;s Fashion
+          </div>
+        </button>
+        <button className={isActivePrice ? 'itemCategory itemActive' : 'itemCategory'}>
+          <img src={goodPrice} alt='goodPrice' className='iconMenu me-2' />
+          <div className='kumbhSans' style={{ lineHeight: '25px' }}>
+            Fashion accessories
+          </div>
+        </button>
+      </div>
+    </div>
   )
 }
 export default Portfolio

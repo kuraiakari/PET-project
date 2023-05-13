@@ -36,7 +36,9 @@ function App() {
             <Routes>
               <Route path='/' element={<Home />}>
                 {/* nên để đường dẫn cha có kí tự không để rỗng*/}
-                <Route path='search' element={<ListProduct />} />
+                <Route path='search' element={<ListProduct />}>
+                  
+                </Route>
               </Route>
               <Route path='/product/:idProduct' element={<DetailProduct />} />
               <Route path='/cart' element={<Cart />} />
