@@ -25,8 +25,13 @@ const HandleScrollToTop = () => {
   window.addEventListener('scroll', toggleVisible)
 
   return (
-    <div className='btnBackToTop' style={{ display: visible ? 'flex' : 'none' }}>
-      <Icon.ArrowUp size={25} onClick={scrollToTop} />
+    <div
+      className='btnBackToTop'
+      style={{ display: visible ? 'flex' : 'none' }}
+      onClick={scrollToTop}
+      aria-hidden='true'
+    >
+      <Icon.ArrowUp size={25} />
     </div>
   )
 }
