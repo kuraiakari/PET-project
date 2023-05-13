@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams, NavLink } from 'react-router-dom'
 
 import './portfolio.css'
 import goodPrice from './iconSubNav/goodPrice.svg'
@@ -52,30 +52,42 @@ function Portfolio() {
       </div>
       <div className='category'>
         <div className='kumbhSans headerCategory'>Category</div>
-        <button className={isActivePrice ? 'itemCategory itemActive' : 'itemCategory'}>
+        <NavLink
+          end
+          to={'/products/PhonesTablets'}
+          className={isActivePrice ? 'itemCategory itemActive' : 'itemCategory'}
+        >
           <img src={goodPrice} alt='goodPrice' className='iconMenu me-2' />
           <div className='kumbhSans' style={{ lineHeight: '25px' }}>
             Phones - Tablets
           </div>
-        </button>
-        <button className={isActivePrice ? 'itemCategory itemActive' : 'itemCategory'}>
+        </NavLink>
+        <NavLink end to={'/products/MenFashion'} className={isActivePrice ? 'itemCategory itemActive' : 'itemCategory'}>
           <img src={goodPrice} alt='goodPrice' className='iconMenu me-2' />
           <div className='kumbhSans' style={{ lineHeight: '25px' }}>
             Men&apos;s Fashion
           </div>
-        </button>
-        <button className={isActivePrice ? 'itemCategory itemActive' : 'itemCategory'}>
+        </NavLink>
+        <NavLink
+          end
+          to={'/products/WomenFashion'}
+          className={isActivePrice ? 'itemCategory itemActive' : 'itemCategory'}
+        >
           <img src={goodPrice} alt='goodPrice' className='iconMenu me-2' />
           <div className='kumbhSans' style={{ lineHeight: '25px' }}>
             Women&apos;s Fashion
           </div>
-        </button>
-        <button className={isActivePrice ? 'itemCategory itemActive' : 'itemCategory'}>
+        </NavLink>
+        <NavLink
+          end
+          to={'/products/FashionAccessories'}
+          className={isActivePrice ? 'itemCategory itemActive' : 'itemCategory'}
+        >
           <img src={goodPrice} alt='goodPrice' className='iconMenu me-2' />
           <div className='kumbhSans' style={{ lineHeight: '25px' }}>
             Fashion accessories
           </div>
-        </button>
+        </NavLink>
       </div>
     </div>
   )

@@ -14,7 +14,7 @@ import RatingOfProduct from './ratingOfProduct'
 import { addProductToListLikeProduct, removeProductToListLikeProduct } from '../../../redux/user.reducer'
 
 const DetailProduct = () => {
-  const { idProduct } = useParams()
+  const { category, idProduct } = useParams()
   const [indexImg, setIndexImg] = useState(0)
   const [wasBuy, setWasBuy] = useState(false)
   const [ratingProduct, setRatingProduct] = useState(0)
@@ -36,7 +36,7 @@ const DetailProduct = () => {
     review.current?.scrollIntoView()
   }
   useEffect(() => {
-    fetch(`http://localhost:3000/v1/products/${idProduct}`)
+    fetch(`http://localhost:3000/v1/products/${category}/${idProduct}`)
       .then((response) => response.json())
       .then((data) => {
         setTimeout(() => {
@@ -71,7 +71,7 @@ const DetailProduct = () => {
       .then((data) => {
         if (data === 'Was buy product') setWasBuy(true)
       })
-  }, [idProduct, myShop, idUser, id])
+  }, [idProduct, myShop, idUser, id, category])
   let listImageProduct = ''
   if (productDetail) listImageProduct = productDetail[0].imageProduct.split(',')
   const decrease = () => {

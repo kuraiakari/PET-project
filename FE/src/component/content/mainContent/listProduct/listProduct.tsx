@@ -1,29 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams, useParams } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import './listProduct.css'
 import Product from '../product/Product'
 import { product } from 'src/types/product.type'
 const ListProduct = () => {
   const [searchProduct] = useSearchParams()
+  const { category, idProduct } = useParams()
+  console.log(category, idProduct)
   const [quantity, setQuantity] = useState(12)
   // const [loading, setLoading] = useState(false)
-  const nameProduct = searchProduct.get('name') || ''
+  const valueSearch = searchProduct.get('search') || ''
   const sortProduct = searchProduct.get('sorting') || ''
   const [listProduct, setListProduct] = useState<any[]>([])
   useEffect(() => {
+    // reset quanlity moi khi search
     setQuantity(12)
-    fetch(`http://localhost:3000/v1/products/?name=${nameProduct}&sorting=${sortProduct}`)
+    fetch(`http://localhost:3000/v1/products/${category}?search=${valueSearch}&sorting=${sortProduct}`)
       .then((response) => response.json())
       .catch(() => console.log('Not internet'))
       .then((data) => setListProduct(data))
-  }, [nameProduct, sortProduct])
+  }, [category, valueSearch, sortProduct])
   return (
     <>
       <div className='contentListProduct'>
-        {nameProduct && (
+        {valueSearch && (
           <div className='headerAnswerSearch shadow-sm'>
-            <h1>Search results for: {nameProduct}</h1>
+            <h1>Search results for: {valueSearch}</h1>
           </div>
         )}
         <div className='listProduct'>

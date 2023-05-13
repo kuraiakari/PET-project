@@ -14,6 +14,7 @@ import ScrollButton from './BackToTop'
 import './App.css'
 import LikeProducts from './component/content/likeProducts/likeProducts'
 import Footer from './component/footer/Footer'
+
 function App() {
   const Home = () => {
     return (
@@ -34,13 +35,14 @@ function App() {
           <Headerpage />
           <div className='row contentPage min-vh-100 mb-2'>
             <Routes>
+              {/* nên để đường dẫn cha có kí tự không để rỗng*/}
               <Route path='/' element={<Home />}>
-                {/* nên để đường dẫn cha có kí tự không để rỗng*/}
-                <Route path='search' element={<ListProduct />}>
-                  
+                {/* nested auto add '/' */}
+                <Route path='products' element={<ListProduct />}>
+                  <Route path=':category' element={<ListProduct />} />
                 </Route>
               </Route>
-              <Route path='/product/:idProduct' element={<DetailProduct />} />
+              <Route path='/products/:category/:idProduct' element={<DetailProduct />} />
               <Route path='/cart' element={<Cart />} />
               <Route path='/history' element={<History />} />
               <Route path='/profile' element={<Profile />} />

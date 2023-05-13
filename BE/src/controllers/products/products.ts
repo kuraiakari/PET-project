@@ -23,19 +23,22 @@ class ProductsControllers {
   getProducts(req: Request, res: Response) {
     let optionProduct = {}
     let optionSortProduct = {}
-    if (req.query.name) {
+    if (req.params.category !== 'undefined') {
+      optionProduct = { categoryProduct: req.params.category }
+    }
+    if (req.params.idproduct) {
       optionProduct = {
-        $or: [{ nameProduct: req.query.name }, { typeProduct: req.query.name }]
+        _id: req.params.idproduct
+      }
+    }
+    if (req.query.search) {
+      optionProduct = {
+        $or: [{ nameProduct: req.query.search }, { typeProduct: req.query.search }]
       }
     }
     if (req.query.sorting) {
       if (req.query.sorting === 'rating') optionSortProduct = { ratingProduct: -1 }
-      if (req.query.sorting === 'price') optionSortProduct = { promotionProduct: -1 }
-    }
-    if (req.params.id) {
-      optionProduct = {
-        _id: req.params.id
-      }
+      if (req.query.sorting === 'price') optionSortProduct = { promotionProduct: 1 }
     }
     products
       .find(optionProduct)
@@ -81,7 +84,7 @@ class ProductsControllers {
   update(req: any, res: Response) {
     let img = ''
     let dataProduct = {
-      amountProduct: 0, 
+      amountProduct: 0,
       ...req.body
     }
     if (req.files) {

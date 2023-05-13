@@ -16,12 +16,13 @@ const Product = (props: ProductItem) => {
   const handleShowModalCreateProduct = () => setShow(true)
   if (!props.createProduct) {
     const { product } = props
+    const category = product.categoryProduct
     // console.log(product.store)
     const listImageProduct = product.imageProduct.split(',')
     return (
       <>
         <div className='col-xl-3 ps-2 pe-2'>
-          <Link to={`/product/${product._id}`} className='product'>
+          <Link to={`/products/${category}/${product._id}`} className='product'>
             <img src={'http://localhost:3000/' + listImageProduct[0]} alt='product' className='imgProduct' />
             <div className='titleProduct'>
               <h3 className='nameProduct'>

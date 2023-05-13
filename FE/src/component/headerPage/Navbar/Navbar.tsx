@@ -22,7 +22,7 @@ function NavbarPage() {
   const [modal, setModal] = useState(false)
   const [signIn, setsignIn] = useState(false) //false is signin, true is signup)
 
-  const nameProduct = useRef<HTMLInputElement>(null)
+  const valueSearch = useRef<HTMLInputElement>(null)
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -30,16 +30,16 @@ function NavbarPage() {
   const backToHome = (e: any) => {
     e.preventDefault()
     e.stopPropagation()
-    if (nameProduct.current?.value) nameProduct.current.value = ''
+    if (valueSearch.current?.value) valueSearch.current.value = ''
     navigate('/')
   }
 
   //search product
-  const handleNameProduct = (e: any) => {
+  const handleValueSearch = (e: any) => {
     e.preventDefault()
     e.stopPropagation()
-    if (nameProduct.current?.value) {
-      navigate(`/search?name=${nameProduct.current?.value}`)
+    if (valueSearch.current?.value) {
+      navigate(`/products?search=${valueSearch.current?.value}`)
     }
   }
 
@@ -117,7 +117,7 @@ function NavbarPage() {
   // console.log(isAdmin)
   //handleForcusInput
   const handleFocusInput = () => {
-    nameProduct.current?.focus()
+    valueSearch.current?.focus()
   }
   return (
     <>
@@ -134,7 +134,7 @@ function NavbarPage() {
               placement='end'
             >
               <Offcanvas.Body>
-                <Form className='d-flex align-items-center border border-dark search' onSubmit={handleNameProduct}>
+                <Form className='d-flex align-items-center border border-dark search' onSubmit={handleValueSearch}>
                   <div
                     className='d-flex align-items-center flex-grow-1 h-100 mx-16'
                     onClick={handleFocusInput}
@@ -142,7 +142,7 @@ function NavbarPage() {
                   >
                     <img src={search} alt='search' />
                     <Form.Control
-                      ref={nameProduct}
+                      ref={valueSearch}
                       type='search'
                       placeholder='Search'
                       className='border-0 shadow-none textSearch kumbhSans'
@@ -150,7 +150,7 @@ function NavbarPage() {
                     />
                   </div>
                   <div className='lineSearch'></div>
-                  <Button className='btnSearch border-0 btn-light px-32 kumbhSans' onClick={handleNameProduct}>
+                  <Button className='btnSearch border-0 btn-light px-32 kumbhSans' onClick={handleValueSearch}>
                     Search
                   </Button>
                 </Form>
