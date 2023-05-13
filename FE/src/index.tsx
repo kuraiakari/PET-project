@@ -6,6 +6,7 @@ import { StyledEngineProvider } from '@mui/material/styles'
 import { Provider } from 'react-redux'
 
 import App from './App'
+import AutoScrollToTop from './AutoToTop'
 import { store } from './redux/store'
 
 import './fontText.css'
@@ -17,6 +18,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <Provider store={store}>
       <StyledEngineProvider injectFirst>
         <BrowserRouter>
+          <AutoScrollToTop />
           <App />
         </BrowserRouter>
       </StyledEngineProvider>

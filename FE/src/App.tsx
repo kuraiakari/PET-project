@@ -9,7 +9,7 @@ import Cart from './component/content/cart/Cart'
 import History from './component/content/history/history'
 import Profile from './component/content/profile/Profile'
 import MyShop from './component/content/myShop/MyShop'
-import ScrollButton from './BackToTop'
+import HandleScrollToTop from './BackToTop'
 
 import './App.css'
 import LikeProducts from './component/content/likeProducts/likeProducts'
@@ -38,8 +38,8 @@ function App() {
               {/* nên để đường dẫn cha có kí tự không để rỗng*/}
               <Route path='/' element={<Home />}>
                 {/* nested auto add '/' */}
-                <Route path='products' element={<ListProduct />}>
-                  <Route path=':category' element={<ListProduct />} />
+                <Route path='products'>
+                  <Route path=':category' />
                 </Route>
               </Route>
               <Route path='/products/:category/:idProduct' element={<DetailProduct />} />
@@ -52,7 +52,7 @@ function App() {
           </div>
         </div>
         <Footer />
-        <ScrollButton />
+        <HandleScrollToTop />
       </div>
     </>
   )

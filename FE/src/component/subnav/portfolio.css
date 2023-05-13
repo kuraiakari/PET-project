@@ -35,9 +35,14 @@
   border-bottom: 1px solid #000;
   padding: 28px 0;
 }
+.itemCategory {
+  text-decoration: none;
+  color: #000;
+}
 .itemFilter:hover,
 .itemCategory:hover {
   background-color: #f8f3ed;
+  color: #000;
 }
 
 .itemFilter.itemActive,

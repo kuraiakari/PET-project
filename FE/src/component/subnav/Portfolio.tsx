@@ -79,7 +79,6 @@ function Portfolio() {
           </div>
         </NavLink>
         <NavLink
-          end
           to={'/products/FashionAccessories'}
           className={isActivePrice ? 'itemCategory itemActive' : 'itemCategory'}
         >
