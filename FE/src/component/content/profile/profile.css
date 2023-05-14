@@ -3,3 +3,35 @@
   height: 15em;
   border-radius: 50%;
 }
+@font-face {
+  font-family: 'JejuMyeongjoRegular';
+  src: local('JejuMyeongjoRegular'), url('./JejuMyeongjo-Regular.ttf') format('truetype');
+  font-weight: bold;
+}
+.font-face-JejuMyeongjoRegular {
+  font-family: 'JejuMyeongjo';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 60px;
+  line-height: 60px;
+  padding-bottom: 53px;
+}
+.col-information {
+  width: 637px;
+}
+.borderInput {
+  border-radius: 0;
+  border: 1px solid #000;
+}
+.avatarPerson {
+  display: none;
+}
+.custom-file-upload {
+  margin-top: 68px;
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  color: #ccc;
+  background-color: #000;
+}

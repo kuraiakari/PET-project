@@ -33,7 +33,7 @@ function App() {
       <div className='fullweb'>
         <div className='container'>
           <Headerpage />
-          <div className='row contentPage min-vh-100 mb-2'>
+          <div className='row contentPage min-vh-100'>
             <Routes>
               {/* nên để đường dẫn cha có kí tự không để rỗng*/}
               <Route path='/' element={<Home />}>

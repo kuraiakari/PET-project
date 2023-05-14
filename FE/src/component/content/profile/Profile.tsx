@@ -3,6 +3,8 @@ import { useSelector } from 'react-redux'
 import { Button, Form, FormGroup } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import avatarError from './avatar.webp'
+
+import './JejuMyeongjo-Regular.ttf'
 import './profile.css'
 
 interface inforUser {
@@ -17,6 +19,7 @@ interface inforUser {
 const Profile = () => {
   const idUser = useSelector((state: any) => state.user.idUser)
   const imageAvatar = useRef<HTMLInputElement>(null)
+  const [avatarTest, setAvatarTest] = useState<File>()
   const [inforUser, setInforUser] = useState<inforUser>()
   const [firstNameUser, setFirstNameUSer] = useState()
   const [lastNameUser, setLastNameUSer] = useState()
@@ -42,7 +45,6 @@ const Profile = () => {
         }, 1000)
       })
   }, [idUser])
-  //handleSaveInformations
   const handleSaveInformations = (e: any) => {
     e.preventDefault()
     e.stopPropagation()
@@ -52,34 +54,13 @@ const Profile = () => {
         return
       }
     }
-    if (firstNameUser || lastNameUser || phoneUser || genderUser) {
-      const data = {
-        firstName: firstNameUser,
-        lastName: lastNameUser,
-        phoneUser,
-        gender: genderUser
-      }
-      fetch('http://localhost:3000/v1/user/update', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${idUser}`
-        },
-        body: JSON.stringify(data)
-      })
-        .then((response) => response.json())
-        .then(() => {
-          // console.log(data)
-          navigate(0)
-        })
-    }
-  }
-  //handleSaveImg
-  const handleSaveImage = (e: any) => {
-    e.preventDefault()
-    e.stopPropagation()
     const formData = new FormData()
-    if (imageAvatar.current?.files) formData.append('avatar', imageAvatar.current.files[0])
+    if (avatarTest) formData.append('avatar', avatarTest)
+    if (firstNameUser) formData.append('firstName', firstNameUser)
+    if (lastNameUser) formData.append('lastName', lastNameUser)
+    if (phoneUser) formData.append('phoneUser', phoneUser)
+    if (genderUser) formData.append('gender', genderUser)
+
     fetch('http://localhost:3000/v1/user/update', {
       method: 'PUT',
       headers: {
@@ -93,17 +74,17 @@ const Profile = () => {
       })
   }
   return (
-    <>
-      <h1 className='d-flex justify-content-center align-items-center '>User Personal Information</h1>
+    <div className='d-flex flex-column align-items-center mt-46'>
+      <div className='font-face-JejuMyeongjoRegular'>User Personal Information</div>
       {!inforUser && (
         <div className='loader-wrapper pt-5'>
           <div className='loader'></div>
         </div>
       )}
       {inforUser && (
-        <>
+        <div className='d-flex justify-content-center w-100'>
           <div className='col-xl-3 d-flex flex-column align-items-center '>
-            <div>
+            <div style={{ border: '3px solid #000', borderRadius: '50%', marginTop: '35px' }}>
               <img
                 src={'http://localhost:3000/' + inforUser?.avatar}
                 onError={({ currentTarget }) => {
@@ -114,20 +95,41 @@ const Profile = () => {
                 className='avatarUser'
               />
             </div>
-            <input type='file' id='avatar' name='avatar' ref={imageAvatar} className='mt-3 mb-3'></input>
-            <Button type='submit' onClick={handleSaveImage}>
-              Save Image
-            </Button>
+            <label className='custom-file-upload kumbhSans' style={{ fontWeight: 700 }}>
+              Choose file
+              <input
+                type='file'
+                id='avatar'
+                name='avatar'
+                onChange={() => {
+                  if (imageAvatar.current?.files) setAvatarTest(imageAvatar.current?.files[0])
+                }}
+                ref={imageAvatar}
+                className='mt-3 mb-3 avatarPerson'
+              ></input>
+            </label>
+            {!avatarTest && (
+              <div className='kumbhSans' style={{ fontSize: '15px', fontWeight: 300, marginTop: '19px' }}>
+                No files selected
+              </div>
+            )}
           </div>
-          <div className='col-xl-9'>
+          <div className='col-information'>
             <Form noValidate validated={validated} onSubmit={handleSaveInformations}>
               <Form.Group>
-                <Form.Label>Email</Form.Label>
-                <Form.Control required type='email' placeholder={inforUser?.email} disabled />
+                <Form.Label className='kumbhSans'>Email</Form.Label>
+                <Form.Control
+                  className='borderInput kumbhSans'
+                  required
+                  type='email'
+                  placeholder={inforUser?.email}
+                  disabled
+                />
               </Form.Group>
               <Form.Group>
-                <Form.Label>First name</Form.Label>
+                <Form.Label className='kumbhSans'>First name</Form.Label>
                 <Form.Control
+                  className='borderInput kumbhSans'
                   required
                   type='text'
                   placeholder={inforUser?.firstName || 'First Name'}
@@ -135,8 +137,9 @@ const Profile = () => {
                 />
               </Form.Group>
               <Form.Group>
-                <Form.Label>Last name</Form.Label>
+                <Form.Label className='kumbhSans'>Last name</Form.Label>
                 <Form.Control
+                  className='borderInput kumbhSans'
                   required
                   type='text'
                   placeholder={inforUser?.lastName || 'Last name'}
@@ -144,8 +147,9 @@ const Profile = () => {
                 />
               </Form.Group>
               <Form.Group>
-                <Form.Label>Phone</Form.Label>
+                <Form.Label className='kumbhSans'>Phone</Form.Label>
                 <Form.Control
+                  className='borderInput kumbhSans'
                   required
                   type='text'
                   placeholder={inforUser?.phoneUser || 'Phone user'}
@@ -153,24 +157,42 @@ const Profile = () => {
                 />
               </Form.Group>
               <FormGroup>
-                <Form.Label>Gender</Form.Label>
-                <Form.Select required onChange={(e: any) => setGenderUSer(e.target.value)}>
+                <Form.Label className='kumbhSans'>Gender</Form.Label>
+                <Form.Select
+                  className='borderInput kumbhSans'
+                  required
+                  onChange={(e: any) => setGenderUSer(e.target.value)}
+                >
                   <option value={inforUser?.gender || ''}>{inforUser?.gender || 'Choose gender'}</option>
                   <option value='Male'>Male</option>
                   <option value='Female'>Female</option>
                   <option value='Other'>Other</option>
                 </Form.Select>
               </FormGroup>
-              <div className='d-flex justify-content-center mt-3'>
-                <Button type='submit' disabled={!firstNameUser && !lastNameUser && !phoneUser && !genderUser}>
-                  Save Information
+              <div className='d-flex justify-content-center'>
+                <Button
+                  type='submit'
+                  className='kumbhSans'
+                  style={{
+                    fontWeight: 700,
+                    marginTop: '60px',
+                    backgroundColor: '#000',
+                    borderRadius: 0,
+                    border: 'none',
+                    width: '140px',
+                    height: '42px',
+                    marginBottom: '200px'
+                  }}
+                  disabled={!firstNameUser && !lastNameUser && !phoneUser && !genderUser && !avatarTest}
+                >
+                  Save
                 </Button>
               </div>
             </Form>
           </div>
-        </>
+        </div>
       )}
-    </>
+    </div>
   )
 }
 export default Profile

@@ -58,7 +58,7 @@ class UserControllers {
   async updateProfile(req: any, res: any) {
     // console.log(req)
     let dataNew = { ...req.body }
-    if (req.file) {
+    if (!!req.file) {
       dataNew = { ...dataNew, avatar: req.file.path }
     }
     // console.log(dataNew)
