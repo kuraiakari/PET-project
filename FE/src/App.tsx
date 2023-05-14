@@ -12,6 +12,7 @@ import MyShop from './component/content/myShop/MyShop'
 import HandleScrollToTop from './BackToTop'
 
 import './App.css'
+import './fontDownload/JejuMyeongjo-Regular.ttf'
 import LikeProducts from './component/content/likeProducts/likeProducts'
 import Footer from './component/footer/Footer'
 
@@ -22,7 +23,7 @@ function App() {
         <div className='fix-col-xl-3 col-xl-3'>
           <Portfolio />
         </div>
-        <div className='fix-col-xl-9 col-xl-9'>
+        <div className='fix-col-xl-9'>
           <ListProduct />
         </div>
       </>
@@ -31,7 +32,7 @@ function App() {
   return (
     <>
       <div className='fullweb'>
-        <div className='container'>
+        <div className='container' style={{ margin: '0 auto', display: 'block', width: '1524px' }}>
           <Headerpage />
           <div className='row contentPage min-vh-100'>
             <Routes>

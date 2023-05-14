@@ -16,32 +16,52 @@ const Product = (props: ProductItem) => {
   const handleShowModalCreateProduct = () => setShow(true)
   if (!props.createProduct) {
     const { product } = props
+    const handleCovertMoney = (money: number) => {
+      let ans = ''
+      while (Math.floor(money / 1000) > 1) {
+        const du = money % 1000 === 0 ? '000' : money % 1000
+        ans = ' ' + du + ans
+        money = Math.floor(money / 1000)
+      }
+      return (money % 1000) + ans
+    }
     const category = product.categoryProduct
     // console.log(product.store)
     const listImageProduct = product.imageProduct.split(',')
     return (
       <>
-        <div className='col-xl-3 ps-2 pe-2'>
+        <div className='col-xl-2 ps-2 pe-2'>
           <Link to={`/products/${category}/${product._id}`} className='product'>
+            {product.promotionProduct > 0 && (
+              <div
+                className='promotionProduct kumbhSans'
+                style={{
+                  fontWeight: 700,
+                  fontSize: '12px'
+                }}
+              >
+                SALE {product.promotionProduct}%
+              </div>
+            )}
             <img src={'http://localhost:3000/' + listImageProduct[0]} alt='product' className='imgProduct' />
             <div className='titleProduct'>
-              <h3 className='nameProduct'>
+              <div className='nameProduct kumbhSans' style={{ fontWeight: 700, fontSize: '15px' }}>
                 {product.nameProduct.charAt(0).toUpperCase() + product.nameProduct.slice(1)}
-              </h3>
+              </div>
+              <div className={`priceProduct ${product.promotionProduct ? 'haspromotion' : ''}`}>
+                <div>{handleCovertMoney(product.lastPriceProduct)}₽</div>
+                {product.promotionProduct > 0 && (
+                  <div style={{ textDecoration: 'line-through', color: '#1F1F1F' }}>
+                    {handleCovertMoney(product.priceProduct)}₽
+                  </div>
+                )}
+              </div>
               <div className='ratingFull'>
                 {product.ratingProduct && (
                   <>
                     <span>{product.ratingProduct}</span>
                     <Icon.StarFill size={12} className='ms-1' />
                   </>
-                )}
-              </div>
-              <div className={`priceProduct ${product.promotionProduct ? 'haspromotion' : ''}`}>
-                <div className='priceProductCost'>
-                  {product.priceProduct - Math.round((product.priceProduct * product.promotionProduct) / 100)}₽
-                </div>
-                {product.promotionProduct > 0 && (
-                  <div className='promotionProduct ms-2'>-{product.promotionProduct}%</div>
                 )}
               </div>
             </div>

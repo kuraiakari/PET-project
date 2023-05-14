@@ -3,19 +3,6 @@
   height: 15em;
   border-radius: 50%;
 }
-@font-face {
-  font-family: 'JejuMyeongjoRegular';
-  src: local('JejuMyeongjoRegular'), url('./JejuMyeongjo-Regular.ttf') format('truetype');
-  font-weight: bold;
-}
-.font-face-JejuMyeongjoRegular {
-  font-family: 'JejuMyeongjo';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 60px;
-  line-height: 60px;
-  padding-bottom: 53px;
-}
 .col-information {
   width: 637px;
 }
@@ -32,6 +19,6 @@
   display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
-  color: #ccc;
+  color: #fff;
   background-color: #000;
 }

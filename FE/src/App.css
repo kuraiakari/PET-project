@@ -4,16 +4,19 @@
   background-color: #f5f5fa;
 }
 .container .contentPage {
+  display: flex;
+  flex-grow: 1;
   margin-top: 110px;
   padding-top: 36px;
+  flex-wrap: nowrap;
 }
 .row .fix-col-xl-3 {
-  width: 20%;
+  width: 237px;
   position: relative;
 }
 .row .fix-col-xl-9 {
-  width: 80%;
   display: flex;
+  width: calc(1524px - 237px);
 }
 .btnBackToTop {
   position: fixed;
@@ -28,4 +31,9 @@
   z-index: 1;
   cursor: pointer;
   color: #fff;
+}
+@media (min-width: 1600px) {
+  .container {
+    min-width: 1524px;
+  }
 }

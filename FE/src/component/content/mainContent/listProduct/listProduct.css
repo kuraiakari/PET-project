@@ -1,10 +1,8 @@
 .contentListProduct {
-  border-radius: 8px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
   width: 100%;
-  align-items: center;
 }
 .listProduct {
   display: flex;
@@ -32,7 +30,7 @@
   font-size: 16px;
   line-height: 150%;
   text-align: center;
-  background-color: transparent
+  background-color: transparent;
 }
 .buttonMoreProduct:hover {
   background-color: rgba(0, 96, 255, 0.12) !important;

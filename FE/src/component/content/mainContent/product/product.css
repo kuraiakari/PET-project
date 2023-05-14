@@ -1,11 +1,23 @@
 .product {
+  position: relative;
   display: block;
   text-decoration: none;
-  border-radius: 8px;
   background-color: #fff;
   overflow: hidden;
   margin-bottom: 8px;
 }
+.promotionProduct {
+  background-color: #d26b18;
+  position: absolute;
+  top: 7px;
+  left: 6px;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: 15px;
+  padding: 1px 5px;
+  text-align: 'center';
+}
+
 .createproduct {
   display: block;
   text-decoration: none;
@@ -38,26 +50,22 @@
 }
 .imgProduct {
   width: 100%;
-  height: 16rem;
+  background-size: contain;
 }
 .titleProduct {
-  margin: 0 12px;
-  padding: 8px 0;
-  line-height: 1.15;
-  min-height: 86px;
+  margin: 8px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .nameProduct {
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2; /* number of lines to show */
-  line-clamp: 2;
   -webkit-box-orient: vertical;
-  height: 54px;
-  font-weight: 400;
-  font-size: 18px;
-  line-height: 150%;
+  line-height: 19px;
   color: rgb(39, 39, 42);
-  margin: 0px;
+  margin-bottom: 14px;
   word-break: break-word;
 }
 .ratingFull {
@@ -73,13 +81,9 @@
 .priceProduct {
   display: flex;
   color: rgb(56, 56, 61);
-  align-items: center;
+  flex-direction: column;
+  justify-content: center;
 }
 .haspromotion {
   color: rgb(255, 66, 78);
-}
-.promotionProduct {
-  font-size: 14px;
-  height: 14px;
-  line-height: 14px;
 }

@@ -4,7 +4,6 @@ import { Button, Form, FormGroup } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import avatarError from './avatar.webp'
 
-import './JejuMyeongjo-Regular.ttf'
 import './profile.css'
 
 interface inforUser {
@@ -75,7 +74,9 @@ const Profile = () => {
   }
   return (
     <div className='d-flex flex-column align-items-center mt-46'>
-      <div className='font-face-JejuMyeongjoRegular'>User Personal Information</div>
+      <div className='JejuMyeongjoRegular' style={{ paddingBottom: '53px' }}>
+        User Personal Information
+      </div>
       {!inforUser && (
         <div className='loader-wrapper pt-5'>
           <div className='loader'></div>

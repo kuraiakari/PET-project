@@ -7,4 +7,5 @@ export interface product {
   promotionProduct: number
   store: string
   categoryProduct: string
+  lastPriceProduct: number
 }
