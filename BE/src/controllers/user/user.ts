@@ -19,7 +19,7 @@ class UserControllers {
       salt
     }
     users.create(data, function (err: any, user: any) {
-      if (err) res.json({ messageError: 'Other email' })
+      if (err) res.json({ messageError: 'Email was registered' })
       else res.json(user)
     })
   }
@@ -63,7 +63,7 @@ class UserControllers {
     }
     // console.log(dataNew)
     users.updateOne({ _id: req.user._id }, dataNew).exec((err: any, user: any) => {
-      if (err) res.json({ messageError: 'Other email' })
+      if (err) res.json({ messageError: 'Email was registered' })
       else {
         if (!user.acknowledged) res.json('Nothing updated')
         else if (user.matchedCount) res.json('Update successfully')

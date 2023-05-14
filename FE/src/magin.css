@@ -1,9 +1,24 @@
+.mb-4 {
+  margin-bottom: 4px !important;
+}
+.mb-12 {
+  margin-bottom: 12px;
+}
 .mx-16 {
   margin: 0 16px;
+}
+.mb-22 {
+  margin-bottom: 22px;
 }
 .mt-46 {
   margin-top: 46px;
 }
 .mb-37 {
   margin-bottom: 37px;
+}
+.mb-68 {
+  margin-bottom: 68px;
+}
+.mb-119 {
+  margin-bottom: 119px;
 }

@@ -12,13 +12,12 @@
 }
 .boxLogin {
   position: relative;
-  width: 35%;
-  min-height: 700px;
+  top: 47px;
+  width: 494px;
+  height: 732px;
   border: 1px solid #333;
-  padding: 60px 30px;
-  border-radius: 10px;
   background-color: #fff;
-  overflow: hidden;
+  padding: 65px 20px 117px 20px;
 }
 .boxLogin .iconBoxLogin {
   color: red;
@@ -36,8 +35,21 @@
   display: flex;
   justify-content: center;
 }
+.textHeaderBox {
+  font-size: 40px !important ;
+  line-height: 40px !important ;
+}
+.notification {
+  line-height: 19px;
+  font-size: 15px !important;
+}
 .boxLogin .messError {
-  height: 1rem;
+  display: flex;
+  min-height: 19px;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 15px;
+  line-height: 19px;
   color: red;
 }
 .boxLogin .success {
