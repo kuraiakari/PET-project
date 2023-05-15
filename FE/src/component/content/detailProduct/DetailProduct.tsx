@@ -1,17 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import Button from 'react-bootstrap/Button'
 import { useDispatch, useSelector } from 'react-redux'
 import * as Icon from 'react-bootstrap-icons'
+import Rating from '@mui/material/Rating/Rating'
+import { Modal, Button } from 'react-bootstrap'
+
 import { addProduct } from '../../../redux/cart.reducer'
+import { addProductToListLikeProduct, removeProductToListLikeProduct } from '../../../redux/user.reducer'
 import { order } from 'src/types/order.type'
 import './detailProduct.css'
-import Rating from '@mui/material/Rating/Rating'
-import { Modal } from 'react-bootstrap'
+// import Breadcrumds from '../../Breadcrumb/Breadcrumb'
 import EditProduct from './editProduct'
 import ReviewCustomer from './ReviewCustomer'
 import RatingOfProduct from './ratingOfProduct'
-import { addProductToListLikeProduct, removeProductToListLikeProduct } from '../../../redux/user.reducer'
 
 const DetailProduct = () => {
   const { category, idProduct } = useParams()
@@ -153,6 +154,7 @@ const DetailProduct = () => {
       {productDetail?.length === 0 && <div>Not found product</div>}
       {productDetail && productDetail?.length > 0 && (
         <>
+          {/* <Breadcrumds /> */}
           <div className='detailProduct ps-0'>
             <div className='wrapImgDetailProduct col-xl-5'>
               {indexImg > 0 && (
