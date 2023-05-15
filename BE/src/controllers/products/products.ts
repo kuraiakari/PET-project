@@ -46,7 +46,7 @@ class ProductsControllers {
       .exec(function (err: any, products: any) {
         if (!err) {
           if (products.length > 0) res.json(products)
-          else res.json({ messageError: 'NotFound' })
+          else res.json('Not Found')
         } else res.json({ messageError: `${err}` })
       })
   }

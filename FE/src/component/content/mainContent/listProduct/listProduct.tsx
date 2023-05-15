@@ -15,7 +15,7 @@ const ListProduct = () => {
   // const [loading, setLoading] = useState(false)
   const valueSearch = searchProduct.get('search') || ''
   const sortProduct = searchProduct.get('sorting') || ''
-  const [listProduct, setListProduct] = useState<any[]>([])
+  const [listProduct, setListProduct] = useState<any[] | string>([])
   useEffect(() => {
     // reset quanlity moi khi search
     setQuantity(12)
@@ -39,12 +39,12 @@ const ListProduct = () => {
           </div>
         )}
         {valueSearch && (
-          <div className='headerAnswerSearch shadow-sm'>
+          <div className='headerAnswerSearch'>
             <h1>Search results for: {valueSearch}</h1>
           </div>
         )}
         <div className='listProduct'>
-          {listProduct &&
+          {listProduct.constructor === Array &&
             listProduct.length > 0 &&
             listProduct
               .slice(0)
@@ -54,13 +54,28 @@ const ListProduct = () => {
               })}
         </div>
         {listProduct?.length > quantity ? (
-          <Button className='buttonMoreProduct' onClick={() => setQuantity(quantity + 4)}>
-            Show more
-          </Button>
+          <div className='d-flex w-100 justify-content-center'>
+            <Button
+              className='buttonMoreProduct kumbhSans'
+              style={{
+                fontWeight: 700,
+                marginTop: '60px',
+                backgroundColor: '#000',
+                borderRadius: 0,
+                border: 'none',
+                width: '140px',
+                height: '42px',
+                marginBottom: '200px'
+              }}
+              onClick={() => setQuantity(quantity + 4)}
+            >
+              Show more
+            </Button>
+          </div>
         ) : (
           false
         )}
-        {listProduct?.length === 0 && <h1>Not found</h1>}
+        {listProduct === 'Not Found' && <h1>Not found</h1>}
       </div>
     </>
   )
