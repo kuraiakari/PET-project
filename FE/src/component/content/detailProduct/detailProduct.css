@@ -36,13 +36,16 @@
   right: 1em;
 }
 .imgProductDetail {
-  width: 80%;
-  height: 470px;
+  width: 622px;
+  height: 622px;
+}
+.miniImgProductDetail {
+  width: 108px;
+  height: 108px;
 }
 .infoDetailProduct {
   margin-left: 12px;
-  background-color: #fff;
-  padding: 16px 20px;
+  width: 100%;
 }
 .nameStoreDetailProduct {
   margin: 0px;
@@ -57,8 +60,6 @@
   font-weight: 400;
   line-height: 32px;
   word-break: break-word;
-  padding-top: 16px;
-  max-width: 600px;
   margin-bottom: 0;
 }
 .ratingProduct {
@@ -67,35 +68,26 @@
 }
 .priceDetailProduct {
   display: flex;
-  height: 92px;
-  align-items: end;
-  border-radius: 4px;
-  background-color: rgb(227, 220, 220);
-  padding: 0px 16px 28px;
 }
 .lastPriceDetailProduct {
-  margin-right: 8px;
-  font-size: 32px;
-  line-height: 40px;
-  margin-right: 8px;
-  font-weight: 500;
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 31px;
+  margin-right: 15px;
 }
 .lastPriceDetailProduct--hasSale {
-  color: rgb(255, 66, 78);
+  color: #d26b18;
 }
 .priceDetailProductNotSale {
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 31px;
   text-decoration: line-through;
-  color: rgb(128, 128, 137)
-}
-.saleDetailProduct {
-  margin-left: 8px;
-  color: rgb(255, 66, 78);
+  color: #1f1f1f;
+  opacity: 0.5;
 }
 .quantityDetailProduct {
-  margin: 16px 0;
-  padding: 16px 0;
-  border-top: 1px solid rgb(242, 242, 242);
-  border-bottom: 1px solid rgb(242, 242, 242);
+  margin-bottom: 110px;
 }
 .btnQuanlityDetailProduct {
   display: flex;
@@ -104,24 +96,29 @@
   height: 40px;
   width: 40px;
   border-radius: 0;
-  border: 1px solid rgb(236, 236, 236);
+  border: 1px solid #000000;
   background-color: #fff;
-  color: #393535;
-  font-size: 16px;
+  color: #000000;
+  font-size: 30px;
+  padding: 0;
+  padding-bottom: 4px;
 }
-.btnQuanlityDetailProduct:hover {
+.btnQuanlityDetailProduct:hover,
+.btnQuanlityDetailProduct:active {
   background-color: rgb(236, 236, 236);
-  border: 1px solid rgb(236, 236, 236);
-  color: #808080
+  border: 1px solid #000000;
+  color: #808080;
 }
 .btnQuanlityDetailProduct:disabled {
   color: #393535;
   background-color: rgb(236, 236, 236);
-  border: 1px solid rgb(236, 236, 236)
+  border: 1px solid #000000;
 }
 .inputQuanlityDetailProduct {
   border-radius: 0;
-  border: 1px solid rgb(236, 236, 236);
+  border: none;
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #000000;
   height: 40px;
   width: 60px;
   text-align: center;

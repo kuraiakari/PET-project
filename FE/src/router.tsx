@@ -1,4 +1,4 @@
-import { Outlet, createBrowserRouter } from 'react-router-dom'
+import { Outlet, Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 
 import Portfolio from './component/subnav/Portfolio'
 import ListProduct from './component/content/mainContent/listProduct/listProduct'
@@ -40,17 +40,20 @@ const Fullweb = () => {
     </div>
   )
 }
-export const router = createBrowserRouter([
-  {
-    element: <Fullweb />,
-    children: [
-      { path: '/', element: <Home />, children: [{ path: 'products', children: [{ path: ':category' }] }] },
-      { path: '/products/:category/:idProduct', element: <DetailProduct /> },
-      { path: '/cart', element: <Cart /> },
-      { path: '/history', element: <History /> },
-      { path: '/profile', element: <Profile /> },
-      { path: '/likes', element: <LikeProducts /> },
-      { path: '/myshop', element: <MyShop /> }
-    ]
-  }
-])
+export const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route element={<Fullweb />}>
+      <Route path='/' element={<Home />}>
+        <Route path='products'>
+          <Route element={<Home />} path=':category' />
+        </Route>
+      </Route>
+      <Route path='/products/:category/:idProduct' element={<DetailProduct />} />
+      <Route path='/cart' element={<Cart />} />
+      <Route path='/history' element={<History />} />
+      <Route path='/profile' element={<Profile />} />
+      <Route path='/likes' element={<LikeProducts />} />
+      <Route path='/myshop' element={<MyShop />} />
+    </Route>
+  )
+)

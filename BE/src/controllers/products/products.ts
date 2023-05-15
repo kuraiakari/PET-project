@@ -23,7 +23,7 @@ class ProductsControllers {
   getProducts(req: Request, res: Response) {
     let optionProduct = {}
     let optionSortProduct = {}
-    if (req.params.category !== 'undefined') {
+    if (req.params.category !== undefined && req.params.category !== 'undefined') {
       optionProduct = { categoryProduct: req.params.category }
     }
     if (req.params.idproduct) {

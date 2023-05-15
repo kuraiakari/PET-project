@@ -5,6 +5,7 @@
 }
 .container .contentPage {
   display: flex;
+  align-content: start;
   flex-grow: 1;
   margin-top: 110px;
   padding-top: 36px;
@@ -31,6 +32,9 @@
   z-index: 1;
   cursor: pointer;
   color: #fff;
+}
+.css-ryrseu-MuiRating-root {
+  color: #d26b18 !important;
 }
 @media (min-width: 1600px) {
   .container {

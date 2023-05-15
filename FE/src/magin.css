@@ -7,8 +7,23 @@
 .mx-16 {
   margin: 0 16px;
 }
+.mt-17 {
+  margin-top: 17px;
+}
+.ms-20 {
+  margin-left: 20px;
+}
 .mb-22 {
   margin-bottom: 22px;
+}
+.mb-26 {
+  margin-bottom: 26px;
+}
+.mb-30 {
+  margin-bottom: 30px;
+}
+.mb-33 {
+  margin-bottom: 33px;
 }
 .mt-46 {
   margin-top: 46px;
@@ -21,4 +36,7 @@
 }
 .mb-119 {
   margin-bottom: 119px;
+}
+.ms-128 {
+  margin-left: 128px;
 }

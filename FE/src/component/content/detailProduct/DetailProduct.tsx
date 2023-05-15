@@ -9,10 +9,10 @@ import { addProduct } from '../../../redux/cart.reducer'
 import { addProductToListLikeProduct, removeProductToListLikeProduct } from '../../../redux/user.reducer'
 import { order } from 'src/types/order.type'
 import './detailProduct.css'
-// import Breadcrumds from '../../Breadcrumb/Breadcrumb'
+import Breadcrumds from '../../Breadcrumb/Breadcrumb'
 import EditProduct from './editProduct'
 import ReviewCustomer from './ReviewCustomer'
-import RatingOfProduct from './ratingOfProduct'
+// import RatingOfProduct from './ratingOfProduct'
 
 const DetailProduct = () => {
   const { category, idProduct } = useParams()
@@ -102,6 +102,15 @@ const DetailProduct = () => {
   const data = {
     id_product: idProduct
   }
+  const handleCovertMoney = (money: number) => {
+    let ans = ''
+    while (Math.floor(money / 1000) > 1) {
+      const du = money % 1000 === 0 ? '000' : money % 1000
+      ans = ' ' + du + ans
+      money = Math.floor(money / 1000)
+    }
+    return (money % 1000) + ans
+  }
   const handleLikeProduct = () => {
     fetch('http://localhost:3000/v1/user/likeproduct', {
       method: 'POST',
@@ -154,96 +163,115 @@ const DetailProduct = () => {
       {productDetail?.length === 0 && <div>Not found product</div>}
       {productDetail && productDetail?.length > 0 && (
         <>
-          {/* <Breadcrumds /> */}
+          <Breadcrumds
+            nameProduct={productDetail[0].nameProduct.charAt(0).toUpperCase() + productDetail[0].nameProduct.slice(1)}
+          />
           <div className='detailProduct ps-0'>
-            <div className='wrapImgDetailProduct col-xl-5'>
-              {indexImg > 0 && (
-                <Button
-                  className='buttonChangeImgDetailProduct buttonChangeImgDetailProduct__left'
-                  onClick={() => setIndexImg(indexImg - 1)}
-                >
-                  <Icon.ChevronLeft size={16} />
-                </Button>
-              )}
-              {/* phần tử cuối cùng là phần tử rỗng do hàm split tạo ra */}
-              {indexImg < listImageProduct.length - 2 && (
-                <Button
-                  className='buttonChangeImgDetailProduct buttonChangeImgDetailProduct__right'
-                  onClick={() => setIndexImg(indexImg + 1)}
-                >
-                  <Icon.ChevronRight size={16} />
-                </Button>
-              )}
+            <div>
               <img
                 src={'http://localhost:3000/' + listImageProduct[indexImg]}
                 alt='product'
                 className='imgProductDetail'
               />
+              <div style={{ marginTop: '18px' }}>
+                {productDetail[0].imageProduct.split(',').map((img: any, index: number) => {
+                  if (index < productDetail[0].imageProduct.split(',').length - 1)
+                    return (
+                      <img
+                        key={index}
+                        src={'http://localhost:3000/' + img}
+                        alt='product'
+                        onClick={() => setIndexImg(index)}
+                        aria-hidden='true'
+                        style={{ cursor: 'pointer' }}
+                        className={`miniImgProductDetail ${
+                          index < productDetail[0].imageProduct.split(',').length - 2 ? 'me-2' : ''
+                        }`}
+                      />
+                    )
+                })}
+              </div>
             </div>
-            <div className='infoDetailProduct col-xl-7'>
+            <div className='infoDetailProduct ms-128'>
               <div className='d-flex justify-content-between align-items-center'>
-                <h6 className='nameStoreDetailProduct'>Store: {productDetail[0].store}</h6>
+                {/* <h6 className='nameStoreDetailProduct'>Store: {productDetail[0].store}</h6> */}
+                <div
+                  className='nameDetailProduct KumbhSans'
+                  style={{ fontWeight: '700', fontSize: '35px', lineHeight: '50px' }}
+                >
+                  {productDetail[0].nameProduct.charAt(0).toUpperCase() + productDetail[0].nameProduct.slice(1)}
+                </div>
                 {idUser && (
-                  <button style={{ border: 'none', backgroundColor: '#fff' }} onClick={handleLikeProduct}>
-                    {like ? <Icon.HeartFill size={24} fill='#f54900' /> : <Icon.Heart size={24} color='#000' />}
+                  <button style={{ border: 'none', backgroundColor: '#f5f5fa' }} onClick={handleLikeProduct}>
+                    {like ? <Icon.HeartFill size={48} fill='#000' /> : <Icon.Heart size={48} color='#000' />}
                   </button>
                 )}
               </div>
-              <div className='d-flex flex-column border-top border-bottom mt-3 mb-3'>
-                <h1 className='nameDetailProduct'>
-                  {productDetail[0].nameProduct.charAt(0).toUpperCase() + productDetail[0].nameProduct.slice(1)}
-                </h1>
-                <div className='d-flex align-items-center mb-2' style={{ color: 'rgb(120, 120, 120)' }}>
-                  <Rating defaultValue={ratingProduct} size='small' readOnly />
+              <div className='d-flex flex-column mt-17 mb-33'>
+                <div className='priceDetailProduct kumbhSans mb-26'>
+                  <div
+                    className={
+                      productDetail[0].promotionProduct
+                        ? 'lastPriceDetailProduct lastPriceDetailProduct--hasSale'
+                        : 'lastPriceDetailProduct'
+                    }
+                  >
+                    {handleCovertMoney(productDetail[0].lastPriceProduct)}₽
+                  </div>
+                  {productDetail[0].promotionProduct && (
+                    <>
+                      <div className='priceDetailProductNotSale'>
+                        {handleCovertMoney(productDetail[0].priceProduct)} ₽
+                      </div>
+                    </>
+                  )}
+                </div>
+                <div className='d-flex align-items-center mb-30' style={{ color: 'rgb(120, 120, 120)' }}>
+                  <Rating defaultValue={ratingProduct} readOnly />
                   <button
-                    className='ms-2 me-2'
-                    style={{ fontSize: '14px', border: 'none', backgroundColor: '#fff' }}
+                    className='ms-2 KumbhSans p-0'
+                    style={{
+                      fontWeight: '300',
+                      fontSize: '20px',
+                      lineHeight: '25px',
+                      border: 'none',
+                      backgroundColor: '#f5f5fa'
+                    }}
                     onClick={moveToReview}
                   >
-                    {`(See ${productDetail[0].quantityReview.length} review)`}
+                    {`(See ${productDetail[0].quantityReview.length} reviews)`}
                   </button>
-                  <div style={{ height: '14px', borderLeft: '1px solid #333' }}></div>
-                  <div className='ms-2' style={{ fontSize: '14px' }}>
+                  <div className='ms-2' style={{ lineHeight: '25px' }}>
+                    /
+                  </div>
+                  <div className='ms-2 KumbhSans' style={{ fontWeight: '300', fontSize: '20px', lineHeight: '25px' }}>
                     Sold {productDetail[0].soldProduct}
                   </div>
                 </div>
-                {wasBuy && (
+                <div className='kumbhSans pb-18' style={{ borderBottom: '1px solid #000', minHeight: '140px' }}>
+                  {productDetail[0].descriptionProduct}
+                </div>
+                {/* {wasBuy && (
                   <div className='col-xl-3 d-flex justify-content-end'>
                     <RatingOfProduct idUser={idUser} idProduct={idProduct || ''} ratingProduct={rating} read={false} />
                   </div>
-                )}
-              </div>
-              <div className='priceDetailProduct'>
-                <div
-                  className={
-                    productDetail[0].promotionProduct
-                      ? 'lastPriceDetailProduct lastPriceDetailProduct--hasSale'
-                      : 'lastPriceDetailProduct'
-                  }
-                >
-                  {productDetail[0].priceProduct -
-                    Math.round((productDetail[0].priceProduct * productDetail[0].promotionProduct) / 100)}{' '}
-                  ₽
-                </div>
-                {productDetail[0].promotionProduct && (
-                  <>
-                    <div className='priceDetailProductNotSale'>{productDetail[0].priceProduct} ₽</div>
-                    <div className='saleDetailProduct'>-{productDetail[0].promotionProduct}%</div>
-                  </>
-                )}
+                )} */}
               </div>
               <div className='quantityDetailProduct'>
-                <div>Quantity</div>
+                <div className='KumbhSans' style={{ fontWeight: '400', fontSize: '20px', lineHeight: '140%' }}>
+                  Quantity
+                </div>
                 <div className='getQuantity'>
                   <Button
                     className='btnQuanlityDetailProduct'
                     onClick={decrease}
                     disabled={quantity === 1 ? true : false}
+                    style={{ borderRight: 'none' }}
                   >
                     -
                   </Button>
                   <input
-                    className='inputQuanlityDetailProduct'
+                    className='inputQuanlityDetailProduct kumbhSans'
                     type='text'
                     value={quantity}
                     onChange={(e) => {
@@ -251,16 +279,21 @@ const DetailProduct = () => {
                     }}
                   ></input>
                   <Button
+                    style={{ borderLeft: 'none' }}
                     className='btnQuanlityDetailProduct'
                     onClick={ascending}
                     disabled={quantity <= productDetail[0].amountProduct ? false : true}
                   >
-                    {' '}
-                    +{' '}
+                    +
                   </Button>
                   <div
-                    className='leftProduct ms-3'
-                    style={{ color: `${productDetail[0].amountProduct > 0 ? '#757575' : 'rgb(255, 66, 78)'}` }}
+                    className='leftProduct ms-20 kumbhSans'
+                    style={{
+                      fontWeight: '300',
+                      fontSize: '20px',
+                      lineHeight: '25px',
+                      color: `${productDetail[0].amountProduct > 0 ? '#000' : 'rgb(255, 66, 78)'}`
+                    }}
                   >
                     {productDetail[0].amountProduct > 0
                       ? `${productDetail[0].amountProduct} products available`
@@ -270,6 +303,14 @@ const DetailProduct = () => {
               </div>
               {productDetail[0].store !== checkNameStore ? (
                 <Button
+                  className='kumbhSans'
+                  style={{
+                    fontWeight: 700,
+                    backgroundColor: '#000',
+                    borderRadius: 0,
+                    border: 'none',
+                    width: '100%'
+                  }}
                   onClick={handleAddCart}
                   disabled={idUser && productDetail[0].amountProduct !== 0 ? false : true}
                 >

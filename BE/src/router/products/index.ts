@@ -8,6 +8,7 @@ const productsControllers = new ProductsControllers()
 
 router.get('/', productsControllers.getProducts)
 router.get('/:category', productsControllers.getProducts)
+router.get('/product/:idproduct', productsControllers.getProducts)
 router.get('/:category/:idproduct', productsControllers.getProducts)
 router.post('/create', verifyAdmin, productsControllers.upload, productsControllers.create)
 router.post('/review', verifyUser, productsControllers.upload, productsControllers.review)

@@ -10,15 +10,18 @@ interface product {
   nameProduct: string
   imageProduct: string
   ratingProduct: number
+  categoryProduct: string
 }
 export default function LikeProduct({ index, idUser, idProduct }: idProduct) {
   const [dataProduct, setDataProduct] = useState<Array<product>>()
+  console.log(idProduct)
   const imgProduct = dataProduct ? dataProduct[0].imageProduct.split(',')[0] : ''
   // console.log(dataProduct)
   useEffect(() => {
-    fetch(`http://localhost:3000/v1/products/${idProduct}`)
+    fetch(`http://localhost:3000/v1/products/product/${idProduct}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         if (data.messageError === 'NotFound') setDataProduct(undefined)
         else setDataProduct(data)
       })
@@ -27,7 +30,7 @@ export default function LikeProduct({ index, idUser, idProduct }: idProduct) {
     <>
       {!dataProduct && <></>}
       {dataProduct && (
-        <Link to={`/product/${idProduct}`} className='productInHistory'>
+        <Link to={`/products/${dataProduct[0].categoryProduct}/${idProduct}`} className='productInHistory'>
           <div className='col-xl-1 d-flex justify-content-center'>{index + 1}</div>
           <div className='col-xl-3 d-flex justify-content-start'>
             {dataProduct[0].nameProduct.charAt(0).toUpperCase() + dataProduct[0].nameProduct.slice(1)}
