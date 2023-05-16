@@ -42,3 +42,9 @@
     min-width: 1524px;
   }
 }
+
+/* modal */
+.resetModal .modal-content {
+  border-radius: 0;
+  width: 494px;
+}

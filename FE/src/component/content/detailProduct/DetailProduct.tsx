@@ -218,7 +218,7 @@ const DetailProduct = () => {
                   >
                     {handleCovertMoney(productDetail[0].lastPriceProduct)}₽
                   </div>
-                  {productDetail[0].promotionProduct && (
+                  {productDetail[0].promotionProduct > 0 && (
                     <>
                       <div className='priceDetailProductNotSale'>
                         {handleCovertMoney(productDetail[0].priceProduct)} ₽
@@ -248,7 +248,16 @@ const DetailProduct = () => {
                     Sold {productDetail[0].soldProduct}
                   </div>
                 </div>
-                <div className='kumbhSans pb-18' style={{ borderBottom: '1px solid #000', minHeight: '140px' }}>
+                <div
+                  className='kumbhSans pb-18'
+                  style={{
+                    borderBottom: '1px solid #000',
+                    minHeight: '140px',
+                    fontWeight: '300',
+                    fontSize: '20px',
+                    lineHeight: '25px'
+                  }}
+                >
                   {productDetail[0].descriptionProduct}
                 </div>
                 {wasBuy && (

@@ -57,18 +57,38 @@ export default function CreateProduct({ nameStore, handleCloseModalCreateProduct
   return (
     <Form noValidate validated={validated} onSubmit={handleSubmit}>
       <Form.Group className='mb-3'>
-        <Form.Label>Image product</Form.Label>
-        <Form.Control required type='file' id='avatar' name='avatar' ref={imageProduct} multiple></Form.Control>
+        <Form.Label className='kumbhSans' style={{ lineHeight: '25px' }}>
+          Image product
+        </Form.Label>
+        <Form.Control
+          className='borderInput kumbhSans mb-4'
+          required
+          type='file'
+          id='avatar'
+          name='avatar'
+          ref={imageProduct}
+          multiple
+        ></Form.Control>
         <Form.Control.Feedback type='invalid'>Please choose image</Form.Control.Feedback>
       </Form.Group>
       <Form.Group className='mb-3'>
-        <Form.Label>Name product</Form.Label>
-        <Form.Control required type='text' onChange={(e: any) => setNameProduct(e.target.value)} />
+        <Form.Label className='kumbhSans' style={{ lineHeight: '25px' }}>
+          Name product
+        </Form.Label>
+        <Form.Control
+          className='borderInput kumbhSans mb-4'
+          required
+          type='text'
+          onChange={(e: any) => setNameProduct(e.target.value)}
+        />
         <Form.Control.Feedback type='invalid'>Please input value</Form.Control.Feedback>
       </Form.Group>
       <Form.Group className='mb-3'>
-        <Form.Label>Price product</Form.Label>
+        <Form.Label className='kumbhSans' style={{ lineHeight: '25px' }}>
+          Price product
+        </Form.Label>
         <Form.Control
+          className='borderInput kumbhSans mb-4'
           required
           type='number'
           min={0}
@@ -79,8 +99,11 @@ export default function CreateProduct({ nameStore, handleCloseModalCreateProduct
         <Form.Control.Feedback type='invalid'>Please input value</Form.Control.Feedback>
       </Form.Group>
       <Form.Group className='mb-3'>
-        <Form.Label>Amount product</Form.Label>
+        <Form.Label className='kumbhSans' style={{ lineHeight: '25px' }}>
+          Amount product
+        </Form.Label>
         <Form.Control
+          className='borderInput kumbhSans mb-4'
           required
           type='number'
           min={0}
@@ -91,8 +114,11 @@ export default function CreateProduct({ nameStore, handleCloseModalCreateProduct
         <Form.Control.Feedback type='invalid'>Please input value</Form.Control.Feedback>
       </Form.Group>
       <Form.Group className='mb-3'>
-        <Form.Label>Promotion product</Form.Label>
+        <Form.Label className='kumbhSans' style={{ lineHeight: '25px' }}>
+          Promotion product
+        </Form.Label>
         <Form.Control
+          className='borderInput kumbhSans mb-4'
           type='number'
           defaultValue={0}
           min={0}
@@ -102,17 +128,48 @@ export default function CreateProduct({ nameStore, handleCloseModalCreateProduct
         />
       </Form.Group>
       <Form.Group className='mb-3'>
-        <Form.Label>Type product</Form.Label>
-        <Form.Control required type='text' onChange={(e: any) => setTypeProduct(e.target.value)} />
+        <Form.Label className='kumbhSans' style={{ lineHeight: '25px' }}>
+          Type product
+        </Form.Label>
+        <Form.Control
+          className='borderInput kumbhSans mb-4'
+          required
+          type='text'
+          onChange={(e: any) => setTypeProduct(e.target.value)}
+        />
         <Form.Control.Feedback type='invalid'>Please input value</Form.Control.Feedback>
       </Form.Group>
       {/* category */}
       <Form.Group className='mb-3'>
-        <Form.Label>Category product</Form.Label>
-        <Form.Control required type='text' onChange={(e: any) => setCategory(e.target.value)} />
+        <Form.Label className='kumbhSans' style={{ lineHeight: '25px' }}>
+          Category product
+        </Form.Label>
+        <Form.Control
+          className='borderInput kumbhSans mb-4'
+          required
+          type='text'
+          onChange={(e: any) => setCategory(e.target.value)}
+        />
         <Form.Control.Feedback type='invalid'>Please input value</Form.Control.Feedback>
       </Form.Group>
-      <Button type='submit'>Submit form</Button>
+      <div className='w-100 d-flex justify-content-center'>
+        <Button
+          className='kumbhSans'
+          style={{
+            marginTop: '30px',
+            fontWeight: 700,
+            backgroundColor: '#000',
+            borderRadius: 0,
+            border: 'none',
+            width: '140px',
+            height: '42px',
+            marginBottom: '25px'
+          }}
+          type='submit'
+        >
+          Submit form
+        </Button>
+      </div>
     </Form>
   )
 }
