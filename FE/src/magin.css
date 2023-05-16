@@ -1,6 +1,9 @@
 .mb-4 {
   margin-bottom: 4px !important;
 }
+.ms-8 {
+  margin-left: 8px;
+}
 .ms-11 {
   margin-left: 11px;
 }

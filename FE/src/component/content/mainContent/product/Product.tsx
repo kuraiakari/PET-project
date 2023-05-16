@@ -6,6 +6,7 @@ import { Modal } from 'react-bootstrap'
 import { product } from 'src/types/product.type'
 import CreateProduct from '../../myShop/createProduct'
 import './product.css'
+import { Rating } from '@mui/material'
 interface ProductItem {
   product: product
   createProduct: boolean
@@ -44,25 +45,33 @@ const Product = (props: ProductItem) => {
               </div>
             )}
             <img src={'http://localhost:3000/' + listImageProduct[0]} alt='product' className='imgProduct' />
-            <div className='titleProduct'>
-              <div className='nameProduct kumbhSans' style={{ fontWeight: 700, fontSize: '15px' }}>
+            <div className='titleProduct kumbhSans'>
+              <div className='nameProduct' style={{ fontWeight: 700, fontSize: '15px' }}>
                 {product.nameProduct.charAt(0).toUpperCase() + product.nameProduct.slice(1)}
               </div>
-              <div className={`priceProduct ${product.promotionProduct ? 'haspromotion' : ''}`}>
-                <div>{handleCovertMoney(product.lastPriceProduct)}₽</div>
+              <div className='priceProduct' style={{ fontWeight: '300', fontSize: '15px', lineHeight: '19px' }}>
+                <div style={{ color: '#D26B18' }}>{handleCovertMoney(product.lastPriceProduct)}₽</div>
                 {product.promotionProduct > 0 && (
-                  <div style={{ textDecoration: 'line-through', color: '#1F1F1F' }}>
+                  <div style={{ textDecoration: 'line-through', color: '#1F1F1F', marginLeft: '3px' }}>
                     {handleCovertMoney(product.priceProduct)}₽
                   </div>
                 )}
               </div>
-              <div className='ratingFull'>
-                {product.ratingProduct && (
-                  <>
-                    <span>{product.ratingProduct}</span>
-                    <Icon.StarFill size={12} className='ms-1' />
-                  </>
-                )}
+              <div
+                className='ratingFull'
+                style={{ fontWeight: '300', fontSize: '13px', lineHeight: '16px', marginBottom: '6px' }}
+              >
+                <Rating
+                  readOnly
+                  precision={0.5}
+                  size='small'
+                  value={product.ratingProduct || 0}
+                  style={{ fontSize: '13px' }}
+                />
+                <div className='ms-8'>{`${product.quantityReview.length} reviews`}</div>
+              </div>
+              <div style={{ fontWeight: '300', fontSize: '13px', lineHeight: '16px', color: '#000' }}>
+                {product.amountProduct} products available
               </div>
             </div>
           </Link>

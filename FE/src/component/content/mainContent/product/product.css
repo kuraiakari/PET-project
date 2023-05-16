@@ -53,10 +53,11 @@
   background-size: contain;
 }
 .titleProduct {
-  margin: 8px 0;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 8px 9px;
+  background-color: #f8f3ed;
 }
 .nameProduct {
   overflow: hidden;
@@ -65,25 +66,23 @@
   -webkit-box-orient: vertical;
   line-height: 19px;
   color: rgb(39, 39, 42);
-  margin-bottom: 14px;
+  margin-bottom: 6px;
   word-break: break-word;
+  min-height: 38px;
+  text-align: center;
 }
 .ratingFull {
-  min-height: 17px;
   display: flex;
   align-items: center;
-  font-size: 14px;
   color: rgb(128, 128, 137);
 }
 .ratingFull > svg {
   color: #fdd836;
+  margin-bottom: 6px;
 }
 .priceProduct {
   display: flex;
   color: rgb(56, 56, 61);
-  flex-direction: column;
   justify-content: center;
-}
-.haspromotion {
-  color: rgb(255, 66, 78);
+  margin-bottom: 6px;
 }
