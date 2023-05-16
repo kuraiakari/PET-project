@@ -33,7 +33,8 @@
   cursor: pointer;
   color: #fff;
 }
-.css-ryrseu-MuiRating-root {
+.css-ryrseu-MuiRating-root,
+.css-1lauo1g-MuiRating-root {
   color: #d26b18 !important;
 }
 @media (min-width: 1600px) {

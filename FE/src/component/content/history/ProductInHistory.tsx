@@ -6,7 +6,10 @@ const ProductInHistory = ({ product, soluong, idUser }: any) => {
   return (
     <div>
       <>
-        <Link to={`/product/${product.productOrder._id}`} className='productInHistory'>
+        <Link
+          to={`/products/${product.productOrder.categoryProduct}/${product.productOrder._id}`}
+          className='productInHistory'
+        >
           <div className='col-xl-1 d-flex justify-content-center'>{soluong}</div>
           <div className='col-xl-3 d-flex justify-content-start'>
             {product.productOrder.nameProduct.charAt(0).toUpperCase() + product.productOrder.nameProduct.slice(1)}

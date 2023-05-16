@@ -12,7 +12,7 @@ import './detailProduct.css'
 import Breadcrumds from '../../Breadcrumb/Breadcrumb'
 import EditProduct from './editProduct'
 import ReviewCustomer from './ReviewCustomer'
-// import RatingOfProduct from './ratingOfProduct'
+import RatingOfProduct from './ratingOfProduct'
 
 const DetailProduct = () => {
   const { category, idProduct } = useParams()
@@ -227,7 +227,7 @@ const DetailProduct = () => {
                   )}
                 </div>
                 <div className='d-flex align-items-center mb-30' style={{ color: 'rgb(120, 120, 120)' }}>
-                  <Rating defaultValue={ratingProduct} readOnly />
+                  <Rating defaultValue={ratingProduct} readOnly precision={0.5} />
                   <button
                     className='ms-2 KumbhSans p-0'
                     style={{
@@ -251,56 +251,71 @@ const DetailProduct = () => {
                 <div className='kumbhSans pb-18' style={{ borderBottom: '1px solid #000', minHeight: '140px' }}>
                   {productDetail[0].descriptionProduct}
                 </div>
-                {/* {wasBuy && (
+                {wasBuy && (
                   <div className='col-xl-3 d-flex justify-content-end'>
                     <RatingOfProduct idUser={idUser} idProduct={idProduct || ''} ratingProduct={rating} read={false} />
                   </div>
-                )} */}
+                )}
               </div>
-              <div className='quantityDetailProduct'>
-                <div className='KumbhSans' style={{ fontWeight: '400', fontSize: '20px', lineHeight: '140%' }}>
-                  Quantity
-                </div>
-                <div className='getQuantity'>
-                  <Button
-                    className='btnQuanlityDetailProduct'
-                    onClick={decrease}
-                    disabled={quantity === 1 ? true : false}
-                    style={{ borderRight: 'none' }}
-                  >
-                    -
-                  </Button>
-                  <input
-                    className='inputQuanlityDetailProduct kumbhSans'
-                    type='text'
-                    value={quantity}
-                    onChange={(e) => {
-                      setQuantity(Number(e.target.value))
-                    }}
-                  ></input>
-                  <Button
-                    style={{ borderLeft: 'none' }}
-                    className='btnQuanlityDetailProduct'
-                    onClick={ascending}
-                    disabled={quantity <= productDetail[0].amountProduct ? false : true}
-                  >
-                    +
-                  </Button>
-                  <div
-                    className='leftProduct ms-20 kumbhSans'
-                    style={{
-                      fontWeight: '300',
-                      fontSize: '20px',
-                      lineHeight: '25px',
-                      color: `${productDetail[0].amountProduct > 0 ? '#000' : 'rgb(255, 66, 78)'}`
-                    }}
-                  >
-                    {productDetail[0].amountProduct > 0
-                      ? `${productDetail[0].amountProduct} products available`
-                      : 'Product is out of stock'}
+              {productDetail[0].store !== checkNameStore ? (
+                <div className='quantityDetailProduct'>
+                  <div className='KumbhSans' style={{ fontWeight: '400', fontSize: '20px', lineHeight: '140%' }}>
+                    Quantity
+                  </div>
+                  <div className='getQuantity'>
+                    <Button
+                      className='btnQuanlityDetailProduct'
+                      onClick={decrease}
+                      disabled={quantity === 1 ? true : false}
+                      style={{ borderRight: 'none' }}
+                    >
+                      -
+                    </Button>
+                    <input
+                      className='inputQuanlityDetailProduct kumbhSans'
+                      type='text'
+                      value={quantity}
+                      onChange={(e) => {
+                        setQuantity(Number(e.target.value))
+                      }}
+                    ></input>
+                    <Button
+                      style={{ borderLeft: 'none' }}
+                      className='btnQuanlityDetailProduct'
+                      onClick={ascending}
+                      disabled={quantity <= productDetail[0].amountProduct ? false : true}
+                    >
+                      +
+                    </Button>
+                    <div
+                      className='leftProduct ms-20 kumbhSans'
+                      style={{
+                        fontWeight: '300',
+                        fontSize: '20px',
+                        lineHeight: '25px',
+                        color: `${productDetail[0].amountProduct > 0 ? '#000' : 'rgb(255, 66, 78)'}`
+                      }}
+                    >
+                      {productDetail[0].amountProduct > 0
+                        ? `${productDetail[0].amountProduct} products available`
+                        : 'Product is out of stock'}
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : (
+                <div
+                  className='leftProduct kumbhSans'
+                  style={{
+                    marginBottom: '95px',
+                    fontWeight: '300',
+                    fontSize: '20px',
+                    lineHeight: '25px',
+                    color: `${productDetail[0].amountProduct > 0 ? '#000' : 'rgb(255, 66, 78)'}`
+                  }}
+                >
+                  Number of products left: {productDetail[0].amountProduct}
+                </div>
+              )}
               {productDetail[0].store !== checkNameStore ? (
                 <Button
                   className='kumbhSans'
@@ -318,8 +333,31 @@ const DetailProduct = () => {
                 </Button>
               ) : (
                 <>
-                  <Button onClick={handleShowModalEditProduct}>Edit</Button>
-                  <Button onClick={handleDeleteProduct} className='ms-3'>
+                  <Button
+                    className='kumbhSans'
+                    style={{
+                      fontWeight: 700,
+                      backgroundColor: '#000',
+                      borderRadius: 0,
+                      border: 'none',
+                      width: '100%',
+                      marginBottom: '15px'
+                    }}
+                    onClick={handleShowModalEditProduct}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    className='kumbhSans'
+                    style={{
+                      fontWeight: 700,
+                      backgroundColor: '#000',
+                      borderRadius: 0,
+                      border: 'none',
+                      width: '100%'
+                    }}
+                    onClick={handleDeleteProduct}
+                  >
                     DeleteProduct
                   </Button>
                   <Modal show={showEditProduct} onHide={handleCloseModalEditProduct}>

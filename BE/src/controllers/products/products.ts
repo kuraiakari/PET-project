@@ -198,11 +198,19 @@ class ProductsControllers {
         if (req.body.comment) {
           const user = await users.findOne({ _id: req.user._id })
           if (user) {
+            const fullName =
+              user.firstName && user.lastName
+                ? user.firstName.charAt(0).toUpperCase() +
+                  user.firstName.slice(1) +
+                  ' ' +
+                  user.lastName.charAt(0).toUpperCase() +
+                  user.lastName.slice(1)
+                : 'User'
             const avatar = user.avatar
-            const date = new Date()
             const data = {
-              date,
-              user: avatar,
+              user: fullName,
+              avatar,
+              rating: req.body.rating,
               comment: req.body.comment
             }
             product.comments.push(data)
