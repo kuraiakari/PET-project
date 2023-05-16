@@ -98,11 +98,13 @@ const Product = (props: ProductItem) => {
           </button>
         </div>
         <Modal show={show} onHide={handleCloseModalCreateProduct} className='resetModal'>
-          <Modal.Header
-            className='JejuMyeongjoRegular justify-content-center'
-            style={{ fontSize: '40px', lineHeight: '40px', padding: '52px 72px 20px 72px', borderBottom: 0 }}
-          >
-            <Modal.Title>Create New Product</Modal.Title>
+          <Modal.Header style={{ padding: 0 }}>
+            <Modal.Title
+              className='JejuMyeongjoRegular justify-content-center'
+              style={{ fontSize: '40px', lineHeight: '40px', padding: '52px 72px 20px 72px', borderBottom: 0 }}
+            >
+              Create New Product
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <CreateProduct

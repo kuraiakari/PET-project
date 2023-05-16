@@ -201,13 +201,13 @@ const DetailProduct = () => {
                 >
                   {productDetail[0].nameProduct.charAt(0).toUpperCase() + productDetail[0].nameProduct.slice(1)}
                 </div>
-                {idUser && (
+                {idUser && productDetail[0].store !== checkNameStore && (
                   <button style={{ border: 'none', backgroundColor: '#fff' }} onClick={handleLikeProduct}>
                     {like ? <Icon.HeartFill size={48} fill='#000' /> : <Icon.Heart size={48} color='#000' />}
                   </button>
                 )}
               </div>
-              <div className='d-flex flex-column mt-17 mb-33'>
+              <div className='d-flex flex-column mt-17'>
                 <div className='priceDetailProduct kumbhSans mb-26'>
                   <div
                     className={
@@ -268,10 +268,13 @@ const DetailProduct = () => {
               </div>
               {productDetail[0].store !== checkNameStore ? (
                 <div className='quantityDetailProduct'>
-                  <div className='KumbhSans' style={{ fontWeight: '400', fontSize: '20px', lineHeight: '140%' }}>
+                  <div
+                    className='KumbhSans'
+                    style={{ fontWeight: '400', fontSize: '20px', lineHeight: '28px', marginBottom: '8px' }}
+                  >
                     Quantity
                   </div>
-                  <div className='getQuantity'>
+                  <div className='getQuantity' style={{ paddingBottom: '8px' }}>
                     <Button
                       className='btnQuanlityDetailProduct'
                       onClick={decrease}
@@ -315,7 +318,7 @@ const DetailProduct = () => {
                 <div
                   className='leftProduct kumbhSans'
                   style={{
-                    marginBottom: '95px',
+                    margin: '47px 0',
                     fontWeight: '300',
                     fontSize: '20px',
                     lineHeight: '25px',
@@ -360,9 +363,10 @@ const DetailProduct = () => {
                     className='kumbhSans'
                     style={{
                       fontWeight: 700,
-                      backgroundColor: '#000',
+                      backgroundColor: '#fff',
                       borderRadius: 0,
-                      border: 'none',
+                      color: '#000',
+                      border: '2px solid #000000',
                       width: '100%'
                     }}
                     onClick={handleDeleteProduct}

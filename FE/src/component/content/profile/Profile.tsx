@@ -117,7 +117,7 @@ const Profile = () => {
           </div>
           <div className='col-information'>
             <Form noValidate validated={validated} onSubmit={handleSaveInformations}>
-              <Form.Group>
+              <Form.Group className='mb-22'>
                 <Form.Label className='kumbhSans'>Email</Form.Label>
                 <Form.Control
                   className='borderInput kumbhSans'
@@ -127,7 +127,7 @@ const Profile = () => {
                   disabled
                 />
               </Form.Group>
-              <Form.Group>
+              <Form.Group className='mb-22'>
                 <Form.Label className='kumbhSans'>First name</Form.Label>
                 <Form.Control
                   className='borderInput kumbhSans'
@@ -137,7 +137,7 @@ const Profile = () => {
                   onChange={(e: any) => setFirstNameUSer(e.target.value)}
                 />
               </Form.Group>
-              <Form.Group>
+              <Form.Group className='mb-22'>
                 <Form.Label className='kumbhSans'>Last name</Form.Label>
                 <Form.Control
                   className='borderInput kumbhSans'
@@ -147,7 +147,7 @@ const Profile = () => {
                   onChange={(e: any) => setLastNameUSer(e.target.value)}
                 />
               </Form.Group>
-              <Form.Group>
+              <Form.Group className='mb-22'>
                 <Form.Label className='kumbhSans'>Phone</Form.Label>
                 <Form.Control
                   className='borderInput kumbhSans'
@@ -161,6 +161,7 @@ const Profile = () => {
                 <Form.Label className='kumbhSans'>Gender</Form.Label>
                 <Form.Select
                   className='borderInput kumbhSans'
+                  style={{ color: genderUser ? '#000' : '#6c757d' }}
                   required
                   onChange={(e: any) => setGenderUSer(e.target.value)}
                 >
@@ -170,25 +171,26 @@ const Profile = () => {
                   <option value='Other'>Other</option>
                 </Form.Select>
               </FormGroup>
-              <div className='d-flex justify-content-center'>
-                <Button
-                  type='submit'
-                  className='kumbhSans'
-                  style={{
-                    fontWeight: 700,
-                    marginTop: '60px',
-                    backgroundColor: '#000',
-                    borderRadius: 0,
-                    border: 'none',
-                    width: '140px',
-                    height: '42px',
-                    marginBottom: '200px'
-                  }}
-                  disabled={!firstNameUser && !lastNameUser && !phoneUser && !genderUser && !avatarTest}
-                >
-                  Save
-                </Button>
-              </div>
+              {(firstNameUser || lastNameUser || phoneUser || genderUser || avatarTest) && (
+                <div className='d-flex justify-content-center'>
+                  <Button
+                    type='submit'
+                    className='kumbhSans'
+                    style={{
+                      fontWeight: 700,
+                      marginTop: '60px',
+                      backgroundColor: '#000',
+                      borderRadius: 0,
+                      border: 'none',
+                      width: '140px',
+                      height: '42px',
+                      marginBottom: '200px'
+                    }}
+                  >
+                    Save
+                  </Button>
+                </div>
+              )}
             </Form>
           </div>
         </div>
