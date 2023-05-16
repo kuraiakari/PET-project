@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
-import { Col } from 'react-bootstrap'
 import imgStoreError from './avatar.webp'
 import './myShop.css'
 import './loader.css'
@@ -42,55 +41,85 @@ const MyShop = () => {
           {inforShop && (
             <>
               <div className='d-flex backgroundInforShop'>
-                <Col className='col-xl-3'>
-                  <div className='d-flex justify-content-center align-items-center h-100'>
-                    <img
-                      src={'http://localhost:3000/' + inforShop?.imgStore}
-                      onError={({ currentTarget }) => {
-                        currentTarget.onerror = null // prevents looping
-                        currentTarget.src = imgStoreError
-                      }}
-                      alt='imgStore'
-                      className='imgStore'
-                    />
+                <div className='d-flex justify-content-center align-items-center h-100'>
+                  <img
+                    src={'http://localhost:3000/' + inforShop?.imgStore}
+                    onError={({ currentTarget }) => {
+                      currentTarget.onerror = null // prevents looping
+                      currentTarget.src = imgStoreError
+                    }}
+                    alt='imgStore'
+                    className='imgStore'
+                  />
+                </div>
+                <div className='d-flex flex-column kumbhSans'>
+                  <div className='mb-0' style={{ fontWeight: '600', fontSize: '30px', lineHeight: '37px' }}>
+                    {inforShop?.nameStore}
                   </div>
-                </Col>
-                <Col className='col-xl-9'>
-                  <h4 className='mb-0'>{inforShop?.nameStore}</h4>
-                  <div className='mt-4 mb-4'>
+                  <div className='mt-19 mb-22'>
                     {inforShop?.description && (
                       <div>
-                        <div style={{ fontWeight: 500 }}>ABOUT US</div>
-                        <div style={{ minHeight: '36px' }}>{inforShop?.description}</div>
+                        <div className='mb-1' style={{ fontWeight: '600', fontSize: '20px', lineHeight: '25px' }}>
+                          About us:
+                        </div>
+                        <div style={{ fontWeight: '300', fontSize: '20px', lineHeight: '25px' }}>
+                          {inforShop?.description}
+                        </div>
                       </div>
                     )}
                   </div>
-                  <div className='d-flex flex-wrap'>
+                  <div className='d-flex flex-wrap' style={{ fontWeight: '300', fontSize: '20px', lineHeight: '25px' }}>
                     <span className='d-flex me-2'>
-                      <span className='inforShopLabel'>Products</span>:
+                      <span
+                        className='inforShopLabel'
+                        style={{ fontWeight: '600', fontSize: '20px', lineHeight: '25px' }}
+                      >
+                        Products
+                      </span>
+                      :
                     </span>
                     {inforShop?.listProducts?.length}
                   </div>
                   {inforShop?.addressStore && (
-                    <div className='d-flex flex-wrap'>
+                    <div
+                      className='d-flex flex-wrap'
+                      style={{ fontWeight: '300', fontSize: '20px', lineHeight: '25px' }}
+                    >
                       <span className='d-flex me-2'>
-                        <span className='inforShopLabel'>Address store</span>:
+                        <span
+                          className='inforShopLabel'
+                          style={{ fontWeight: '600', fontSize: '20px', lineHeight: '25px' }}
+                        >
+                          Address store
+                        </span>
+                        :
                       </span>
                       {inforShop?.addressStore}
                     </div>
                   )}
                   {inforShop?.telStore && (
-                    <div className='d-flex flex-wrap'>
+                    <div
+                      className='d-flex flex-wrap'
+                      style={{ fontWeight: '300', fontSize: '20px', lineHeight: '25px' }}
+                    >
                       <span className='d-flex me-2'>
-                        <span className='inforShopLabel'>Phone store</span>:
+                        <span
+                          className='inforShopLabel'
+                          style={{ fontWeight: '600', fontSize: '20px', lineHeight: '25px' }}
+                        >
+                          Phone store
+                        </span>
+                        :
                       </span>
                       {inforShop?.telStore}
                     </div>
                   )}
-                </Col>
+                </div>
               </div>
-              <h2 className='pt-4 ps-4'>List product:</h2>
-              <div className='listProduct'>
+              <div className='px-38 JejuMyeongjoRegular' style={{ fontSize: '40px', lineHeight: '40px' }}>
+                List product:
+              </div>
+              <div className='listProduct' style={{ padding: 0 }}>
                 {inforShop?.listProducts?.map((product: product) => {
                   return <Product key={product._id} product={product} createProduct={false} />
                 })}

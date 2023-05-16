@@ -82,14 +82,17 @@ const Product = (props: ProductItem) => {
     // console.log(props.product)
     return (
       <>
-        <div className='col-xl-3'>
-          <button className='createproduct shadow-sm border border-white' onClick={handleShowModalCreateProduct}>
+        <div className='col-xl-2 ps-2 pe-2'>
+          <button className='createproduct' onClick={handleShowModalCreateProduct}>
             <div className='headerCreateProduct'>
               <div className='iconCreate'>
-                <Icon.Plus size={40} />
+                <Icon.Plus size={45} />
               </div>
             </div>
-            <div className='titleProduct d-flex align-items-center justify-content-center' style={{ height: '105px' }}>
+            <div
+              className='titleProduct d-flex align-items-center justify-content-center kumbhSans'
+              style={{ height: '123px', fontWeight: 700, fontSize: '15px' }}
+            >
               Create New Product
             </div>
           </button>

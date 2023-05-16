@@ -1,15 +1,18 @@
 .backgroundInforShop {
   padding: 30px 0;
-  background-color: #919191;
-  color: #fff;
+  background-color: #f8f3ed;
+  color: #000;
+  justify-content: center;
+  align-items: center;
 }
 .imgStore {
-  width: 10em;
-  height: 10em;
+  width: 256px;
+  height: 256px;
   border-radius: 50%;
+  margin-right: 58px;
 }
 .inforShopLabel {
-  min-width: 10rem;
+  min-width: 194px;
   display: flex;
   font-weight: 500;
 }

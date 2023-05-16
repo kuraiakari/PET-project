@@ -18,19 +18,20 @@
   text-align: 'center';
 }
 
+/* createProduct */
 .createproduct {
   display: block;
   text-decoration: none;
-  border-radius: 8px;
   background-color: #fff;
   overflow: hidden;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   width: 100%;
   padding: 0;
+  border: none;
 }
 .headerCreateProduct {
-  background-color: #919191;
-  height: 256px;
+  background-color: #cbcbcb;
+  height: 234px;
   position: relative;
 }
 .iconCreate {
@@ -48,6 +49,7 @@
   align-items: center;
   justify-content: center;
 }
+/* end */
 .imgProduct {
   width: 100%;
   background-size: contain;
