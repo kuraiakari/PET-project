@@ -11,10 +11,10 @@ export default function LikeProducts() {
   return (
     <>
       <div className='headerHistory'>
-        <div className='col-xl-1 d-flex justify-content-center'></div>
-        <div className='col-xl-3 d-flex justify-content-center'>Name product</div>
-        <div className='col-xl-4 d-flex justify-content-center'>Image product</div>
-        <div className='col-xl-4 d-flex justify-content-center'>Review</div>
+        <div className='col-xl-1 d-flex justify-content-center kumbhSans'></div>
+        <div className='col-xl-3 d-flex justify-content-center kumbhSans'>NAME</div>
+        <div className='col-xl-4 d-flex justify-content-center kumbhSans'>IMAGE PRODUCT</div>
+        <div className='col-xl-4 d-flex justify-content-center kumbhSans'>REVIEW</div>
       </div>
       {listLikeProduct.map((idProduct: string, index: number) => {
         return <LikeProduct key={index} idProduct={idProduct} idUser={idUser} index={index} />

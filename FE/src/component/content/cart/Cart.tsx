@@ -49,21 +49,38 @@ const Cart = () => {
   return (
     <>
       <div className='headerCart'>
-        <div className='col-xl-1 d-flex justify-content-center'></div>
-        <div className='col-xl-3 d-flex justify-content-center'>Name product</div>
-        <div className='col-xl-3 d-flex justify-content-center'>Image product</div>
-        <div className='col-xl-2 d-flex justify-content-center'>Quantity</div>
-        <div className='col-xl-2 d-flex justify-content-center'>Price</div>
-        <div className='col-xl-1 d-flex justify-content-center'></div>
+        <div className='col-xl-1 d-flex justify-content-center kumbhSans'></div>
+        <div className='col-xl-3 d-flex justify-content-center kumbhSans'>{'Name product'.toUpperCase()}</div>
+        <div className='col-xl-3 d-flex justify-content-center kumbhSans'>{'Image product'.toUpperCase()}</div>
+        <div className='col-xl-2 d-flex justify-content-center kumbhSans'>{'Quantity'.toUpperCase()}</div>
+        <div className='col-xl-2 d-flex justify-content-center kumbhSans'>{'Price'.toUpperCase()}</div>
+        <div className='col-xl-1 d-flex justify-content-center kumbhSans'></div>
       </div>
       {products.map((product: order, index: number) => {
         sumPrice += product.price * product.amount
         return <ProductInCart key={index} product={product} index={index} />
       })}
-      {sumPrice > 0 && <div className='sumPrice d-flex justify-content-end'>Sum price : {sumPrice} ₽</div>}
-      <Button className='sumPrice' onClick={handleAddCart} disabled={products.length > 0 ? false : true}>
-        Buy
-      </Button>
+      {sumPrice > 0 && (
+        <>
+          <div className='sumPrice d-flex justify-content-end kumbhSans mx-49'>SUM PRICE : {sumPrice} ₽</div>
+          <div className='d-flex justify-content-center'>
+            <Button
+              className='kumbhSans'
+              style={{
+                fontWeight: 700,
+                backgroundColor: '#000',
+                borderRadius: 0,
+                border: 'none',
+                width: '140px',
+                height: '42px'
+              }}
+              onClick={handleAddCart}
+            >
+              Buy now
+            </Button>
+          </div>
+        </>
+      )}
       {successBuy && (
         <Modal show={!!successBuy}>
           <Modal.Body>{successBuy}</Modal.Body>

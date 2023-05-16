@@ -9,7 +9,7 @@
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  background-color: #f5f5fa;
+  background-color: #fff;
   z-index: 1;
 }
 .buttonChangeImgDetailProduct {
@@ -97,7 +97,7 @@
   width: 40px;
   border-radius: 0;
   border: 1px solid #000000;
-  background-color: #f5f5fa;
+  background-color: #fff;
   color: #000000;
   font-size: 30px;
   padding: 0;
@@ -122,7 +122,7 @@
   height: 40px;
   width: 60px;
   text-align: center;
-  background-color: #f5f5fa;
+  background-color: #fff;
 }
 .getQuantity {
   display: flex;
@@ -130,7 +130,7 @@
 }
 
 .reviewcustomer {
-  background-color: #f5f5fa;
+  background-color: #fff;
 }
 .avatarUserComment {
   width: 50px;

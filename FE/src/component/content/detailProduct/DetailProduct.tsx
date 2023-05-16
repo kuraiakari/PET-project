@@ -202,7 +202,7 @@ const DetailProduct = () => {
                   {productDetail[0].nameProduct.charAt(0).toUpperCase() + productDetail[0].nameProduct.slice(1)}
                 </div>
                 {idUser && (
-                  <button style={{ border: 'none', backgroundColor: '#f5f5fa' }} onClick={handleLikeProduct}>
+                  <button style={{ border: 'none', backgroundColor: '#fff' }} onClick={handleLikeProduct}>
                     {like ? <Icon.HeartFill size={48} fill='#000' /> : <Icon.Heart size={48} color='#000' />}
                   </button>
                 )}
@@ -235,7 +235,7 @@ const DetailProduct = () => {
                       fontSize: '20px',
                       lineHeight: '25px',
                       border: 'none',
-                      backgroundColor: '#f5f5fa'
+                      backgroundColor: '#fff'
                     }}
                     onClick={moveToReview}
                   >

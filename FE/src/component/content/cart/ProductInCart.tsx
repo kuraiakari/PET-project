@@ -15,7 +15,11 @@ const ProductInCart = (props: any) => {
   console.log(props.product.idProduct)
   return (
     <>
-      <Link to={`/product/${props.product.idProduct}`} className='productInCart'>
+      <Link
+        to={`/product/${props.product.idProduct}`}
+        className='productInCart kumbhSans'
+        style={{ fontWeight: '300', fontSize: '20px', lineHeight: '25px' }}
+      >
         <div className='col-xl-1 d-flex justify-content-center'>{props.index + 1}</div>
         <div className='col-xl-3 d-flex justify-content-center'>{props.product.nameProduct}</div>
         <div className='col-xl-3 d-flex justify-content-center'>
@@ -26,7 +30,7 @@ const ProductInCart = (props: any) => {
           />
         </div>
         <div className='col-xl-2 d-flex justify-content-center'>{props.product.amount}</div>
-        <div className='col-xl-2 d-flex justify-content-center'>{props.product.price * props.product.amount}</div>
+        <div className='col-xl-2 d-flex justify-content-center'>{props.product.price * props.product.amount} ₽</div>
         <div className='col-xl-1 d-flex justify-content-center'>
           <Button className='btnDeleteProductIncart' onClick={deleteProduct}>
             x

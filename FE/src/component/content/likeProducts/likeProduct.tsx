@@ -30,7 +30,11 @@ export default function LikeProduct({ index, idUser, idProduct }: idProduct) {
     <>
       {!dataProduct && <></>}
       {dataProduct && (
-        <Link to={`/products/${dataProduct[0].categoryProduct}/${idProduct}`} className='productInHistory'>
+        <Link
+          to={`/products/${dataProduct[0].categoryProduct}/${idProduct}`}
+          className='productInHistory kumbhSans'
+          style={{ fontWeight: '300', fontSize: '20px', lineHeight: '25px' }}
+        >
           <div className='col-xl-1 d-flex justify-content-center'>{index + 1}</div>
           <div className='col-xl-3 d-flex justify-content-start'>
             {dataProduct[0].nameProduct.charAt(0).toUpperCase() + dataProduct[0].nameProduct.slice(1)}

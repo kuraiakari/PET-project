@@ -198,12 +198,24 @@ function NavbarPage() {
                           }
                           id={`offcanvasNavbarDropdown-expand-${expand}`}
                         >
-                          <NavDropdown.Item onClick={handleMoveProfile}>Personal</NavDropdown.Item>
-                          <NavDropdown.Item onClick={handleMoveHistory}>History</NavDropdown.Item>
-                          <NavDropdown.Item onClick={handleMoveLikes}>Favorite</NavDropdown.Item>
-                          {isAdmin && <NavDropdown.Item onClick={handleMoveMyShop}>My shop</NavDropdown.Item>}
+                          <NavDropdown.Item className='d-flex justify-content-center' onClick={handleMoveProfile}>
+                            Personal
+                          </NavDropdown.Item>
+                          <NavDropdown.Item className='d-flex justify-content-center' onClick={handleMoveHistory}>
+                            History
+                          </NavDropdown.Item>
+                          <NavDropdown.Item className='d-flex justify-content-center' onClick={handleMoveLikes}>
+                            Favorite
+                          </NavDropdown.Item>
+                          {isAdmin && (
+                            <NavDropdown.Item className='d-flex justify-content-center' onClick={handleMoveMyShop}>
+                              My shop
+                            </NavDropdown.Item>
+                          )}
                           <NavDropdown.Divider style={{ borderTopColor: '#000' }} />
-                          <NavDropdown.Item onClick={handleSignOut}>Logout</NavDropdown.Item>
+                          <NavDropdown.Item className='d-flex justify-content-center' onClick={handleSignOut}>
+                            Logout
+                          </NavDropdown.Item>
                         </NavDropdown>
                       </div>
                     </>

@@ -1,14 +1,15 @@
 .headerCart {
   display: flex;
+  padding-bottom: 49px;
+  border-bottom: 1px solid #333;
 }
 .productInCart {
   display: flex;
   align-items: center;
-  padding: 12px;
-  margin-top: 20px;
-  border-top: 1px solid #333;
+  padding: 29px 0;
   text-decoration: none;
   color: black;
+  border-bottom: 1px solid #333;
 }
 .productInCart:hover {
   color: black;
