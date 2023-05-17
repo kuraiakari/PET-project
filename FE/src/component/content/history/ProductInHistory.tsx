@@ -7,7 +7,16 @@ const ProductInHistory = ({ product, soluong, id, idUser }: any) => {
   const [showReviewProduct, setShowReviewProduct] = useState(false)
   const handleCloseModalReviewProduct = () => setShowReviewProduct(false)
   const handleShowModalReviewProduct = () => setShowReviewProduct(true)
-  console.log(showReviewProduct)
+  const handleCovertMoney = (money: number) => {
+    let ans = ''
+    while (Math.floor(money / 1000) > 0) {
+      const du = money % 1000 === 0 ? '000' : money % 1000
+      ans = ' ' + du + ans
+      money = Math.floor(money / 1000)
+    }
+    return (money % 1000) + ans
+  }
+  console.log(product)
   return (
     <>
       <Link
@@ -19,11 +28,14 @@ const ProductInHistory = ({ product, soluong, id, idUser }: any) => {
         <div className='col-xl-3 d-flex justify-content-start'>
           {product.productOrder.nameProduct.charAt(0).toUpperCase() + product.productOrder.nameProduct.slice(1)}
         </div>
-        <div className='col-xl-3 d-flex justify-content-center'>
+        <div className='col-xl-2 d-flex justify-content-center'>
           <img className='imgProductInCart' src={'http://localhost:3000/' + imgProduct} alt='img product' />
         </div>
-        <div className='col-xl-2 d-flex justify-content-center'>{product.productOrder.lastPriceProduct}</div>
-        <div className='col-xl-3 d-flex justify-content-center'>
+        <div className='col-xl-2 d-flex justify-content-center'>{product.amountOrder}</div>
+        <div className='col-xl-2 d-flex justify-content-center'>
+          {handleCovertMoney(product.productOrder.lastPriceProduct * product.amountOrder)}
+        </div>
+        <div className='col-xl-2 d-flex justify-content-center'>
           <Button
             type='submit'
             className='kumbhSans'

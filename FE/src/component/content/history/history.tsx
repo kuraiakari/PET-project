@@ -24,9 +24,10 @@ const History = () => {
       <div className='headerHistory'>
         <div className='col-xl-1 d-flex justify-content-center kumbhSans'></div>
         <div className='col-xl-3 d-flex justify-content-center kumbhSans'>{'Name product'.toUpperCase()}</div>
-        <div className='col-xl-3 d-flex justify-content-center kumbhSans'>{'Image product'.toUpperCase()}</div>
-        <div className='col-xl-2 d-flex justify-content-center kumbhSans'>{'Price'.toUpperCase()}</div>
-        <div className='col-xl-3 d-flex justify-content-center kumbhSans'>REVIEW</div>
+        <div className='col-xl-2 d-flex justify-content-center kumbhSans'>{'Image product'.toUpperCase()}</div>
+        <div className='col-xl-2 d-flex justify-content-center kumbhSans'>{'Quantity'.toUpperCase()}</div>
+        <div className='col-xl-2 d-flex justify-content-center kumbhSans'>{'Sum price'.toUpperCase()}</div>
+        <div className='col-xl-2 d-flex justify-content-center kumbhSans'>REVIEW</div>
       </div>
       {listOrder &&
         listOrder

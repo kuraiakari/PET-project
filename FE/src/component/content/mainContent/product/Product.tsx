@@ -19,7 +19,7 @@ const Product = (props: ProductItem) => {
     const { product } = props
     const handleCovertMoney = (money: number) => {
       let ans = ''
-      while (Math.floor(money / 1000) > 1) {
+      while (Math.floor(money / 1000) > 0) {
         const du = money % 1000 === 0 ? '000' : money % 1000
         ans = ' ' + du + ans
         money = Math.floor(money / 1000)
