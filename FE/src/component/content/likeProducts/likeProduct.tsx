@@ -12,7 +12,7 @@ interface product {
   ratingProduct: number
   categoryProduct: string
 }
-export default function LikeProduct({ index, idUser, idProduct }: idProduct) {
+export default function LikeProduct({ index, idProduct }: idProduct) {
   const [dataProduct, setDataProduct] = useState<Array<product>>()
   console.log(idProduct)
   const imgProduct = dataProduct ? dataProduct[0].imageProduct.split(',')[0] : ''

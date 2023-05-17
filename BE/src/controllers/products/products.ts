@@ -37,7 +37,7 @@ class ProductsControllers {
       }
     }
     if (req.query.sorting) {
-      if (req.query.sorting === 'rating') optionSortProduct = { ratingProduct: -1 }
+      if (req.query.sorting === 'rating') optionSortProduct = { ratingProduct: 1 }
       if (req.query.sorting === 'price') optionSortProduct = { promotionProduct: 1 }
     }
     products
