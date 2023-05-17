@@ -65,17 +65,23 @@ export default function ModalReviewProduct({
   const handleShowModalThankReviewProduct = () => setShowThankReview(true)
   return (
     <>
-      <Modal show={showReviewProduct} onHide={handleCloseModalReviewProduct}>
-        <Modal.Header closeButton>
-          <Modal.Title>Review product</Modal.Title>
+      <Modal show={showReviewProduct} onHide={handleCloseModalReviewProduct} className='resetModal'>
+        <Modal.Header style={{ padding: 0, borderBottom: 0 }}>
+          <Modal.Title
+            className='d-flex JejuMyeongjoRegular justify-content-center w-100'
+            style={{ fontSize: '40px', lineHeight: '40px', padding: '52px 72px 20px 72px' }}
+          >
+            Review product
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form.Group className='mb-3'>
+          <Form.Group className='d-flex align-items-center'>
             <Form.Label>
-              <h4>Rating</h4>
+              <div className='kumbhSans'>Product quality</div>
             </Form.Label>
-            <div>
+            <div className='ms-3'>
               <Rating
+                size='small'
                 name='half-rating'
                 value={rating}
                 precision={0.5}
@@ -88,15 +94,36 @@ export default function ModalReviewProduct({
               />
             </div>
           </Form.Group>
-          <Form.Group className='mb-3'>
-            <Form.Label>
-              <h4>Comment</h4>
-            </Form.Label>
-            <Form.Control as='textarea' rows={7} onChange={(e) => setComment(e.target.value)} />
+          <Form.Group className='mt-2 d-flex flex-column align-items-end'>
+            <Form.Control
+              className='kumbhSans'
+              style={{ fontWeight: '300', fontSize: '15px', lineHeight: '19px', borderRadius: 0 }}
+              as='textarea'
+              rows={14}
+              onChange={(e) => setComment(e.target.value)}
+              placeholder='Leave a review'
+            />
+            <div className='kumbhSans mt-2' style={{ fontWeight: '300', fontSize: '15px', lineHeight: '19px' }}>
+              Up to 150 characters
+            </div>
           </Form.Group>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant='primary' onClick={handleSendReview}>
+        <Modal.Footer
+          style={{ borderTop: 0, padding: '20px 72px 52px 72px' }}
+          className='d-flex justify-content-center'
+        >
+          <Button
+            className='kumbhSans'
+            style={{
+              fontWeight: 700,
+              backgroundColor: '#000',
+              borderRadius: 0,
+              border: 'none',
+              width: '140px',
+              height: '42px'
+            }}
+            onClick={handleSendReview}
+          >
             Sent
           </Button>
         </Modal.Footer>

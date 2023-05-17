@@ -98,10 +98,10 @@ const Product = (props: ProductItem) => {
           </button>
         </div>
         <Modal show={show} onHide={handleCloseModalCreateProduct} className='resetModal'>
-          <Modal.Header style={{ padding: 0 }}>
+          <Modal.Header style={{ padding: 0, borderBottom: 0 }}>
             <Modal.Title
-              className='JejuMyeongjoRegular justify-content-center'
-              style={{ fontSize: '40px', lineHeight: '40px', padding: '52px 72px 20px 72px', borderBottom: 0 }}
+              className='d-flex JejuMyeongjoRegular justify-content-center w-100'
+              style={{ fontSize: '40px', lineHeight: '40px', padding: '52px 72px 20px 72px' }}
             >
               Create New Product
             </Modal.Title>

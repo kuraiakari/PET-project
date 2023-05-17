@@ -34,7 +34,9 @@
   color: #fff;
 }
 .css-ryrseu-MuiRating-root,
-.css-1lauo1g-MuiRating-root {
+.css-1lauo1g-MuiRating-root,
+.css-iljtu2-MuiRating-root,
+.css-1algrk9-MuiRating-root {
   color: #d26b18 !important;
 }
 @media (min-width: 1600px) {
@@ -46,5 +48,4 @@
 /* modal */
 .resetModal .modal-content {
   border-radius: 0;
-  width: 494px;
 }

@@ -365,7 +365,20 @@ const DetailProduct = () => {
                   </Modal>
                 </>
               )}
-              {!idUser && <div style={{ color: 'rgb(255, 66, 78)' }}> Please login before adding products to cart</div>}
+              {!idUser && (
+                <div
+                  className='kumbhSans'
+                  style={{
+                    paddingTop: '12px',
+                    color: ' #D26B18',
+                    fontWeight: '300',
+                    fontSize: '20px',
+                    lineHeight: '25px'
+                  }}
+                >
+                  Please login before adding products to cart
+                </div>
+              )}
             </div>
           </div>
           <ReviewCustomer ref={review} data={productDetail} />
