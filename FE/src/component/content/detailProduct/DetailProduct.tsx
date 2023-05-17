@@ -12,18 +12,17 @@ import './detailProduct.css'
 import Breadcrumds from '../../Breadcrumb/Breadcrumb'
 import EditProduct from './editProduct'
 import ReviewCustomer from './ReviewCustomer'
-import RatingOfProduct from './ratingOfProduct'
 
 const DetailProduct = () => {
   const { category, idProduct } = useParams()
   const [indexImg, setIndexImg] = useState(0)
-  const [wasBuy, setWasBuy] = useState(false)
   const [ratingProduct, setRatingProduct] = useState(0)
-  const [rating, setRating] = useState(0)
   const [productDetail, setProductDetail] = useState<any[]>()
   const [checkNameStore, setCheckNameStore] = useState('')
   const [quantity, setQuantity] = useState(1)
+  //token
   const idUser = useSelector((state: any) => state.user.idUser)
+  //id
   const id = useSelector((state: any) => state.user.id)
   const myShop = useSelector((state: any) => state.user.myShop)
   const listLikeProduct = useSelector((state: any) => state.user.listLikeProduct)
@@ -43,11 +42,6 @@ const DetailProduct = () => {
         setTimeout(() => {
           if (data.messageError) setProductDetail([])
           else {
-            data[0].quantityReview.forEach((item: any) => {
-              if (item.userId === id) {
-                setRating(item.rating)
-              }
-            })
             setRatingProduct(data[0].ratingProduct)
             setProductDetail(data)
           }
@@ -57,20 +51,6 @@ const DetailProduct = () => {
       .then((response) => response.json())
       .then((data) => {
         setCheckNameStore(data.nameStore)
-      })
-    fetch('http://localhost:3000/v1/user/checkwasbuy', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${idUser}`
-      },
-      body: JSON.stringify({
-        idProduct
-      })
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data === 'Was buy product') setWasBuy(true)
       })
   }, [idProduct, myShop, idUser, id, category])
   let listImageProduct = ''
@@ -260,11 +240,6 @@ const DetailProduct = () => {
                 >
                   {productDetail[0].descriptionProduct}
                 </div>
-                {wasBuy && (
-                  <div className='col-xl-3 d-flex justify-content-end'>
-                    <RatingOfProduct idUser={idUser} idProduct={idProduct || ''} ratingProduct={rating} read={false} />
-                  </div>
-                )}
               </div>
               {productDetail[0].store !== checkNameStore ? (
                 <div className='quantityDetailProduct'>

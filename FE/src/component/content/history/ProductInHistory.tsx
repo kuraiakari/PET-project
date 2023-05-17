@@ -1,8 +1,13 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import RatingOfProduct from '../detailProduct/ratingOfProduct'
-const ProductInHistory = ({ product, soluong, idUser }: any) => {
+import { Button } from 'react-bootstrap'
+import ModalReviewProduct from './ModalReviewProduct'
+const ProductInHistory = ({ product, soluong, id, idUser }: any) => {
   const imgProduct = product.productOrder.imageProduct.split(',')[0]
+  const [showReviewProduct, setShowReviewProduct] = useState(false)
+  const handleCloseModalReviewProduct = () => setShowReviewProduct(false)
+  const handleShowModalReviewProduct = () => setShowReviewProduct(true)
+  console.log(showReviewProduct)
   return (
     <>
       <Link
@@ -19,14 +24,34 @@ const ProductInHistory = ({ product, soluong, idUser }: any) => {
         </div>
         <div className='col-xl-2 d-flex justify-content-center'>{product.productOrder.lastPriceProduct}</div>
         <div className='col-xl-3 d-flex justify-content-center'>
-          <RatingOfProduct
-            idUser={idUser}
-            idProduct={product.productOrder.idProduct}
-            ratingProduct={product.productOrder.ratingProduct}
-            read={true}
-          />
+          <Button
+            type='submit'
+            className='kumbhSans'
+            onClick={(e: any) => {
+              handleShowModalReviewProduct()
+              e.stopPropagation()
+              e.preventDefault()
+            }}
+            style={{
+              fontWeight: 700,
+              backgroundColor: '#000',
+              borderRadius: 0,
+              border: 'none',
+              width: '140px',
+              height: '42px'
+            }}
+          >
+            Review
+          </Button>
         </div>
       </Link>
+      <ModalReviewProduct
+        id={id}
+        idUser={idUser}
+        idProduct={product.productOrder._id}
+        showReviewProduct={showReviewProduct}
+        handleCloseModalReviewProduct={handleCloseModalReviewProduct}
+      />
     </>
   )
 }

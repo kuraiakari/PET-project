@@ -7,6 +7,7 @@ const History = () => {
   const [listOrder, setListOrder] = useState([])
   let soluong = 0
   const idUser = useSelector((state: any) => state.user.idUser)
+  const id = useSelector((state: any) => state.user.id)
   useEffect(() => {
     fetch('http://localhost:3000/v1/user/profile', {
       headers: {
@@ -34,7 +35,7 @@ const History = () => {
           .map((order: any) => {
             return order.listProducts.map((product: any, index: number) => {
               soluong++
-              return <ProductInHistory product={product} key={index} soluong={soluong} idUser={idUser} />
+              return <ProductInHistory product={product} key={index} soluong={soluong} id={id} idUser={idUser} />
             })
           })}
     </>

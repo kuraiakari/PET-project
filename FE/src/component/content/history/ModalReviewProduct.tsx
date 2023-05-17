@@ -1,23 +1,38 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import Rating from '@mui/material/Rating/Rating'
 import { useNavigate } from 'react-router-dom'
 
-interface idProduct {
+interface initState {
+  id: string
   idUser: string
   idProduct: string
-  ratingProduct: number
-  read: boolean
+  showReviewProduct: boolean
+  handleCloseModalReviewProduct: any
 }
 
-export default function RatingOfProduct({ idUser, idProduct, ratingProduct, read }: idProduct) {
+export default function ModalReviewProduct({
+  id,
+  idUser,
+  idProduct,
+  showReviewProduct,
+  handleCloseModalReviewProduct
+}: initState) {
   //handle show review product
-  const [rating, setRating] = useState(ratingProduct)
+  useEffect(() => {
+    fetch(`http://localhost:3000/v1/products/product/${idProduct}`)
+      .then((response) => response.json())
+      .then((data) => {
+        data[0].quantityReview.forEach((item: any) => {
+          if (item.userId === id) {
+            setRating(item.rating)
+          }
+        })
+      })
+  }, [idProduct, id])
+  const [rating, setRating] = useState(0)
   const [comment, setComment] = useState('')
   const navigate = useNavigate()
-  const [showReviewProduct, setShowReviewProduct] = useState(false)
-  const handleCloseModalReviewProduct = () => setShowReviewProduct(false)
-  const handleShowModalReviewProduct = () => setShowReviewProduct(true)
   const handleSendReview = () => {
     const data = {
       idProduct,
@@ -34,6 +49,7 @@ export default function RatingOfProduct({ idUser, idProduct, ratingProduct, read
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         if (data === 'Update successfully') {
           handleCloseModalReviewProduct()
           handleShowModalThankReviewProduct()
@@ -49,19 +65,6 @@ export default function RatingOfProduct({ idUser, idProduct, ratingProduct, read
   const handleShowModalThankReviewProduct = () => setShowThankReview(true)
   return (
     <>
-      <Rating
-        name='half-rating'
-        readOnly={read}
-        value={rating}
-        precision={0.5}
-        className='ratingProduct'
-        onChange={(e, newValue) => {
-          if (newValue) {
-            setRating(newValue)
-            handleShowModalReviewProduct()
-          }
-        }}
-      />
       <Modal show={showReviewProduct} onHide={handleCloseModalReviewProduct}>
         <Modal.Header closeButton>
           <Modal.Title>Review product</Modal.Title>
@@ -75,10 +78,13 @@ export default function RatingOfProduct({ idUser, idProduct, ratingProduct, read
               <Rating
                 name='half-rating'
                 value={rating}
-                className='ratingProduct'
                 precision={0.5}
-                size='large'
-                readOnly
+                className='ratingProduct'
+                onChange={(e, newValue) => {
+                  if (newValue) {
+                    setRating(newValue)
+                  }
+                }}
               />
             </div>
           </Form.Group>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import RatingOfProduct from '../detailProduct/ratingOfProduct'
+import { Rating } from '@mui/material'
 interface idProduct {
   index: number
   idUser: string
@@ -43,12 +43,7 @@ export default function LikeProduct({ index, idUser, idProduct }: idProduct) {
             <img className='imgProductInCart' src={'http://localhost:3000/' + imgProduct} alt='img product' />
           </div>
           <div className='col-xl-4 d-flex justify-content-center'>
-            <RatingOfProduct
-              idUser={idUser}
-              idProduct={idProduct || ''}
-              ratingProduct={dataProduct[0].ratingProduct}
-              read={false}
-            />
+            <Rating defaultValue={dataProduct[0].ratingProduct} readOnly precision={0.5} />
           </div>
         </Link>
       )}
