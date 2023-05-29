@@ -13,6 +13,12 @@ router.put('/update', verifyUser, userControllers.upload, userControllers.update
 router.delete('/delete', verifyUser, userControllers.upload, userControllers.deleteProfile)
 router.post('/likeproduct', verifyUser, userControllers.upload, userControllers.createLikeProduct)
 // router.delete('/likeproduct/:id', verifyUser, userControllers.upload, userControllers.deleteLikeProduct)
+
+
+
 router.post('/createorder', verifyUser, userControllers.upload, userControllers.createOrder)
+
+
+
 
 export default router

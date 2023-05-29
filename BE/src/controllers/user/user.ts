@@ -48,6 +48,7 @@ class UserControllers {
     })
   }
   getProfile(req: any, res: any) {
+    // console.log(req.user)
     if (req.user._id) {
       users.findOne({ _id: req.user._id }, (err: any, user: any) => {
         if (user) res.json(user)
@@ -84,9 +85,10 @@ class UserControllers {
         else {
           users.findOne({ _id: req.user._id }, async function (err: any, user: any) {
             let check = 0
-            //check xem sản phẩm đã tồn tại trong list yêu thích hay chưa
+            //check if the product already exists in the favorites list
             await user.listLikeProduct.forEach(async (product: any, index: any) => {
               if (product._id.toString() === req.body.id_product) {
+                // had found
                 check += 1
                 await user.listLikeProduct.splice(index, 1)
                 await users.updateOne({ _id: req.user._id }, user)
@@ -94,6 +96,7 @@ class UserControllers {
               }
             })
             if (check === 0) {
+              // Ended the search and couldn't find a product that matched the search query.
               await user.listLikeProduct.push(product)
               await users.updateOne({ _id: req.user._id }, user)
               res.json('Create like successfully')
@@ -170,9 +173,6 @@ class UserControllers {
               soldProduct: oldProduct.soldProduct + product.amount
             }
             const dataTest = await products.updateOne({ _id: product.idProduct }, dataProduct)
-            if (!dataTest.matchedCount) {
-              res.status(404).json({ messageError: 'Not found product' })
-            }
             await stores
               .findOne({ nameStore: dataProduct.store }, async (err: any, store: any) => {
                 // console.log('ban dau:', store)
