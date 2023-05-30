@@ -9,13 +9,9 @@ const productsControllers = new ProductsControllers()
 router.get('/', productsControllers.getProducts)
 router.get('/:category', productsControllers.getProducts)
 router.get('/product/:idproduct', productsControllers.getProducts)
-
-
 router.get('/:category/:idproduct', productsControllers.getProducts)
 router.post('/create', verifyAdmin, productsControllers.upload, productsControllers.create)
 router.post('/review', verifyUser, productsControllers.upload, productsControllers.review)
-
-
 router.put('/update/:id', verifyAdmin, productsControllers.upload, productsControllers.update)
 router.delete('/delete/:id', verifyAdmin, productsControllers.delete)
 export default router
