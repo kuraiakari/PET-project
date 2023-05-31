@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { PORT, MONGODB_URL } from '../config/index'
+import { MONGODB_URL } from '../config/index'
 
 export const databaseConnection = async () => {
   try {

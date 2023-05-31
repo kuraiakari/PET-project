@@ -6,7 +6,7 @@ import { GenerateSalt, GeneratePassword, ValidatePassword, GenerateSignature } f
 import users from '../../database/models/user'
 import products from '../../database/models/products'
 import stores from '../../database/models/stores'
-
+import SocketService from '../../controllers/socketServer/socket'
 class UserControllers {
   async create(req: any, res: any) {
     let salt = await GenerateSalt()
@@ -34,7 +34,9 @@ class UserControllers {
           user.listLikeProduct.forEach((product: any) => {
             listLikeProduct.push(product._id)
           })
-          // console.log(user)
+          if(user.isAdmin) {
+            SocketService.connectionSocket()
+          }
           const dataUser = {
             token,
             id: user._id,
