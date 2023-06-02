@@ -4,6 +4,7 @@ import { NavDropdown, Button, Container, Form, Nav, Navbar } from 'react-bootstr
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
+import useWebSocket from 'react-use-websocket'
 
 import './Navbar.css'
 import Modal from '../noAccount/noAccount'
@@ -18,6 +19,20 @@ import person from './iconNavbar/person.svg'
 import cart from './iconNavbar/cart.svg'
 import down from './iconNavbar/down.svg'
 function NavbarPage() {
+  //handle with Websocket
+  const WS_URL = 'ws://localhost:8002'
+  const { sendJsonMessage, lastMessage, readyState } = useWebSocket(WS_URL, {
+    onOpen: () => {
+      console.log('WebSocket connection established.')
+    },
+    onClose: () => {
+      console.log('disconnection')
+    }
+  })
+  useEffect(() => {
+    if (lastMessage) console.log(lastMessage?.data)
+  }, [lastMessage])
+
   const [isPerson, setIsPerson] = useState(false)
   const [modal, setModal] = useState(false)
   const [signIn, setsignIn] = useState(false) //false is signin, true is signup)
@@ -45,13 +60,22 @@ function NavbarPage() {
 
   //get id user
   const idUser = useSelector((state: any) => state.user.idUser)
+  const id = useSelector((state: any) => state.user.id)
   const isAdmin = useSelector((state: any) => state.user.isAdmin)
   const dispatch = useDispatch()
   useEffect(() => {
     if (idUser) setIsPerson(true)
     else setIsPerson(false)
   }, [idUser])
-
+  useEffect(() => {
+    if (id && id !== undefined) {
+      console.log(id)
+      sendJsonMessage({
+        idUser: id,
+        message: 'hello server'
+      })
+    }
+  }, [id, sendJsonMessage])
   //sign in
   const handldeSignIn = () => {
     setsignIn(false)
@@ -232,7 +256,14 @@ function NavbarPage() {
           </Container>
         </Navbar>
       ))}
-      {modal && <Modal turnOffSignIn={handldeSignIn} signIn={signIn} />}
+      {modal && (
+        <Modal
+          turnOffSignIn={handldeSignIn}
+          signIn={signIn}
+          readyState={readyState}
+          sendJsonMessage={sendJsonMessage}
+        />
+      )}
     </>
   )
 }

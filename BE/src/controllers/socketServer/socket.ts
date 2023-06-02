@@ -9,11 +9,17 @@ class SocketService {
       console.log(`WebSocket server is running on port ${port}`)
     })
   }
-  static broadcastMessage = (json: string, message: string) => {
+  static broadcastMessage = (idUser: string, json: string, message: string) => {
     this.mapSocket.forEach((value: any, key: any) => {
-      if (key === 'admin') {
+    console.log(key)
+      if (key === 'admin' && idUser !== 'admin') {
         value.send(json)
-        value.send(message)
+        if (message) value.send(message)
+        return
+      }
+      if (key !== 'admin' && idUser === 'admin') {
+        // console.log(value.readyState === WebSocket.OPEN)
+        if (message) value.send(message)
       }
     })
   }
@@ -22,19 +28,24 @@ class SocketService {
     const idUser = dataclinet.idUser
     const message = dataclinet.message
     this.mapSocket.set(idUser, connection)
-    connection.send(`${idUser} joined to server`)
-    const json = `${idUser} joined to server`
-    this.broadcastMessage(json, message)
+    // console.log(idUser)
+    if (idUser !== 'admin') {
+      const json = `${idUser} joined to server`
+      this.broadcastMessage(idUser, json, message)
+    } else {
+      const json = `from server`
+      this.broadcastMessage(idUser, json, message)
+    }
   }
   static async connectionSocket() {
     SocketService.wsServer.on('connection', (connection: WebSocket) => {
-      //   console.log('connected to socket')
+        console.log('connected to socket')
       //   this.mapSocket.set(idUser, connection)
 
       connection.on('error', console.error)
-        connection.on('message', (data, isBinary) => {
-          this.handleMessage(data, connection)
-        })
+      connection.on('message', (data, isBinary) => {
+        this.handleMessage(data, connection)
+      })
 
       connection.on('close', () => {
         console.log('disconnectSocket')

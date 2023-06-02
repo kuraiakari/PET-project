@@ -22,7 +22,7 @@ const StartApp = async () => {
   SocketService.createSocket()
   SocketService.connectionSocket()
   app.use(cors())
-
+  app.use(bodyParser.json())
   app.use('/v1', router)
   app.use('/images', express.static('./images'))
   app.use(express.json())
