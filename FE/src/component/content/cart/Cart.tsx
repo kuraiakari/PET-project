@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import useWebSocket from 'react-use-websocket'
 
 import ProductInCart from './ProductInCart'
 import { order } from 'src/types/order.type'
@@ -9,11 +10,32 @@ import { order } from 'src/types/order.type'
 import { removeAllProduct } from '../../../redux/cart.reducer'
 import './cart.css'
 
+interface dataReturn {
+  messageSuccess: string
+  arrayIdOwnerShop: []
+}
 const Cart = () => {
   const products = useSelector((state: any) => state.order.orderlist)
   const idUser = useSelector((state: any) => state.user.idUser)
+  const [fullName, setFullName] = useState('User')
+  useEffect(() => {
+    fetch('http://localhost:3000/v1/user/profile', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${idUser}`,
+        'Content-Type': 'application/json'
+        // 'Content-Type': 'application/x-www-form-urlencoded',
+      }
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setFullName(data.firstName + data.lastName)
+      })
+  }, [idUser])
+  const WS_URL = 'ws://localhost:8002'
+  const { sendJsonMessage } = useWebSocket(WS_URL)
   const dispatch = useDispatch()
-  const [successBuy, setSuccessBuy] = useState('')
+  const [successBuy, setSuccessBuy] = useState<dataReturn>()
   const navigate = useNavigate()
   let sumPrice = 0
   const handleAddCart = () => {
@@ -32,7 +54,17 @@ const Cart = () => {
       .then((response) => response.json())
       .then((data) => {
         // console.log(data)
-        if (data === 'Create new order successfully') {
+        if (data.messageSuccess === 'Create new order successfully') {
+          for (const mess of data.arrayOwnerShop) {
+            sendJsonMessage({
+              type: 'buyProduct',
+              content: {
+                idUser: 'admin',
+                to: mess.idOwner,
+                message: `${fullName} was buy ${mess.amount} ${mess.nameProduct}`
+              }
+            })
+          }
           setSuccessBuy(data)
         } else {
           setSuccessBuy(data)
@@ -40,11 +72,14 @@ const Cart = () => {
       })
   }
   const handleClose = () => {
-    if (successBuy === 'Create new order successfully') {
+    if (successBuy && successBuy.messageSuccess === 'Create new order successfully') {
       dispatch(removeAllProduct())
       navigate('/')
     }
-    setSuccessBuy('')
+    setSuccessBuy({
+      messageSuccess: '',
+      arrayIdOwnerShop: []
+    })
   }
   return (
     <>
@@ -83,7 +118,7 @@ const Cart = () => {
       )}
       {successBuy && (
         <Modal show={!!successBuy}>
-          <Modal.Body>{successBuy}</Modal.Body>
+          <Modal.Body>{successBuy.messageSuccess}</Modal.Body>
           <Modal.Footer>
             <Button onClick={handleClose}>Close</Button>
           </Modal.Footer>

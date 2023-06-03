@@ -1,14 +1,14 @@
 import React, { useState, useRef } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-import { ReadyState } from 'react-use-websocket'
+// import { ReadyState } from 'react-use-websocket'
 // import * as Icon from 'react-bootstrap-icons'
 
 import './noAccount.css'
 import { useDispatch } from 'react-redux'
 import { addIdUser } from '../../../redux/user.reducer'
 
-function Modal({ turnOffSignIn, signIn, readyState, sendJsonMessage }: any) {
+function Modal({ turnOffSignIn, signIn }: any) {
   const [stateBox, setStateBox] = useState(signIn)
   const [messErrorServer, setMessErrorServer] = useState('')
   const [messSucces, setMessSucces] = useState('')
@@ -70,12 +70,12 @@ function Modal({ turnOffSignIn, signIn, readyState, sendJsonMessage }: any) {
               myShop: data.myShop,
               listLikeProduct: data.listLikeProduct
             }
-            if (data.isAdmin && readyState === ReadyState.OPEN) {
-              sendJsonMessage({
-                idUser: data.id,
-                message: 'hello server'
-              })
-            }
+            // if (data.isAdmin && readyState === ReadyState.OPEN) {
+            //   sendJsonMessage({
+            //     idUser: data.id,
+            //     message: 'hello server'
+            //   })
+            // }
 
             localStorage.setItem('token', data.token)
             localStorage.setItem('id', data.id)

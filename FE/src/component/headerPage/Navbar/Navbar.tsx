@@ -4,13 +4,12 @@ import { NavDropdown, Button, Container, Form, Nav, Navbar } from 'react-bootstr
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation, useNavigate } from 'react-router-dom'
-import useWebSocket from 'react-use-websocket'
+import useWebSocket, { ReadyState } from 'react-use-websocket'
 
 import './Navbar.css'
 import Modal from '../noAccount/noAccount'
 import { addIdUser } from '../../../redux/user.reducer'
 import { removeAllProduct } from '../../../redux/cart.reducer'
-
 //image
 // import logo from './iconNavbar/logo.svg'
 import search from './iconNavbar/search.svg'
@@ -29,6 +28,7 @@ function NavbarPage() {
       console.log('disconnection')
     }
   })
+
   useEffect(() => {
     if (lastMessage) console.log(lastMessage?.data)
   }, [lastMessage])
@@ -68,14 +68,13 @@ function NavbarPage() {
     else setIsPerson(false)
   }, [idUser])
   useEffect(() => {
-    if (id && id !== undefined) {
-      console.log(id)
+    if (id && id !== undefined && isAdmin && readyState === ReadyState.OPEN) {
       sendJsonMessage({
         idUser: id,
         message: 'hello server'
       })
     }
-  }, [id, sendJsonMessage])
+  }, [id, sendJsonMessage, readyState, isAdmin])
   //sign in
   const handldeSignIn = () => {
     setsignIn(false)
@@ -256,14 +255,7 @@ function NavbarPage() {
           </Container>
         </Navbar>
       ))}
-      {modal && (
-        <Modal
-          turnOffSignIn={handldeSignIn}
-          signIn={signIn}
-          readyState={readyState}
-          sendJsonMessage={sendJsonMessage}
-        />
-      )}
+      {modal && <Modal turnOffSignIn={handldeSignIn} signIn={signIn} />}
     </>
   )
 }

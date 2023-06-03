@@ -103,7 +103,7 @@ class StoreControllers {
     const dataShop = {
       ...req.body,
       imgStore: img,
-      shopOwner: req.user.email
+      shopOwner: req.user._id
     }
     users.findOne({ _id: req.user._id }, async function (err: any, user: any) {
       if (!user) {
@@ -124,6 +124,15 @@ class StoreControllers {
       } else res.json({ messageError: '1 account have only 1 shop' })
     })
   }
+  // async updateAll(req: any, res: Response) {
+  //   const data = await stores.find({})
+  //   for ( const store of data){
+  //     const datauser = await users.findOne({ email: store.shopOwner })
+  //     store.shopOwner = datauser?._id.toString()
+  //     await stores.updateOne({_id: store._id}, store)
+  //   }
+  //   // res.json({data})
+  // }
   storage = multer.diskStorage({
     destination: (req, file, cb) => {
       cb(null, './images/store')

@@ -17,17 +17,20 @@ class SocketService {
         if (message) value.send(message)
         return
       }
-      if (key !== 'admin' && idUser === 'admin') {
+      if (key === 'admin' && idUser === 'admin') {
         // console.log(value.readyState === WebSocket.OPEN)
         if (message) value.send(message)
       }
     })
   }
   static handleMessage = (data: any, connection: any) => {
-    const dataclinet = JSON.parse(data.toString())
-    const idUser = dataclinet.idUser
-    const message = dataclinet.message
-    this.mapSocket.set(idUser, connection)
+    const dataMessFromClient = JSON.parse(data.toString())
+    console.log(dataMessFromClient)
+    const type = dataMessFromClient.type
+    const idUser = dataMessFromClient.content.idUser
+    const message = dataMessFromClient.content.message
+    console.log(idUser, message)
+    if (!this.mapSocket.get(idUser)) this.mapSocket.set(idUser, connection)
     // console.log(idUser)
     if (idUser !== 'admin') {
       const json = `${idUser} joined to server`

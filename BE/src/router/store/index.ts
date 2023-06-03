@@ -7,6 +7,7 @@ const storeControllers = new StoreControllers()
 
 router.get('/', storeControllers.getAll)
 router.post('/create', verifyAdmin, storeControllers.upload, storeControllers.create)
+// router.get('/updateAll', storeControllers.updateAll)
 router.get('/:id', storeControllers.getStore)
 router.put('/update/:id', verifyAdmin, storeControllers.upload, storeControllers.update)
 router.delete('/delete/:id', verifyAdmin, storeControllers.delete)

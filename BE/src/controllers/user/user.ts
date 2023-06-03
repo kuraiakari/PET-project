@@ -125,8 +125,9 @@ class UserControllers {
     const order = {
       listProducts: []
     }
+    const arrayOwnerShop: object[] = []
     const listProducts: any[] = []
-
+    // console.log(req.body)
     //sort product same in listProducts
     const idOfProduct = [...new Set(req.body.products.map((product: any) => product.idProduct))]
     const listProduct = idOfProduct.map((id: any) => {
@@ -158,6 +159,7 @@ class UserControllers {
 
     // create order
     for (const product of req.body.products) {
+      // console.log(product.amount)
       await products
         .findOne({ _id: product.idProduct }, async (err: any, oldProduct: any) => {
           if (oldProduct) {
@@ -171,10 +173,18 @@ class UserControllers {
               amountProduct: oldProduct.amountProduct - product.amount,
               soldProduct: oldProduct.soldProduct + product.amount
             }
-            const dataTest = await products.updateOne({ _id: product.idProduct }, dataProduct)
-            await stores
+            await products.updateOne({ _id: product.idProduct }, dataProduct)
+            const store = await stores
               .findOne({ nameStore: dataProduct.store }, async (err: any, store: any) => {
                 // console.log('ban dau:', store)
+                if (data) {
+                  const inforOrder = {
+                    idOwner: store.shopOwner.toString(),
+                    nameProduct: oldProduct.nameProduct,
+                    amount: product.amount
+                  }
+                  arrayOwnerShop.push(inforOrder)
+                }
                 if (!store) {
                   res.status(404).json({ messageError: 'Not found store' })
                 } else {
@@ -198,19 +208,27 @@ class UserControllers {
           console.log(err)
         })
     }
-    order.listProducts = listProducts as []
-    await users
-      .findOne({ _id: req.user._id }, async function (err: any, user: any) {
-        if (err) console.log(err)
-        user.listProductWasBuy = [...new Set([...user.listProductWasBuy, ...idOfProduct])]
-        user.listOrder.push(order)
-        await users.updateOne({ _id: req.user._id }, user)
-        res.json('Create new order successfully')
-      })
-      .clone()
-      .catch(function (err) {
-        console.log(err)
-      })
+    Promise.all(arrayOwnerShop).then(async () => {
+      order.listProducts = listProducts as []
+      users
+        .findOne({ _id: req.user._id }, async function (err: any, user: any) {
+          if (err) console.log(err)
+          user.listProductWasBuy = [...new Set([...user.listProductWasBuy, ...idOfProduct])]
+          user.listOrder.push(order)
+          await users.updateOne({ _id: req.user._id }, user)
+
+          const dataReturn = {
+            messageSuccess: 'Create new order successfully',
+            arrayOwnerShop: arrayOwnerShop
+          }
+          // console.log(dataReturn)
+          res.json(dataReturn)
+        })
+        .clone()
+        .catch(function (err) {
+          console.log(err)
+        })
+    })
   }
   async checkWasBuy(req: any, res: any) {
     try {
