@@ -9,41 +9,50 @@ class SocketService {
       console.log(`WebSocket server is running on port ${port}`)
     })
   }
-  static broadcastMessage = (idUser: string, json: string, message: string) => {
-    this.mapSocket.forEach((value: any, key: any) => {
-    console.log(key)
-      if (key === 'admin' && idUser !== 'admin') {
-        value.send(json)
-        if (message) value.send(message)
-        return
-      }
-      if (key === 'admin' && idUser === 'admin') {
-        // console.log(value.readyState === WebSocket.OPEN)
-        if (message) value.send(message)
-      }
-    })
+  static broadcastMessage = (type: string, toIdUser: string, message: string) => {
+    if( type === 'signin' || type === 'signout' ){
+      const conenect = this.mapSocket.get('admin')
+      conenect.send(message)
+    }
+    if(type === 'buyProduct'){
+      this.mapSocket.forEach((value: any, key: string) =>{
+        console.log(key)
+        if( key === toIdUser){
+          value.send(message)
+        }
+      })
+    }
   }
   static handleMessage = (data: any, connection: any) => {
     const dataMessFromClient = JSON.parse(data.toString())
-    console.log(dataMessFromClient)
     const type = dataMessFromClient.type
     const idUser = dataMessFromClient.content.idUser
-    const message = dataMessFromClient.content.message
-    console.log(idUser, message)
-    if (!this.mapSocket.get(idUser)) this.mapSocket.set(idUser, connection)
-    // console.log(idUser)
-    if (idUser !== 'admin') {
-      const json = `${idUser} joined to server`
-      this.broadcastMessage(idUser, json, message)
-    } else {
-      const json = `from server`
-      this.broadcastMessage(idUser, json, message)
+    //chiếm quyền admin
+    if (type === 'admin') {
+      this.mapSocket.set('admin', connection)
+    }
+    if (type === 'signin') {
+      if (!this.mapSocket.get(idUser)) this.mapSocket.set(idUser, connection)
+      // console.log(idUser)
+      const message = dataMessFromClient.content.message || `${idUser} joined to server`
+      this.broadcastMessage(type, 'admin', message)
+    }
+    if (type === 'signout') {
+      if (this.mapSocket.get(idUser)) this.mapSocket.delete(idUser)
+      const message = dataMessFromClient.content.message || `${idUser} disconnected from server`
+      this.broadcastMessage(type, 'admin', message)
+    }
+    if (type === 'buyProduct') {
+      const message = dataMessFromClient.content.message
+      const toIdUser = dataMessFromClient.content.to
+      this.broadcastMessage(type, toIdUser, message)
     }
   }
   static async connectionSocket() {
     SocketService.wsServer.on('connection', (connection: WebSocket) => {
-        console.log('connected to socket')
-      //   this.mapSocket.set(idUser, connection)
+      console.log('connected to socket')
+      //khởi tạo 1 admin ảo
+      if (!this.mapSocket.get('admin')) this.mapSocket.set('admin', connection)
 
       connection.on('error', console.error)
       connection.on('message', (data, isBinary) => {

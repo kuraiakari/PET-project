@@ -70,8 +70,10 @@ function NavbarPage() {
   useEffect(() => {
     if (id && id !== undefined && isAdmin && readyState === ReadyState.OPEN) {
       sendJsonMessage({
-        idUser: id,
-        message: 'hello server'
+        type: 'signin',
+        content: {
+          idUser: id
+        }
       })
     }
   }, [id, sendJsonMessage, readyState, isAdmin])
@@ -116,6 +118,14 @@ function NavbarPage() {
   }
   //sign out
   const handleSignOut = () => {
+    if (readyState === ReadyState.OPEN) {
+      sendJsonMessage({
+        type: 'signout',
+        content: {
+          idUser: id
+        }
+      })
+    }
     if (
       location.pathname === '/cart' ||
       location.pathname === '/history' ||
