@@ -17,6 +17,7 @@ interface dataReturn {
 const Cart = () => {
   const products = useSelector((state: any) => state.order.orderlist)
   const idUser = useSelector((state: any) => state.user.idUser)
+  const [avatar, setAvatar] = useState('')
   const [fullName, setFullName] = useState('User')
   useEffect(() => {
     fetch('http://localhost:3000/v1/user/profile', {
@@ -29,7 +30,14 @@ const Cart = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setFullName(data.firstName + data.lastName)
+        setAvatar(data.avatar)
+        setFullName(
+          data.firstName.charAt(0).toUpperCase() +
+            data.firstName.slice(1) +
+            ' ' +
+            data.lastName.charAt(0).toUpperCase() +
+            data.lastName.slice(1)
+        )
       })
   }, [idUser])
   const WS_URL = 'ws://localhost:8002'
@@ -61,6 +69,7 @@ const Cart = () => {
               content: {
                 idUser: 'admin',
                 to: mess.idOwner,
+                avatar: avatar,
                 message: `${fullName} was buy ${mess.amount} ${mess.nameProduct}`
               }
             })

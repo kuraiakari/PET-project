@@ -4,4 +4,5 @@ export interface order {
   imgProduct: string
   amount: number
   price: number
+  categoryProduct: string
 }

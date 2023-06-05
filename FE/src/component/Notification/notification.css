@@ -1,0 +1,19 @@
+.avatarUserBuy {
+  width: 75px;
+  height: 75px;
+}
+.messageUserBuy {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* number of lines to show */
+  -webkit-box-orient: vertical;
+  line-height: 19px;
+  color: rgb(39, 39, 42);
+  margin-bottom: 6px;
+  word-break: break-word;
+  min-height: 38px;
+}
+.titleMessageUserBuy {
+  margin-left: 10px;
+  font-size: 13px;
+}

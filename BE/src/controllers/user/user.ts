@@ -158,7 +158,7 @@ class UserControllers {
     }
 
     // create order
-    for (const product of req.body.products) {
+    for (const product of listProduct) {
       // console.log(product.amount)
       await products
         .findOne({ _id: product.idProduct }, async (err: any, oldProduct: any) => {

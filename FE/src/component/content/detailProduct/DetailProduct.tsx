@@ -67,6 +67,7 @@ const DetailProduct = () => {
     if (idUser) {
       const data: order = {
         idProduct: productDetail ? productDetail[0]._id : '',
+        categoryProduct: productDetail ? productDetail[0].categoryProduct : '',
         nameProduct: productDetail ? productDetail[0].nameProduct : '',
         imgProduct: listImageProduct[0],
         amount: quantity,

@@ -1,4 +1,6 @@
 import { WebSocket } from 'ws'
+import {Blob} from 'node:buffer'
+
 class SocketService {
   static server: any
   static wsServer: any
@@ -9,15 +11,17 @@ class SocketService {
       console.log(`WebSocket server is running on port ${port}`)
     })
   }
-  static broadcastMessage = (type: string, toIdUser: string, message: string) => {
+  static broadcastMessage = (type: string, toIdUser: string, content: any) => {
     if( type === 'signin' || type === 'signout' ){
       const conenect = this.mapSocket.get('admin')
+      const message = content
       conenect.send(message)
     }
     if(type === 'buyProduct'){
       this.mapSocket.forEach((value: any, key: string) =>{
-        console.log(key)
         if( key === toIdUser){
+          const date =new Date
+          const message = content.avatar + '].[' + content.message + '].[' + date 
           value.send(message)
         }
       })
@@ -32,20 +36,21 @@ class SocketService {
       this.mapSocket.set('admin', connection)
     }
     if (type === 'signin') {
-      if (!this.mapSocket.get(idUser)) this.mapSocket.set(idUser, connection)
+      this.mapSocket.set(idUser, connection)
       // console.log(idUser)
-      const message = dataMessFromClient.content.message || `${idUser} joined to server`
-      this.broadcastMessage(type, 'admin', message)
+      const content = dataMessFromClient.content.message || `${idUser} joined to server`
+      this.broadcastMessage(type, 'admin', content)
     }
     if (type === 'signout') {
       if (this.mapSocket.get(idUser)) this.mapSocket.delete(idUser)
-      const message = dataMessFromClient.content.message || `${idUser} disconnected from server`
-      this.broadcastMessage(type, 'admin', message)
+      const content = dataMessFromClient.content.message || `${idUser} disconnected from server`
+      this.broadcastMessage(type, 'admin', content)
     }
     if (type === 'buyProduct') {
-      const message = dataMessFromClient.content.message
+      console.log(1)
+      const content = dataMessFromClient.content
       const toIdUser = dataMessFromClient.content.to
-      this.broadcastMessage(type, toIdUser, message)
+      this.broadcastMessage(type, toIdUser, content)
     }
   }
   static async connectionSocket() {
@@ -57,10 +62,6 @@ class SocketService {
       connection.on('error', console.error)
       connection.on('message', (data, isBinary) => {
         this.handleMessage(data, connection)
-      })
-
-      connection.on('close', () => {
-        console.log('disconnectSocket')
       })
     })
   }

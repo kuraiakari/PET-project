@@ -12,11 +12,11 @@ const ProductInCart = (props: any) => {
     e.preventDefault()
     e.stopPropagation()
   }
-  // console.log(props.product.idProduct)
+  console.log(props.product)
   return (
     <>
       <Link
-        to={`/product/${props.product.idProduct}`}
+        to={`/products/${props.product.categoryProduct}/${props.product.idProduct}`}
         className='productInCart kumbhSans'
         style={{ fontWeight: '300', fontSize: '20px', lineHeight: '25px' }}
       >

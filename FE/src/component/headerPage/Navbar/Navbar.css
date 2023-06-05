@@ -77,3 +77,15 @@
   font-size: 20px;
   --bs-dropdown-min-width: 0;
 }
+
+.notification {
+  z-index: 4;
+  position: fixed;
+  bottom: 5%;
+  right: 10%;
+  display: block;
+  width: 200px;
+  height: 100px;
+  background-color: #fff;
+  color: #000;
+}

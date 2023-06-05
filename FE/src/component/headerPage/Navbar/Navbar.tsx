@@ -10,6 +10,7 @@ import './Navbar.css'
 import Modal from '../noAccount/noAccount'
 import { addIdUser } from '../../../redux/user.reducer'
 import { removeAllProduct } from '../../../redux/cart.reducer'
+import { NotifierGenerator } from '../../Notification/Notification'
 //image
 // import logo from './iconNavbar/logo.svg'
 import search from './iconNavbar/search.svg'
@@ -23,16 +24,19 @@ function NavbarPage() {
   const { sendJsonMessage, lastMessage, readyState } = useWebSocket(WS_URL, {
     onOpen: () => {
       console.log('WebSocket connection established.')
-    },
-    onClose: () => {
-      console.log('disconnection')
     }
   })
-
+  const [avataClientBuy, setAvataClientBuy] = useState('')
+  const [messageClientBuy, setMessageClientBuy] = useState('')
+  const [dateBuy, setDateBuy] = useState<Date>()
   useEffect(() => {
-    if (lastMessage) console.log(lastMessage?.data)
+    if (lastMessage) {
+      const content = lastMessage.data.split('].[')
+      setAvataClientBuy(content[0])
+      setMessageClientBuy(content[1])
+      setDateBuy(content[2])
+    }
   }, [lastMessage])
-
   const [isPerson, setIsPerson] = useState(false)
   const [modal, setModal] = useState(false)
   const [signIn, setsignIn] = useState(false) //false is signin, true is signup)
@@ -266,6 +270,9 @@ function NavbarPage() {
         </Navbar>
       ))}
       {modal && <Modal turnOffSignIn={handldeSignIn} signIn={signIn} />}
+      {avataClientBuy && messageClientBuy && (
+        <NotifierGenerator avataClientBuy={avataClientBuy} messageClientBuy={messageClientBuy} dateBuy={dateBuy} />
+      )}
     </>
   )
 }

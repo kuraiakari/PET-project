@@ -16,7 +16,7 @@ const ProductInHistory = ({ product, soluong, id, idUser }: any) => {
     }
     return (money % 1000) + ans
   }
-  console.log(product)
+  // console.log(product)
   return (
     <>
       <Link
