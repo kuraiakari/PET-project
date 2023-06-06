@@ -8,6 +8,12 @@ import products from '../../database/models/products'
 import stores from '../../database/models/stores'
 
 class UserControllers {
+  //updateAll
+  // async updateAll(req: any, res: any) {
+  //   console.log(1)
+  //   users.updateMany({}, {$set: {"listNotification": []}})
+  //   res.json('Update successful')
+  // }
   async create(req: any, res: any) {
     let salt = await GenerateSalt()
     let userPassword = await GeneratePassword(req.body.password, salt)
@@ -244,6 +250,48 @@ class UserControllers {
     } catch (err) {
       console.log(err)
     }
+  }
+  async updateNotification(req: any, res: any) {
+    // console.log(req.body)
+    const data = await users.findOne({ _id: req.user._id })
+    if (data) {
+      data.listNotification.forEach((notification) => {
+        if (notification.id === req.body.idNotification) {
+          console.log(notification.id, req.body.wasSeen)
+          notification.wasSeen = req.body.wasSeen
+        }
+      })
+      await users.updateOne({ _id: req.user._id }, data)
+    }
+    res.json('success')
+  }
+  async updateAllNotification(req: any, res: any) {
+    const data = await users.findOne({ _id: req.user._id })
+    if (data) {
+      data.listNotification.forEach((notification) => {
+        notification.wasSeen = true
+      })
+      await users.updateOne({ _id: req.user._id }, data)
+    }
+    res.json('success')
+  }
+  async getNotification(req: any, res: any) {
+    // console.log(1)
+    const data = await users.findOne({ _id: req.user._id })
+    let quantityNotSeen = 0
+    const ans = {
+      quantityNotSeen: 0,
+      listNotification: [] as any[]
+    }
+    if (data) {
+      data.listNotification.forEach((notification) => {
+        if(!notification.wasSeen) quantityNotSeen++
+      })
+      ans.quantityNotSeen = quantityNotSeen
+      ans.listNotification = data.listNotification
+    }
+    // console.log(ans)
+    res.json(ans)
   }
   storage = multer.diskStorage({
     destination: (req, file, cb) => {

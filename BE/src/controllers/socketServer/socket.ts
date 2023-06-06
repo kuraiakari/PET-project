@@ -1,5 +1,6 @@
 import { WebSocket } from 'ws'
-import {Blob} from 'node:buffer'
+import users from '../../database/models/user'
+import { v4 as uuidv4 } from 'uuid'
 
 class SocketService {
   static server: any
@@ -11,17 +12,36 @@ class SocketService {
       console.log(`WebSocket server is running on port ${port}`)
     })
   }
-  static broadcastMessage = (type: string, toIdUser: string, content: any) => {
-    if( type === 'signin' || type === 'signout' ){
+  static broadcastMessage = async (type: string, toIdUser: string, content: any) => {
+    if (type === 'signin' || type === 'signout') {
       const conenect = this.mapSocket.get('admin')
       const message = content
       conenect.send(message)
     }
-    if(type === 'buyProduct'){
-      this.mapSocket.forEach((value: any, key: string) =>{
-        if( key === toIdUser){
-          const date =new Date
-          const message = content.avatar + '].[' + content.message + '].[' + date 
+    if (type === 'buyProduct') {
+      const date = new Date()
+      let quantity = 0
+      const id = uuidv4()
+      const dataNotification = {
+        id,
+        wasSeen: false,
+        messageNotification: {
+          avataClientBuy: content.avatar,
+          messageClientBuy: content.message,
+          dateBuy: date
+        }
+      }
+      const data = await users.findOne({ _id: toIdUser })
+      if (data) {
+        data.listNotification.push(dataNotification)
+        data.listNotification.forEach((data: any) => {
+          if (!data.wasSeen) quantity++
+        })
+        await users.updateOne({ _id: toIdUser }, data)
+      }
+      this.mapSocket.forEach((value: any, key: string) => {
+        if (key === toIdUser) {
+          const message = content.avatar + '].[' + content.message + '].[' + date + '].[' + quantity + '].[' + id + '].[' + 'false'
           value.send(message)
         }
       })
@@ -47,7 +67,6 @@ class SocketService {
       this.broadcastMessage(type, 'admin', content)
     }
     if (type === 'buyProduct') {
-      console.log(1)
       const content = dataMessFromClient.content
       const toIdUser = dataMessFromClient.content.to
       this.broadcastMessage(type, toIdUser, content)
@@ -60,7 +79,7 @@ class SocketService {
       if (!this.mapSocket.get('admin')) this.mapSocket.set('admin', connection)
 
       connection.on('error', console.error)
-      connection.on('message', (data, isBinary) => {
+      connection.on('message', (data: any, isBinary: any) => {
         this.handleMessage(data, connection)
       })
     })

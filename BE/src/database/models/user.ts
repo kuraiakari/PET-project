@@ -37,6 +37,7 @@ const users = new Schema(
     listOrder: [],
     listLikeProduct: [],
     listProductWasBuy: [],
+    listNotification: [],
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now }
   },

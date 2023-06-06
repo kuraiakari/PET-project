@@ -14,4 +14,10 @@ router.delete('/delete', verifyUser, userControllers.upload, userControllers.del
 router.post('/likeproduct', verifyUser, userControllers.upload, userControllers.createLikeProduct)
 // router.delete('/likeproduct/:id', verifyUser, userControllers.upload, userControllers.deleteLikeProduct)
 router.post('/createorder', verifyUser, userControllers.upload, userControllers.createOrder)
+
+router.get('/getNotifications', verifyUser, userControllers.getNotification)
+router.put('/updateNotification', verifyUser, userControllers.updateNotification)
+router.put('/updateAllNotifications', verifyUser, userControllers.updateAllNotification)
+
+// router.get('/updateAll', userControllers.updateAll)
 export default router

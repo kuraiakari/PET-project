@@ -1,0 +1,5 @@
+1 lần rerender tạo ra một closure function
+Ví dụ trong notification: 
+Khi setTimeout được gọi đến trạng thái state wasSeen là false và được lưu trữ. 
+Kể cả khi tác động và khiến biến wasSeen thành true và component render lần 2. State wasSeen bên trong setTimeOut vẫn là false
+Sử dụng useRef để khắc phục điều này nếu mong muốn state trong setTimeout thay đổi trong thời gian chờ của setTimeout

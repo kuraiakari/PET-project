@@ -54,7 +54,8 @@ const DetailProduct = () => {
       })
   }, [idProduct, myShop, idUser, id, category])
   let listImageProduct = ''
-  if (productDetail) listImageProduct = productDetail[0].imageProduct.split(',')
+  // console.log(productDetail)
+  if (productDetail && productDetail.length > 0) listImageProduct = productDetail[0].imageProduct.split(',')
   const decrease = () => {
     setQuantity(quantity - 1)
   }

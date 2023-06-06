@@ -12,7 +12,7 @@ const ProductInCart = (props: any) => {
     e.preventDefault()
     e.stopPropagation()
   }
-  console.log(props.product)
+  // console.log(props.product)
   return (
     <>
       <Link

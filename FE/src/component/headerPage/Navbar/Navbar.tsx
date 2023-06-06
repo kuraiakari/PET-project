@@ -11,13 +11,14 @@ import Modal from '../noAccount/noAccount'
 import { addIdUser } from '../../../redux/user.reducer'
 import { removeAllProduct } from '../../../redux/cart.reducer'
 import { NotifierGenerator } from '../../Notification/Notification'
-//image
-// import logo from './iconNavbar/logo.svg'
+
+import avatarError from './avatar.webp'
 import search from './iconNavbar/search.svg'
 import home from './iconNavbar/home.svg'
 import person from './iconNavbar/person.svg'
 import cart from './iconNavbar/cart.svg'
 import down from './iconNavbar/down.svg'
+import iconnotification from './iconNavbar/notification.png'
 function NavbarPage() {
   //handle with Websocket
   const WS_URL = 'ws://localhost:8002'
@@ -26,17 +27,22 @@ function NavbarPage() {
       console.log('WebSocket connection established.')
     }
   })
+  const [idNotification, setIdNotification] = useState('')
   const [avataClientBuy, setAvataClientBuy] = useState('')
   const [messageClientBuy, setMessageClientBuy] = useState('')
   const [dateBuy, setDateBuy] = useState<Date>()
+  const [quantityBuyNotSeen, setQuantityBuyNotSeen] = useState(0)
   useEffect(() => {
     if (lastMessage) {
       const content = lastMessage.data.split('].[')
       setAvataClientBuy(content[0])
       setMessageClientBuy(content[1])
       setDateBuy(content[2])
+      setQuantityBuyNotSeen(content[3])
+      setIdNotification(content[4])
     }
   }, [lastMessage])
+
   const [isPerson, setIsPerson] = useState(false)
   const [modal, setModal] = useState(false)
   const [signIn, setsignIn] = useState(false) //false is signin, true is signup)
@@ -156,6 +162,44 @@ function NavbarPage() {
   const handleFocusInput = () => {
     valueSearch.current?.focus()
   }
+
+  //handleNotifications
+  const [notification, setNotification] = useState([])
+  const [handleToggleNotification, setHandleToggleNotification] = useState(false)
+  // const [firstTime, setFirstTime] = useState(0)
+  const clickToggleNotification = () => {
+    setHandleToggleNotification(!handleToggleNotification)
+  }
+  useEffect(() => {
+    // console.log(idUser, handleToggleNotification)
+    if (idUser && !handleToggleNotification) {
+      console.log(1)
+      const fetchData = async () => {
+        const json = await fetch('http://localhost:3000/v1/user/getNotifications', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${idUser}`
+          }
+        })
+        const data = await json.json()
+        console.log(data)
+        setQuantityBuyNotSeen(data.quantityNotSeen)
+        setNotification(data.listNotification)
+      }
+      fetchData().catch(console.error)
+    }
+  }, [idUser, messageClientBuy, avataClientBuy, dateBuy, idNotification, handleToggleNotification])
+  const handleReadAllNotification = async () => {
+    setQuantityBuyNotSeen(0)
+    await fetch('http://localhost:3000/v1/user/updateAllNotifications', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${idUser}`
+      }
+    })
+  }
   return (
     <>
       {['xxl'].map((expand) => (
@@ -222,6 +266,57 @@ function NavbarPage() {
                         </div>
                         <img src={cart} alt='cart' />
                       </button>
+                      <div
+                        className='itemNavIsPerson kumbhSans ms-2 notification'
+                        onClick={handleReadAllNotification}
+                        aria-hidden='true'
+                      >
+                        <NavDropdown
+                          onToggle={clickToggleNotification}
+                          title={
+                            <div className='d-flex'>
+                              <div className='px-2' style={{ color: '#000' }}>
+                                {quantityBuyNotSeen}
+                              </div>
+                              <img
+                                src={iconnotification}
+                                alt='notification'
+                                style={{ width: '23px', height: '25px' }}
+                              />
+                            </div>
+                          }
+                          id={`offcanvasNavbarDropdown-expand-${expand}`}
+                        >
+                          {notification &&
+                            notification
+                              .slice()
+                              .reverse()
+                              .map((value: any, index: any) => {
+                                if (index <= 4) {
+                                  return (
+                                    <NavDropdown.Item
+                                      key={index}
+                                      className='d-flex Itemnotification'
+                                      style={{ backgroundColor: `${value.wasSeen ? '#f8f3ed' : '#fff'}` }}
+                                    >
+                                      <img
+                                        src={'http://localhost:3000/' + value.messageNotification.avataClientBuy}
+                                        onError={({ currentTarget }) => {
+                                          currentTarget.onerror = null // prevents looping
+                                          currentTarget.src = avatarError
+                                        }}
+                                        alt='avatarUser'
+                                        className='avatarUser'
+                                      />
+                                      <div className='kumbhSans messageUserBuy'>
+                                        {value.messageNotification.messageClientBuy}
+                                      </div>
+                                    </NavDropdown.Item>
+                                  )
+                                }
+                              })}
+                        </NavDropdown>
+                      </div>
                       <div className='itemNavIsPerson kumbhSans ms-2'>
                         <NavDropdown
                           title={
@@ -235,22 +330,37 @@ function NavbarPage() {
                           }
                           id={`offcanvasNavbarDropdown-expand-${expand}`}
                         >
-                          <NavDropdown.Item className='d-flex justify-content-center' onClick={handleMoveProfile}>
+                          <NavDropdown.Item
+                            className='d-flex justify-content-center itemInDropDown'
+                            onClick={handleMoveProfile}
+                          >
                             Personal
                           </NavDropdown.Item>
-                          <NavDropdown.Item className='d-flex justify-content-center' onClick={handleMoveHistory}>
+                          <NavDropdown.Item
+                            className='d-flex justify-content-center itemInDropDown'
+                            onClick={handleMoveHistory}
+                          >
                             History
                           </NavDropdown.Item>
-                          <NavDropdown.Item className='d-flex justify-content-center' onClick={handleMoveLikes}>
+                          <NavDropdown.Item
+                            className='d-flex justify-content-center itemInDropDown'
+                            onClick={handleMoveLikes}
+                          >
                             Favorite
                           </NavDropdown.Item>
                           {isAdmin && (
-                            <NavDropdown.Item className='d-flex justify-content-center' onClick={handleMoveMyShop}>
+                            <NavDropdown.Item
+                              className='d-flex justify-content-center itemInDropDown'
+                              onClick={handleMoveMyShop}
+                            >
                               My shop
                             </NavDropdown.Item>
                           )}
                           <NavDropdown.Divider style={{ borderTopColor: '#000' }} />
-                          <NavDropdown.Item className='d-flex justify-content-center' onClick={handleSignOut}>
+                          <NavDropdown.Item
+                            className='d-flex justify-content-center itemInDropDown'
+                            onClick={handleSignOut}
+                          >
                             Logout
                           </NavDropdown.Item>
                         </NavDropdown>
@@ -271,7 +381,15 @@ function NavbarPage() {
       ))}
       {modal && <Modal turnOffSignIn={handldeSignIn} signIn={signIn} />}
       {avataClientBuy && messageClientBuy && (
-        <NotifierGenerator avataClientBuy={avataClientBuy} messageClientBuy={messageClientBuy} dateBuy={dateBuy} />
+        <NotifierGenerator
+          idNotification={idNotification}
+          avataClientBuy={avataClientBuy}
+          messageClientBuy={messageClientBuy}
+          dateBuy={dateBuy}
+          setAvataClientBuy={setAvataClientBuy}
+          setMessageClientBuy={setMessageClientBuy}
+          setQuantityBuyNotSeen={setQuantityBuyNotSeen}
+        />
       )}
     </>
   )

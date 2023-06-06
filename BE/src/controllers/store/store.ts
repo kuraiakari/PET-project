@@ -38,7 +38,7 @@ class StoreControllers {
     }
     try {
       const data = await stores
-        .updateOne({ _id: req.params.id, shopOwner: req.user.email }, dataStore, (err: any, result: any) => {
+        .updateOne({ _id: req.params.id, shopOwner: req.user._id }, dataStore, (err: any, result: any) => {
           if (err) return
         })
         .clone()
@@ -71,7 +71,7 @@ class StoreControllers {
           return
         } else {
           stores.findOne({ _id: req.params.id }).exec(async (err: any, store: any) => {
-            if (store && store.shopOwner === req.user.email) {
+            if (store && store.shopOwner === req.user._id) {
               await store.listProducts.forEach(async (item: any, index: any) => {
                 await products.deleteOne({ _id: item._id.toString() }, function (err: any, product: any) {
                   if (err) res.json({ messageError: 'Delete Failure' })

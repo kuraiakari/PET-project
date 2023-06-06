@@ -46,7 +46,7 @@ class ProductsControllers {
       .exec(function (err: any, products: any) {
         if (!err) {
           if (products.length > 0) res.json(products)
-          else res.json('Not Found')
+          else res.json({ messageError: 'Not Found' })
         } else res.json({ messageError: `${err}` })
       })
   }
@@ -67,8 +67,9 @@ class ProductsControllers {
       }
       // console.log(dataProduct.store)
       const handleSave = stores
-        .findOne({ nameStore: dataProduct.store, shopOwner: req.user.email })
+        .findOne({ nameStore: dataProduct.store, shopOwner: req.user._id })
         .exec(async (err: any, store: any) => {
+          console.log(store)
           if (!store) res.status(500).json({ messageError: 'Not found store' })
           else {
             const data = await products.create(dataProduct)
@@ -100,7 +101,7 @@ class ProductsControllers {
       }
     }
     const handleSave = stores
-      .findOne({ nameStore: dataProduct.store, shopOwner: req.user.email })
+      .findOne({ nameStore: dataProduct.store, shopOwner: req.user._id })
       .exec(async (err: any, store: any) => {
         if (!store) res.status(404).json({ messageError: 'Not found store' })
         else {
@@ -128,7 +129,7 @@ class ProductsControllers {
   async delete(req: any, res: Response) {
     const productList = await products.findOne({ _id: req.params.id })
     if (productList) {
-      stores.findOne({ nameStore: productList.store, shopOwner: req.user.email }).exec(async (err: any, store: any) => {
+      stores.findOne({ nameStore: productList.store, shopOwner: req.user._id }).exec(async (err: any, store: any) => {
         // console.log(store)
         if (store) {
           products.deleteOne({ _id: req.params.id }, function (err: any, products: any) {

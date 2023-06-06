@@ -52,7 +52,7 @@
   line-height: 25px;
 }
 .contentNav {
-  width: 30%;
+  width: 40%;
   max-width: 500px;
 }
 .contentNav .itemNav {
@@ -73,19 +73,32 @@
 .dropdown-menu {
   border-radius: 0;
   border-color: #000;
-  width: 134px;
   font-size: 20px;
   --bs-dropdown-min-width: 0;
 }
-
-.notification {
-  z-index: 4;
-  position: fixed;
-  bottom: 5%;
-  right: 10%;
-  display: block;
-  width: 200px;
-  height: 100px;
-  background-color: #fff;
-  color: #000;
+.itemInDropDown {
+  min-width: 134px;
+}
+.notification .dropdown-menu {
+  padding: 0;
+}
+.notification .dropdown-menu[data-bs-popper] {
+  left: -200%;
+}
+.notification .avatarUser {
+  width: 70px;
+  height: 70px;
+}
+.notification .messageUserBuy {
+  margin-left: 10px;
+  white-space: normal;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  -webkit-box-orient: vertical;
+  width: 300px;
+  color: rgb(39, 39, 42);
+  margin-bottom: 6px;
+  word-break: break-word;
+  min-height: 38px;
 }

@@ -39,10 +39,6 @@
   font-size: 40px !important ;
   line-height: 40px !important ;
 }
-.notification {
-  line-height: 19px;
-  font-size: 15px !important;
-}
 .boxLogin .messError {
   display: flex;
   min-height: 19px;
