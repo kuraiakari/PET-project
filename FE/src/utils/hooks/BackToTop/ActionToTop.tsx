@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import * as Icon from 'react-bootstrap-icons'
-import './App.css'
-const HandleScrollToTop = () => {
+// import './App.css'
+const ActionScrollToTop = () => {
   const [visible, setVisible] = useState(false)
   // console.log(visible)
   const toggleVisible = () => {
@@ -36,4 +36,4 @@ const HandleScrollToTop = () => {
   )
 }
 
-export default HandleScrollToTop
+export default ActionScrollToTop

@@ -10,7 +10,7 @@ import bg2 from './imgListProduct/image 20.png'
 const ListProduct = () => {
   const [searchProduct] = useSearchParams()
   const { category } = useParams()
-  // console.log(category, idProduct)
+  // console.log(category)
   const [quantity, setQuantity] = useState(12)
   // const [loading, setLoading] = useState(false)
   const valueSearch = searchProduct.get('search') || ''

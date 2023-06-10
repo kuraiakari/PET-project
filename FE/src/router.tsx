@@ -1,6 +1,6 @@
 import { Outlet, Route, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 
-import Portfolio from './component/subnav/Portfolio'
+import Sidebar from './component/Sidebar/SideBar'
 import ListProduct from './component/content/mainContent/listProduct/listProduct'
 import DetailProduct from './component/content/detailProduct/DetailProduct'
 import Cart from './component/content/cart/Cart'
@@ -10,14 +10,16 @@ import MyShop from './component/content/myShop/MyShop'
 import LikeProducts from './component/content/likeProducts/likeProducts'
 import Footer from './component/footer/Footer'
 import Headerpage from './component/headerPage/index'
-import HandleScrollToTop from './BackToTop'
-import AutoScrollToTop from './AutoToTop'
+
+//BackToTop
+import ActionScrollToTop from './utils/hooks/BackToTop/ActionToTop'
+import AutoScrollToTop from './utils/hooks/BackToTop/AutoToTop'
 
 const Home = () => {
   return (
     <>
       <div className='fix-col-xl-3 col-xl-3'>
-        <Portfolio />
+        <Sidebar />
       </div>
       <div className='fix-col-xl-9'>
         <ListProduct />
@@ -35,7 +37,7 @@ const Fullweb = () => {
         </div>
       </div>
       <Footer />
-      <HandleScrollToTop />
+      <ActionScrollToTop />
       <AutoScrollToTop />
     </div>
   )
