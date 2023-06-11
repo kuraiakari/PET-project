@@ -1,9 +1,13 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 import './Breadcrumb.css'
 
-export default function Breadcrumds({ nameProduct }: any) {
+interface data {
+  nameProduct: string
+}
+
+const Breadcrumds = ({ nameProduct }: data) => {
   const { category } = useParams()
   return (
     <div className='breadCrumb d-flex align-items-center px-0'>
@@ -19,3 +23,4 @@ export default function Breadcrumds({ nameProduct }: any) {
     </div>
   )
 }
+export default memo(Breadcrumds)
