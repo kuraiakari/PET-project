@@ -7,7 +7,7 @@ import useWebSocket from 'react-use-websocket'
 import ProductInCart from './ProductInCart'
 import { order } from 'src/types/order.type'
 
-import { removeAllProduct } from '../../../redux/cart.reducer'
+import { removeAllProduct } from '../../../../redux/cart.reducer'
 import './cart.css'
 
 interface dataReturn {

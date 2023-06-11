@@ -4,7 +4,7 @@ import * as Icon from 'react-bootstrap-icons'
 import { Modal } from 'react-bootstrap'
 
 import { product } from 'src/types/product.type'
-import CreateProduct from '../../myShop/createProduct'
+import CreateProduct from '../../MyShop/CreateProduct'
 import './product.css'
 import { Rating } from '@mui/material'
 interface ProductItem {

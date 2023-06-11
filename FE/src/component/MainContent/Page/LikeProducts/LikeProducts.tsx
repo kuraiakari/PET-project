@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import LikeProduct from './likeProduct'
+import LikeProduct from './ProductInLike'
 
 export default function LikeProducts() {
   const idUser = useSelector((state: any) => state.user.idUser)

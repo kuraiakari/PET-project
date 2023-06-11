@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useCallback, useState, useRef } from 'react'
+import React, { useEffect, useMemo, useCallback, useState, useRef, memo } from 'react'
 import { notification } from 'antd'
 import { useSelector } from 'react-redux'
 
@@ -18,7 +18,7 @@ const Context = React.createContext({ name: 'Default' })
 // Lưu ý người dùng bấm vào thông báo để biểu đạt đã xem. rồi thực hiện 1 hành động khác nhanh chóng có thể hiến hành động postdata bị hủy bỏ
 // làm biến wasseen không bị thay đổi. và đánh dấu là chưa xem.
 // Fix : Khi người dùng click vào thông báo thực hiện luôn post không cần chờ 3s
-export function NotifierGenerator({
+const NotifierGenerator = ({
   idNotification,
   avataClientBuy,
   messageClientBuy,
@@ -26,7 +26,7 @@ export function NotifierGenerator({
   setAvataClientBuy,
   setMessageClientBuy,
   setQuantityBuyNotSeen
-}: data) {
+}: data) => {
   const idUser = useSelector((state: any) => state.user.idUser)
   const [api, contextHolder] = notification.useNotification()
   const [wasSeen, setWasSeen] = useState(false)
@@ -44,6 +44,7 @@ export function NotifierGenerator({
                 className='d-flex'
                 onClick={() => {
                   setWasSeen(true)
+                  //click will count as wasseen notification
                   setQuantityBuyNotSeen((prev: number) => prev - 1)
                 }}
                 aria-hidden='true'
@@ -110,3 +111,4 @@ export function NotifierGenerator({
   const contextValue = useMemo(() => ({ name: 'Ant Design' }), [])
   return <Context.Provider value={contextValue}>{contextHolder}</Context.Provider>
 }
+export default memo(NotifierGenerator)

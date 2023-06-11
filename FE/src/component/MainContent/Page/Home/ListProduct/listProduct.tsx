@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useSearchParams, useParams } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import './listProduct.css'
-import Product from '../product/Product'
+import Product from '../Product/Product'
 import { product } from 'src/types/product.type'
 
 import bg1 from './imgListProduct/White Brown Furniture Collection Banner Free 1.png'

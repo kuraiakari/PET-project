@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux'
 import { Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-import { removeProduct } from '../../../redux/cart.reducer'
+import { removeProduct } from '../../../../redux/cart.reducer'
 
 const ProductInCart = (props: any) => {
   const dispatch = useDispatch()

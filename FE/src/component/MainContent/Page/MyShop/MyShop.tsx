@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import imgStoreError from './avatar.webp'
 import './myShop.css'
 import './loader.css'
-import Product from '../mainContent/product/Product'
+import Product from '../Home/Product/Product'
 import { product } from 'src/types/product.type'
 interface inforShop {
   nameStore: string

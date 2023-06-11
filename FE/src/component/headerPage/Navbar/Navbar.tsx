@@ -10,7 +10,7 @@ import './Navbar.css'
 import Modal from '../noAccount/noAccount'
 import { addIdUser } from '../../../redux/user.reducer'
 import { removeAllProduct } from '../../../redux/cart.reducer'
-import { NotifierGenerator } from '../../Notification/Notification'
+import NotifierGenerator from '../../MainContent/Notification/Notification'
 
 import avatarError from './avatar.webp'
 import search from './iconNavbar/search.svg'

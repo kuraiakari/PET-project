@@ -1,12 +1,5 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
-
-interface initalState {
-  idUser: string
-  id: string
-  isAdmin: boolean
-  myShop: string
-  listLikeProduct: Array<string>
-}
+import { initalStateUser } from '../types/user.type'
 
 const initalState = {
   idUser: localStorage.getItem('token') ? localStorage.getItem('token') : '',
@@ -17,7 +10,7 @@ const initalState = {
     ? localStorage.getItem('listLikeProduct')?.split(',')
     : new Array<string>()
 }
-export const addIdUser = createAction<initalState>('user/iduser')
+export const addIdUser = createAction<initalStateUser>('user/iduser')
 export const addProductToListLikeProduct = createAction<string>('user/addListLikeProduct')
 export const removeProductToListLikeProduct = createAction<string>('user/removeListLikeProduct')
 const userReducer = createReducer(initalState, (builder) => {
