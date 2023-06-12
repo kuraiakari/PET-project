@@ -7,6 +7,8 @@ import { product } from 'src/types/product.type'
 
 import bg1 from './imgListProduct/White Brown Furniture Collection Banner Free 1.png'
 import bg2 from './imgListProduct/image 20.png'
+
+//chua co thong bao k tim thay san pham
 const ListProduct = () => {
   const [searchProduct] = useSearchParams()
   const { category } = useParams()
@@ -22,7 +24,10 @@ const ListProduct = () => {
     fetch(`http://localhost:3000/v1/products/${category}?search=${valueSearch}&sorting=${sortProduct}`)
       .then((response) => response.json())
       .catch(() => console.log('Not internet'))
-      .then((data) => setListProduct(data))
+      .then((data) => {
+        if (data.messageError) setListProduct(data.messageError)
+        else setListProduct(data)
+      })
   }, [category, valueSearch, sortProduct])
   return (
     <>
@@ -44,7 +49,7 @@ const ListProduct = () => {
           </div>
         )}
         <div className='listProduct'>
-          {listProduct.constructor === Array &&
+          {typeof listProduct === 'object' &&
             listProduct.length > 0 &&
             listProduct
               .slice(0)
@@ -53,7 +58,7 @@ const ListProduct = () => {
                 if (index < quantity) return <Product key={product._id} product={product} createProduct={false} />
               })}
         </div>
-        {listProduct?.length > quantity ? (
+        {typeof listProduct === 'object' && listProduct.length > quantity ? (
           <div className='d-flex w-100 justify-content-center'>
             <Button
               className='buttonMoreProduct kumbhSans'
@@ -75,7 +80,7 @@ const ListProduct = () => {
         ) : (
           false
         )}
-        {listProduct === 'Not Found' && <h1>Not found</h1>}
+        {typeof listProduct === 'string' && <h1>Not found</h1>}
       </div>
     </>
   )
