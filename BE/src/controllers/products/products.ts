@@ -33,7 +33,7 @@ class ProductsControllers {
     }
     if (req.query.search) {
       optionProduct = {
-        $or: [{ nameProduct: req.query.search }, { typeProduct: req.query.search }]
+        ...optionProduct , $or: [{ nameProduct: req.query.search }, { typeProduct: req.query.search }]
       }
     }
     if (req.query.sorting) {
