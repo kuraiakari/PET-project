@@ -1,15 +1,12 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
-// import { ReadyState } from 'react-use-websocket'
-// import * as Icon from 'react-bootstrap-icons'
 
-import './noAccount.css'
+import './modalAccount.css'
 import { useDispatch } from 'react-redux'
 import { addIdUser } from '../../../redux/user.reducer'
 
-function Modal({ turnOffSignIn, signIn }: any) {
-  const [stateBox, setStateBox] = useState(signIn)
+function Modal({ modal, setModal }: any) {
   const [messErrorServer, setMessErrorServer] = useState('')
   const [messSucces, setMessSucces] = useState('')
   const dispatch = useDispatch()
@@ -26,133 +23,142 @@ function Modal({ turnOffSignIn, signIn }: any) {
   const confirmPasswordSignUp = useRef<HTMLInputElement>(null)
   const [messErrorConfirmPassword, setMessErrorConfirmPassword] = useState('')
 
-  const handleSigin = (e: any) => {
-    if (e.target.closest('.iconBoxLogin')) {
-      turnOffSignIn()
-      return
-    }
-    if (!e.target.closest('.boxLogin')) turnOffSignIn()
-  }
-  const handleSubmit = (e: any) => {
-    //handleSignIn
-    if (!stateBox) {
-      if (!emailLogin.current?.value) {
-        setMessErrorEmail('Invalid email')
-        e.preventDefault()
-        e.stopPropagation()
-        return
-      }
-      if (!passwordLogin.current?.value) {
-        setMessErrorPassword('Invalid password')
-        e.preventDefault()
-        e.stopPropagation()
-        return
-      }
-      const dataUser = {
-        email: emailLogin.current?.value,
-        password: passwordLogin.current.value
-      }
-      fetch('http://localhost:3000/v1/user/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: JSON.stringify(dataUser)
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          if (data.token) {
-            const inforUser = {
-              accessToken: data.token,
-              id: data.id,
-              isAdmin: data.isAdmin,
-              myShop: data.myShop,
-              listLikeProduct: data.listLikeProduct
-            }
-            // if (data.isAdmin && readyState === ReadyState.OPEN) {
-            //   sendJsonMessage({
-            //     idUser: data.id,
-            //     message: 'hello server'
-            //   })
-            // }
+  const handleSigin = useCallback(
+    (e: any) => {
+      if (!e.target.closest('.boxLogin'))
+        setModal({
+          stateModal: false,
+          content: ''
+        })
+    },
+    [setModal]
+  )
+  const handleSubmit = useCallback(
+    (e: any) => {
+      //handleSignIn
+      if (modal.content === 'sign in') {
+        if (!emailLogin.current?.value) {
+          setMessErrorEmail('Invalid email')
+          e.preventDefault()
+          e.stopPropagation()
+          return
+        }
+        if (!passwordLogin.current?.value) {
+          setMessErrorPassword('Invalid password')
+          e.preventDefault()
+          e.stopPropagation()
+          return
+        }
+        const dataUser = {
+          email: emailLogin.current?.value,
+          password: passwordLogin.current.value
+        }
+        fetch('http://localhost:3000/v1/user/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: JSON.stringify(dataUser)
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.token) {
+              const inforUser = {
+                accessToken: data.token,
+                id: data.id,
+                isAdmin: data.isAdmin,
+                myShop: data.myShop,
+                listLikeProduct: data.listLikeProduct
+              }
+              // if (data.isAdmin && readyState === ReadyState.OPEN) {
+              //   sendJsonMessage({
+              //     idUser: data.id,
+              //     message: 'hello server'
+              //   })
+              // }
 
-            localStorage.setItem('accessToken', data.token)
-            localStorage.setItem('id', data.id)
-            localStorage.setItem('isAdmin', data.isAdmin)
-            localStorage.setItem('myShop', data.myShop)
-            localStorage.setItem('listLikeProduct', data.listLikeProduct)
-            dispatch(addIdUser(inforUser))
-            setMessErrorServer('')
-            turnOffSignIn()
-          } else {
-            setMessErrorServer(data.messageError || 'Cant connect server')
-          }
+              localStorage.setItem('accessToken', data.token)
+              localStorage.setItem('id', data.id)
+              localStorage.setItem('isAdmin', data.isAdmin)
+              localStorage.setItem('myShop', data.myShop)
+              localStorage.setItem('listLikeProduct', data.listLikeProduct)
+              dispatch(addIdUser(inforUser))
+              setMessErrorServer('')
+              setModal({
+                stateModal: false,
+                content: ''
+              })
+            } else {
+              setMessErrorServer(data.messageError || 'Cant connect server')
+            }
+          })
+        e.preventDefault()
+        e.stopPropagation()
+      }
+      //handleSignUp
+      if (modal.content === 'sign up') {
+        if (!emailSignUp.current?.value) {
+          setMessErrorEmail('Invalid email')
+          e.preventDefault()
+          e.stopPropagation()
+          return
+        }
+        if (!passwordSignUp.current?.value) {
+          setMessErrorPassword('Invalid password')
+          e.preventDefault()
+          e.stopPropagation()
+          return
+        }
+        if (!confirmPasswordSignUp.current?.value) {
+          setMessErrorConfirmPassword('Invalid password')
+          e.preventDefault()
+          e.stopPropagation()
+          return
+        }
+        if (confirmPasswordSignUp.current?.value !== passwordSignUp.current?.value) {
+          setMessErrorConfirmPassword('Invalid password')
+          e.preventDefault()
+          e.stopPropagation()
+          return
+        }
+        const data = {
+          email: emailSignUp.current?.value,
+          password: passwordSignUp.current?.value
+        }
+        // console.log(data)
+        fetch('http://localhost:3000/v1/user/auth/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: JSON.stringify(data)
         })
-      e.preventDefault()
-      e.stopPropagation()
-    }
-    //handleSignUp
-    if (stateBox) {
-      if (!emailSignUp.current?.value) {
-        setMessErrorEmail('Invalid email')
+          .then((response) => response.json())
+          .then((data) => {
+            // console.log(data)
+            if (data.messageError) {
+              setMessErrorServer(data.messageError)
+            } else setMessSucces('Sign Up Success')
+          })
         e.preventDefault()
         e.stopPropagation()
-        return
       }
-      if (!passwordSignUp.current?.value) {
-        setMessErrorPassword('Invalid password')
-        e.preventDefault()
-        e.stopPropagation()
-        return
-      }
-      if (!confirmPasswordSignUp.current?.value) {
-        setMessErrorConfirmPassword('Invalid password')
-        e.preventDefault()
-        e.stopPropagation()
-        return
-      }
-      if (confirmPasswordSignUp.current?.value !== passwordSignUp.current?.value) {
-        setMessErrorConfirmPassword('Invalid password')
-        e.preventDefault()
-        e.stopPropagation()
-        return
-      }
-      const data = {
-        email: emailSignUp.current?.value,
-        password: passwordSignUp.current?.value
-      }
-      // console.log(data)
-      fetch('http://localhost:3000/v1/user/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-          // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: JSON.stringify(data)
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // console.log(data)
-          if (data.messageError) {
-            setMessErrorServer(data.messageError)
-          } else setMessSucces('Sign Up Success')
-        })
-      e.preventDefault()
-      e.stopPropagation()
-    }
-  }
+    },
+    [dispatch, modal, setModal]
+  )
   return (
     <div className='modalBox' onClick={handleSigin} role='presentation'>
       <Form className='boxLogin d-flex flex-column justify-content-center' onSubmit={handleSubmit}>
         {/* <Icon.XLg className='iconBoxLogin' size={40} /> */}
         {/* SignIn */}
-        {!stateBox && (
+        {modal.content === 'sign in' && (
           <div className='headerBox mb-119'>
             <div className='JejuMyeongjoRegular textHeaderBox'>Login</div>
           </div>
         )}
-        {!stateBox && (
+        {modal.content === 'sign in' && (
           <>
             <Form.Group className='mb-12'>
               <Form.Label className='kumbhSans mb-4' style={{ lineHeight: '25px' }}>
@@ -221,7 +227,10 @@ function Modal({ turnOffSignIn, signIn }: any) {
                 className='btn btn-link ps-0 kumbhSans'
                 style={{ fontWeight: '300', fontSize: '15px', lineHeight: '19px', color: '#D26B18' }}
                 onClick={() => {
-                  setStateBox(true)
+                  setModal({
+                    stateModal: true,
+                    content: 'sign up'
+                  })
                   setMessErrorEmail('')
                   setMessErrorPassword('')
                   setMessErrorServer('')
@@ -233,19 +242,20 @@ function Modal({ turnOffSignIn, signIn }: any) {
             </div>
           </>
         )}
-        {stateBox && (
+        {modal.content === 'sign up' && (
           <div className='headerBox mb-68'>
             <div className='JejuMyeongjoRegular textHeaderBox'>Register</div>
           </div>
         )}
         {/* Signup */}
-        {stateBox && !messSucces && (
+        {modal.content === 'sign up' && !messSucces && (
           <>
             <Form.Group className='mb-3'>
               <Form.Label className='kumbhSans mb-4' style={{ lineHeight: '25px' }}>
                 Email address
               </Form.Label>
               <Form.Control
+                autoComplete='off'
                 className='borderInput kumbhSans mb-4'
                 ref={emailSignUp}
                 type='email'
@@ -262,6 +272,7 @@ function Modal({ turnOffSignIn, signIn }: any) {
                 Password
               </Form.Label>
               <Form.Control
+                autoComplete='off'
                 className='borderInput kumbhSans mb-4'
                 ref={passwordSignUp}
                 type='password'
@@ -325,7 +336,10 @@ function Modal({ turnOffSignIn, signIn }: any) {
                 className='btn btn-link ps-0 kumbhSans'
                 style={{ fontWeight: '300', fontSize: '15px', lineHeight: '19px', color: '#D26B18' }}
                 onClick={() => {
-                  setStateBox(false)
+                  setModal({
+                    stateModal: true,
+                    content: 'sign in'
+                  })
                   setMessErrorEmail('')
                   setMessErrorPassword('')
                   setMessErrorConfirmPassword('')
@@ -337,7 +351,7 @@ function Modal({ turnOffSignIn, signIn }: any) {
             </div>
           </>
         )}
-        {stateBox && messSucces && (
+        {modal.content === 'sign in' && messSucces && (
           <div>
             <div className='success mb-5'>
               <span>Your registration has been successfully completed. Press Continue to sign in</span>
@@ -356,7 +370,10 @@ function Modal({ turnOffSignIn, signIn }: any) {
                   marginBottom: '25px'
                 }}
                 onClick={() => {
-                  setStateBox(false)
+                  setModal({
+                    stateModal: true,
+                    content: 'sign in'
+                  })
                   setMessErrorEmail('')
                   setMessErrorPassword('')
                   setMessErrorConfirmPassword('')
