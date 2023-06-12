@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { Rating } from '@mui/material'
 interface idProduct {
   index: number
-  idUser: string
   idProduct: string
 }
 interface product {

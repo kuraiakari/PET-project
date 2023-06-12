@@ -7,7 +7,7 @@ interface nameStore {
   handleCloseModalCreateProduct: any
 }
 export default function CreateProduct({ nameStore, handleCloseModalCreateProduct }: nameStore) {
-  const idUser = useSelector((state: any) => state.user.idUser)
+  const accessToken = useSelector((state: any) => state.user.accessToken)
   const navigate = useNavigate()
   const [validated, setValidated] = useState(false)
   const imageProduct = useRef<HTMLInputElement>(null)
@@ -40,7 +40,7 @@ export default function CreateProduct({ nameStore, handleCloseModalCreateProduct
       fetch('http://localhost:3000/v1/products/create', {
         method: 'POST',
         headers: {
-          Authorization: `Bearer ${idUser}`
+          Authorization: `Bearer ${accessToken}`
         },
         body: formData
       })

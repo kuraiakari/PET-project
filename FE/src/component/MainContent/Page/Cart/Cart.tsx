@@ -16,14 +16,14 @@ interface dataReturn {
 }
 const Cart = () => {
   const products = useSelector((state: any) => state.order.orderlist)
-  const idUser = useSelector((state: any) => state.user.idUser)
+  const accessToken = useSelector((state: any) => state.user.accessToken)
   const [avatar, setAvatar] = useState('')
   const [fullName, setFullName] = useState('User')
   useEffect(() => {
     fetch('http://localhost:3000/v1/user/profile', {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${idUser}`,
+        Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json'
         // 'Content-Type': 'application/x-www-form-urlencoded',
       }
@@ -39,7 +39,7 @@ const Cart = () => {
             data.lastName.slice(1)
         )
       })
-  }, [idUser])
+  }, [accessToken])
   const WS_URL = 'ws://localhost:8002'
   const { sendJsonMessage } = useWebSocket(WS_URL)
   const dispatch = useDispatch()
@@ -55,7 +55,7 @@ const Cart = () => {
       headers: {
         'Content-Type': 'application/json',
         // 'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: 'Bearer ' + idUser
+        Authorization: 'Bearer ' + accessToken
       },
       body: JSON.stringify(data)
     })

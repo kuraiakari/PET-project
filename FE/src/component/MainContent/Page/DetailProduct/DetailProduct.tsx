@@ -21,7 +21,7 @@ const DetailProduct = () => {
   const [checkNameStore, setCheckNameStore] = useState('')
   const [quantity, setQuantity] = useState(1)
   //token
-  const idUser = useSelector((state: any) => state.user.idUser)
+  const accessToken = useSelector((state: any) => state.user.accessToken)
   //id
   const id = useSelector((state: any) => state.user.id)
   const myShop = useSelector((state: any) => state.user.myShop)
@@ -52,7 +52,7 @@ const DetailProduct = () => {
       .then((data) => {
         setCheckNameStore(data.nameStore)
       })
-  }, [idProduct, myShop, idUser, id, category])
+  }, [idProduct, myShop, accessToken, id, category])
   let listImageProduct = ''
   // console.log(productDetail)
   if (productDetail && productDetail.length > 0) listImageProduct = productDetail[0].imageProduct.split(',')
@@ -65,7 +65,7 @@ const DetailProduct = () => {
   const dispatch = useDispatch()
   // if (productDetail) console.log(productDetail[0])
   const handleAddCart = () => {
-    if (idUser) {
+    if (accessToken) {
       const data: order = {
         idProduct: productDetail ? productDetail[0]._id : '',
         categoryProduct: productDetail ? productDetail[0].categoryProduct : '',
@@ -98,7 +98,7 @@ const DetailProduct = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${idUser}`
+        Authorization: `Bearer ${accessToken}`
       },
       body: JSON.stringify(data)
     })
@@ -125,7 +125,7 @@ const DetailProduct = () => {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${idUser}`
+        Authorization: `Bearer ${accessToken}`
       }
     })
       .then((response) => response.json())
@@ -183,7 +183,7 @@ const DetailProduct = () => {
                 >
                   {productDetail[0].nameProduct.charAt(0).toUpperCase() + productDetail[0].nameProduct.slice(1)}
                 </div>
-                {idUser && productDetail[0].store !== checkNameStore && (
+                {accessToken && productDetail[0].store !== checkNameStore && (
                   <button style={{ border: 'none', backgroundColor: '#fff' }} onClick={handleLikeProduct}>
                     {like ? <Icon.HeartFill size={48} fill='#000' /> : <Icon.Heart size={48} color='#000' />}
                   </button>
@@ -316,7 +316,7 @@ const DetailProduct = () => {
                     width: '100%'
                   }}
                   onClick={handleAddCart}
-                  disabled={idUser && productDetail[0].amountProduct !== 0 ? false : true}
+                  disabled={accessToken && productDetail[0].amountProduct !== 0 ? false : true}
                 >
                   Add to cart
                 </Button>
@@ -367,7 +367,7 @@ const DetailProduct = () => {
                   </Modal>
                 </>
               )}
-              {!idUser && (
+              {!accessToken && (
                 <div
                   className='kumbhSans'
                   style={{

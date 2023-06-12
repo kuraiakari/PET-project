@@ -1,8 +1,15 @@
 import { createAction, createReducer } from '@reduxjs/toolkit'
-import { initalStateUser } from '../types/user.type'
+
+interface initalStateUser {
+  accessToken: string
+  id: string
+  isAdmin: boolean
+  myShop: string
+  listLikeProduct: Array<string>
+}
 
 const initalState = {
-  idUser: localStorage.getItem('token') ? localStorage.getItem('token') : '',
+  accessToken: localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : '',
   id: localStorage.getItem('id') ? localStorage.getItem('id') : '',
   isAdmin: localStorage.getItem('isAdmin') ? (localStorage.getItem('isAdmin') === 'true' ? true : false) : false,
   myShop: localStorage.getItem('myShop') ? localStorage.getItem('myShop') : '',
@@ -15,7 +22,7 @@ export const addProductToListLikeProduct = createAction<string>('user/addListLik
 export const removeProductToListLikeProduct = createAction<string>('user/removeListLikeProduct')
 const userReducer = createReducer(initalState, (builder) => {
   builder.addCase(addIdUser, (initalState, action) => {
-    initalState.idUser = action.payload.idUser
+    initalState.accessToken = action.payload.accessToken
     initalState.id = action.payload.id
     initalState.isAdmin = action.payload.isAdmin
     initalState.myShop = action.payload.myShop

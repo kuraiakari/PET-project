@@ -16,7 +16,7 @@ interface inforUser {
 }
 
 const Profile = () => {
-  const idUser = useSelector((state: any) => state.user.idUser)
+  const accessToken = useSelector((state: any) => state.user.accessToken)
   const imageAvatar = useRef<HTMLInputElement>(null)
   const [avatarTest, setAvatarTest] = useState<File>()
   const [inforUser, setInforUser] = useState<inforUser>()
@@ -32,7 +32,7 @@ const Profile = () => {
     fetch('http://localhost:3000/v1/user/profile', {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${idUser}`,
+        Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json'
         // 'Content-Type': 'application/x-www-form-urlencoded',
       }
@@ -43,7 +43,7 @@ const Profile = () => {
           setInforUser(data)
         }, 1000)
       })
-  }, [idUser])
+  }, [accessToken])
   const handleSaveInformations = (e: any) => {
     e.preventDefault()
     e.stopPropagation()
@@ -63,7 +63,7 @@ const Profile = () => {
     fetch('http://localhost:3000/v1/user/update', {
       method: 'PUT',
       headers: {
-        Authorization: `Bearer ${idUser}`
+        Authorization: `Bearer ${accessToken}`
       },
       body: formData
     })

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 
 interface initState {
   id: string
-  idUser: string
+  accessToken: string
   idProduct: string
   showReviewProduct: boolean
   handleCloseModalReviewProduct: any
@@ -13,7 +13,7 @@ interface initState {
 
 export default function ModalReviewProduct({
   id,
-  idUser,
+  accessToken,
   idProduct,
   showReviewProduct,
   handleCloseModalReviewProduct
@@ -42,7 +42,7 @@ export default function ModalReviewProduct({
     fetch('http://localhost:3000/v1/products/review', {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${idUser}`,
+        Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(data)

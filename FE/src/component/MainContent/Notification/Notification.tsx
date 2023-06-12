@@ -27,7 +27,7 @@ const NotifierGenerator = ({
   setMessageClientBuy,
   setQuantityBuyNotSeen
 }: data) => {
-  const idUser = useSelector((state: any) => state.user.idUser)
+  const accessToken = useSelector((state: any) => state.user.accessToken)
   const [api, contextHolder] = notification.useNotification()
   const [wasSeen, setWasSeen] = useState(false)
   const wasSeenRef = useRef(wasSeen)
@@ -100,14 +100,14 @@ const NotifierGenerator = ({
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${idUser}`
+          Authorization: `Bearer ${accessToken}`
         },
         body: JSON.stringify(dataNotification)
       })
       setAvataClientBuy('')
       setMessageClientBuy('')
     }, 3000)
-  }, [messageClientBuy, avataClientBuy, dateBuy, setAvataClientBuy, setMessageClientBuy, idUser, idNotification])
+  }, [messageClientBuy, avataClientBuy, dateBuy, setAvataClientBuy, setMessageClientBuy, accessToken, idNotification])
   const contextValue = useMemo(() => ({ name: 'Ant Design' }), [])
   return <Context.Provider value={contextValue}>{contextHolder}</Context.Provider>
 }

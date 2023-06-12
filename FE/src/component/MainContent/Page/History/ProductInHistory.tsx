@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from 'react-bootstrap'
 import ModalReviewProduct from './ModalReviewProduct'
-const ProductInHistory = ({ product, soluong, id, idUser }: any) => {
+const ProductInHistory = ({ product, soluong, id, accessToken }: any) => {
   const imgProduct = product.productOrder.imageProduct.split(',')[0]
   const [showReviewProduct, setShowReviewProduct] = useState(false)
   const handleCloseModalReviewProduct = () => setShowReviewProduct(false)
@@ -59,7 +59,7 @@ const ProductInHistory = ({ product, soluong, id, idUser }: any) => {
       </Link>
       <ModalReviewProduct
         id={id}
-        idUser={idUser}
+        accessToken={accessToken}
         idProduct={product.productOrder._id}
         showReviewProduct={showReviewProduct}
         handleCloseModalReviewProduct={handleCloseModalReviewProduct}

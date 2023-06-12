@@ -13,7 +13,7 @@ interface editProduct {
 }
 
 export default function EditProduct(props: editProduct) {
-  const idUser = useSelector((state: any) => state.user.idUser)
+  const accessToken = useSelector((state: any) => state.user.accessToken)
   const navigate = useNavigate()
   const [priceProduct, setPriceProduct] = useState<number>(props.priceProduct)
   const [amountProduct, setAmountProduct] = useState<number>(props.amountProduct)
@@ -31,7 +31,7 @@ export default function EditProduct(props: editProduct) {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${idUser}`
+        Authorization: `Bearer ${accessToken}`
       },
       body: JSON.stringify(dataNew)
     })

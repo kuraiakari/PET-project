@@ -16,7 +16,7 @@ interface inforShop {
 const MyShop = () => {
   const [inforShop, setInforShop] = useState<inforShop>()
   const myshop = useSelector((state: any) => state.user.myShop)
-  console.log(inforShop)
+  // console.log(inforShop)
   useEffect(() => {
     fetch(`http://localhost:3000/v1/store/${myshop}`)
       .then((response) => response.json())

@@ -64,7 +64,7 @@ function Modal({ turnOffSignIn, signIn }: any) {
         .then((data) => {
           if (data.token) {
             const inforUser = {
-              idUser: data.token,
+              accessToken: data.token,
               id: data.id,
               isAdmin: data.isAdmin,
               myShop: data.myShop,
@@ -77,7 +77,7 @@ function Modal({ turnOffSignIn, signIn }: any) {
             //   })
             // }
 
-            localStorage.setItem('token', data.token)
+            localStorage.setItem('accessToken', data.token)
             localStorage.setItem('id', data.id)
             localStorage.setItem('isAdmin', data.isAdmin)
             localStorage.setItem('myShop', data.myShop)

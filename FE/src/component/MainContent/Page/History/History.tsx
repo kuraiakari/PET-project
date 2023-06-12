@@ -6,19 +6,19 @@ import ProductInHistory from './ProductInHistory'
 const History = () => {
   const [listOrder, setListOrder] = useState([])
   let soluong = 0
-  const idUser = useSelector((state: any) => state.user.idUser)
+  const accessToken = useSelector((state: any) => state.user.accessToken)
   const id = useSelector((state: any) => state.user.id)
   useEffect(() => {
     fetch('http://localhost:3000/v1/user/profile', {
       headers: {
         'Content-Type': 'application/json',
         // 'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: 'Bearer ' + idUser
+        Authorization: 'Bearer ' + accessToken
       }
     })
       .then((response) => response.json())
       .then((data) => setListOrder(data.listOrder))
-  }, [idUser])
+  }, [accessToken])
   return (
     <>
       <div className='headerHistory'>
@@ -36,7 +36,9 @@ const History = () => {
           .map((order: any) => {
             return order.listProducts.map((product: any, index: number) => {
               soluong++
-              return <ProductInHistory product={product} key={index} soluong={soluong} id={id} idUser={idUser} />
+              return (
+                <ProductInHistory product={product} key={index} soluong={soluong} id={id} accessToken={accessToken} />
+              )
             })
           })}
     </>

@@ -7,7 +7,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
 
 import './Navbar.css'
-import Modal from '../noAccount/noAccount'
+import Modal from '../ModalAccount/ModalAccount'
 import { addIdUser } from '../../../redux/user.reducer'
 import { removeAllProduct } from '../../../redux/cart.reducer'
 import NotifierGenerator from '../../MainContent/Notification/Notification'
@@ -69,14 +69,14 @@ function NavbarPage() {
   }
 
   //get id user
-  const idUser = useSelector((state: any) => state.user.idUser)
+  const accessToken = useSelector((state: any) => state.user.accessToken)
   const id = useSelector((state: any) => state.user.id)
   const isAdmin = useSelector((state: any) => state.user.isAdmin)
   const dispatch = useDispatch()
   useEffect(() => {
-    if (idUser) setIsPerson(true)
+    if (accessToken) setIsPerson(true)
     else setIsPerson(false)
-  }, [idUser])
+  }, [accessToken])
   useEffect(() => {
     if (id && id !== undefined && isAdmin && readyState === ReadyState.OPEN) {
       sendJsonMessage({
@@ -145,7 +145,7 @@ function NavbarPage() {
     )
       navigate('')
     const data = {
-      idUser: '',
+      accessToken: '',
       id: '',
       isAdmin: false,
       myShop: '',
@@ -172,31 +172,31 @@ function NavbarPage() {
   }
   useEffect(() => {
     // console.log(idUser, handleToggleNotification)
-    if (idUser && !handleToggleNotification) {
-      console.log(1)
+    if (accessToken && !handleToggleNotification) {
+      // console.log(1)
       const fetchData = async () => {
         const json = await fetch('http://localhost:3000/v1/user/getNotifications', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${idUser}`
+            Authorization: `Bearer ${accessToken}`
           }
         })
         const data = await json.json()
-        console.log(data)
+        // console.log(data)
         setQuantityBuyNotSeen(data.quantityNotSeen)
         setNotification(data.listNotification)
       }
       fetchData().catch(console.error)
     }
-  }, [idUser, messageClientBuy, avataClientBuy, dateBuy, idNotification, handleToggleNotification])
+  }, [accessToken, messageClientBuy, avataClientBuy, dateBuy, idNotification, handleToggleNotification])
   const handleReadAllNotification = async () => {
     setQuantityBuyNotSeen(0)
     await fetch('http://localhost:3000/v1/user/updateAllNotifications', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${idUser}`
+        Authorization: `Bearer ${accessToken}`
       }
     })
   }
