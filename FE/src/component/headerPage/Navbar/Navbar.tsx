@@ -59,6 +59,7 @@ function NavbarPage() {
 
   //signout
   const handleSignOut = useCallback(() => {
+    console.log(idUser)
     if (readyState === ReadyState.OPEN) {
       sendJsonMessage({
         type: 'signout',
@@ -93,7 +94,7 @@ function NavbarPage() {
   const [limitTime, setLimitTime] = useState(false)
   useEffect(() => {
     if (accessToken) {
-      const interval = setInterval(async () => {
+      const handleAutoLogin = async () => {
         const accessTokenGet = await fetch('http://localhost:3000/v1/user/autoLogin', {
           method: 'POST',
           headers: {
@@ -102,6 +103,7 @@ function NavbarPage() {
           }
         })
         const dataAccessToken = await accessTokenGet.json()
+        // console.log(dataAccessToken)
         if (dataAccessToken.messageError) {
           const dataSend = {
             getNewAccessToken: true
@@ -115,6 +117,7 @@ function NavbarPage() {
             body: JSON.stringify(dataSend)
           })
           const dataRefreshToken = await refreshTokenGet.json()
+          // console.log(dataRefreshToken)
           if (dataRefreshToken.messageError) setLimitTime(true)
           else {
             const inforUser = {
@@ -129,8 +132,22 @@ function NavbarPage() {
             localStorage.setItem('refreshToken', dataRefreshToken.refreshToken)
             dispatch(addIdUser(inforUser))
           }
+        } else {
+          const inforUser = {
+            accessToken: dataAccessToken.token,
+            refreshToken: dataAccessToken.refreshToken,
+            id: dataAccessToken.id,
+            isAdmin: dataAccessToken.isAdmin,
+            myShop: dataAccessToken.myShop,
+            listLikeProduct: dataAccessToken.listLikeProduct
+          }
+          localStorage.setItem('accessToken', dataAccessToken.token)
+          localStorage.setItem('refreshToken', dataAccessToken.refreshToken)
+          dispatch(addIdUser(inforUser))
         }
-      }, 60000)
+      }
+      handleAutoLogin()
+      const interval = setInterval(() => handleAutoLogin, 60000)
       return () => {
         console.log(1)
         clearInterval(interval)

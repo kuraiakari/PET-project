@@ -15,6 +15,7 @@ class SocketService {
   static broadcastMessage = async (type: string, toIdUser: string, content: any) => {
     if (type === 'signout') {
       // delete refresh token when user logs out
+      // console.log(toIdUser)
       const data: any = await users.findOne({ _id: toIdUser})
       if (data) data.tokenRefresh = ''
       await users.updateOne({ _id: toIdUser}, data)

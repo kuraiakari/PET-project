@@ -72,6 +72,10 @@ class UserControllers {
   async autologin(req: any, res: any) {
     const inputToken = req.get('Authorization').slice(7)
     const data: any = await users.findOne({ _id: req.user._id })
+    let listLikeProduct: any[] = []
+    data.listLikeProduct.forEach((product: any) => {
+      listLikeProduct.push(product._id)
+    })
     if (data && req.body.getNewAccessToken && data.tokenRefresh === inputToken) {
       const token = await GenerateSignature({ email: data.email, _id: data._id, isAdmin: data.isAdmin })
       const dateNow = Date.now()
@@ -82,10 +86,6 @@ class UserControllers {
         timeLeft: (req.user.exp * 1000 - dateNow).toString()
       })
       await users.updateOne({ _id: req.user._id }, data)
-      let listLikeProduct: any[] = []
-      data.listLikeProduct.forEach((product: any) => {
-        listLikeProduct.push(product._id)
-      })
       const dataReturn = {
         token,
         refreshToken: data.tokenRefresh,
@@ -95,7 +95,17 @@ class UserControllers {
         listLikeProduct
       }
       res.json(dataReturn)
-    } else res.json('Nothing')
+    } else {
+      const dataReturn = {
+        token: inputToken,
+        refreshToken: data.tokenRefresh,
+        id: data._id,
+        isAdmin: data.isAdmin,
+        myShop: data.myShop,
+        listLikeProduct
+      }
+      res.json(dataReturn)
+    }
   }
   getProfile(req: any, res: any) {
     // console.log(req.user)
