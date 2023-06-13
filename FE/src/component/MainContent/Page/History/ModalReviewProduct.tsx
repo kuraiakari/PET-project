@@ -23,6 +23,7 @@ export default function ModalReviewProduct({
     fetch(`http://localhost:3000/v1/products/product/${idProduct}`)
       .then((response) => response.json())
       .then((data) => {
+        // console.log(data)
         data[0].quantityReview.forEach((item: any) => {
           if (item.userId === id) {
             setRating(item.rating)

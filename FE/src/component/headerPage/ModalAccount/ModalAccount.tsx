@@ -66,23 +66,14 @@ function Modal({ modal, setModal }: any) {
             if (data.token) {
               const inforUser = {
                 accessToken: data.token,
+                refreshToken: data.refreshToken,
                 id: data.id,
                 isAdmin: data.isAdmin,
                 myShop: data.myShop,
                 listLikeProduct: data.listLikeProduct
               }
-              // if (data.isAdmin && readyState === ReadyState.OPEN) {
-              //   sendJsonMessage({
-              //     idUser: data.id,
-              //     message: 'hello server'
-              //   })
-              // }
-
               localStorage.setItem('accessToken', data.token)
-              localStorage.setItem('id', data.id)
-              localStorage.setItem('isAdmin', data.isAdmin)
-              localStorage.setItem('myShop', data.myShop)
-              localStorage.setItem('listLikeProduct', data.listLikeProduct)
+              localStorage.setItem('refreshToken', data.refreshToken)
               dispatch(addIdUser(inforUser))
               setMessErrorServer('')
               setModal({

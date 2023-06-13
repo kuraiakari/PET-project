@@ -1,18 +1,12 @@
 import { memo, useCallback } from 'react'
 import { NavDropdown } from 'react-bootstrap'
-import { useSelector, useDispatch } from 'react-redux'
-import { ReadyState } from 'react-use-websocket'
-
-import { addIdUser } from '../../../../../redux/user.reducer'
-import { removeAllProduct } from '../../../../../redux/cart.reducer'
+import { useSelector } from 'react-redux'
 
 import person from '../../iconNavbar/person.svg'
 import down from '../../iconNavbar/down.svg'
 
-const InformationUser = ({ navigate, readyState, sendJsonMessage }: any) => {
-  const dispatch = useDispatch()
+const InformationUser = ({ navigate, handleSignOut }: any) => {
   const isAdmin = useSelector((state: any) => state.user.isAdmin)
-  const idUser = useSelector((state: any) => state.user.id)
 
   //move profile
   const handleMoveProfile = useCallback(
@@ -54,37 +48,6 @@ const InformationUser = ({ navigate, readyState, sendJsonMessage }: any) => {
     [navigate]
   )
 
-  //sign out
-  const handleSignOut = useCallback(() => {
-    if (readyState === ReadyState.OPEN) {
-      sendJsonMessage({
-        type: 'signout',
-        content: {
-          idUser: idUser
-        }
-      })
-    }
-    if (
-      location.pathname === '/cart' ||
-      location.pathname === '/history' ||
-      location.pathname === '/profile' ||
-      location.pathname === '/myshop' ||
-      location.pathname === '/likes'
-    )
-      navigate('/')
-    const data = {
-      accessToken: '',
-      id: '',
-      isAdmin: false,
-      myShop: '',
-      listLikeProduct: []
-    }
-    // animation kem
-    dispatch(addIdUser(data))
-    dispatch(removeAllProduct())
-    navigate(0)
-    localStorage.clear()
-  }, [dispatch, idUser, navigate, readyState, sendJsonMessage])
   return (
     <div className='itemNavIsPerson kumbhSans ms-2'>
       <NavDropdown

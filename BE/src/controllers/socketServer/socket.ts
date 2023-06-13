@@ -13,6 +13,12 @@ class SocketService {
     })
   }
   static broadcastMessage = async (type: string, toIdUser: string, content: any) => {
+    if (type === 'signout') {
+      // delete refresh token when user logs out
+      const data: any = await users.findOne({ _id: toIdUser})
+      if (data) data.tokenRefresh = ''
+      await users.updateOne({ _id: toIdUser}, data)
+    }
     if (type === 'signin' || type === 'signout') {
       const conenect = this.mapSocket.get('admin')
       const message = content
@@ -64,7 +70,7 @@ class SocketService {
     if (type === 'signout') {
       if (this.mapSocket.get(idUser)) this.mapSocket.delete(idUser)
       const content = dataMessFromClient.content.message || `${idUser} disconnected from server`
-      this.broadcastMessage(type, 'admin', content)
+      this.broadcastMessage(type, idUser, content)
     }
     if (type === 'buyProduct') {
       const content = dataMessFromClient.content

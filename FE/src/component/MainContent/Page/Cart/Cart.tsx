@@ -30,14 +30,17 @@ const Cart = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        setAvatar(data.avatar)
-        setFullName(
-          data.firstName.charAt(0).toUpperCase() +
-            data.firstName.slice(1) +
-            ' ' +
-            data.lastName.charAt(0).toUpperCase() +
-            data.lastName.slice(1)
-        )
+        console.log(accessToken, data)
+        if (!data.messageError) {
+          setAvatar(data.avatar)
+          setFullName(
+            data.firstName.charAt(0).toUpperCase() +
+              data.firstName.slice(1) +
+              ' ' +
+              data.lastName.charAt(0).toUpperCase() +
+              data.lastName.slice(1)
+          )
+        }
       })
   }, [accessToken])
   const WS_URL = 'ws://localhost:8002'
@@ -61,7 +64,7 @@ const Cart = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data)
+        console.log(data)
         if (data.messageSuccess === 'Create new order successfully') {
           for (const mess of data.arrayOwnerShop) {
             sendJsonMessage({

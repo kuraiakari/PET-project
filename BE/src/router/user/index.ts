@@ -1,7 +1,7 @@
 import express from 'express'
 
 import UserControllers from '../../controllers/user/user'
-import { verifyUser } from '../middlewares'
+import { verifyUser, verifyNewToken } from '../middlewares'
 const router = express.Router()
 const userControllers = new UserControllers()
 
@@ -20,4 +20,5 @@ router.put('/updateNotification', verifyUser, userControllers.updateNotification
 router.put('/updateAllNotifications', verifyUser, userControllers.updateAllNotification)
 
 // router.get('/updateAll', userControllers.updateAll)
+router.post('/autoLogin', verifyNewToken, userControllers.upload, userControllers.autologin)
 export default router

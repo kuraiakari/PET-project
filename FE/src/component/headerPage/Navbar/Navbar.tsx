@@ -2,8 +2,11 @@ import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { Container, Nav, Navbar } from 'react-bootstrap'
 //import NavDropdown from 'react-bootstrap/NavDropdown'
 import Offcanvas from 'react-bootstrap/Offcanvas'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
+
+import { addIdUser } from '../../../redux/user.reducer'
+import { removeAllProduct } from '../../../redux/cart.reducer'
 
 import './Navbar.css'
 
@@ -20,12 +23,15 @@ export interface typeModal {
 }
 function NavbarPage() {
   const navigate = useNavigate()
-
+  const dispatch = useDispatch()
   //variable Websocket
   const WS_URL = 'ws://localhost:8002'
   const { sendJsonMessage, lastMessage, readyState } = useWebSocket(WS_URL, {
     onOpen: () => {
       console.log('WebSocket connection established.')
+    },
+    onClose: () => {
+      console.log('WebSocket connection closed')
     }
   })
 
@@ -47,9 +53,92 @@ function NavbarPage() {
 
   //get information user
   const accessToken = useSelector((state: any) => state.user.accessToken)
+  const refreshToken = useSelector((state: any) => state.user.refreshToken)
   const idUser = useSelector((state: any) => state.user.id)
   const isAdmin = useSelector((state: any) => state.user.isAdmin)
 
+  //signout
+  const handleSignOut = useCallback(() => {
+    if (readyState === ReadyState.OPEN) {
+      sendJsonMessage({
+        type: 'signout',
+        content: {
+          idUser: idUser
+        }
+      })
+    }
+    if (
+      location.pathname === '/cart' ||
+      location.pathname === '/history' ||
+      location.pathname === '/profile' ||
+      location.pathname === '/myshop' ||
+      location.pathname === '/likes'
+    )
+      navigate('/')
+    const data = {
+      accessToken: '',
+      refreshToken: '',
+      id: '',
+      isAdmin: false,
+      myShop: '',
+      listLikeProduct: []
+    }
+    // animation kem
+    dispatch(addIdUser(data))
+    dispatch(removeAllProduct())
+    navigate(0)
+    localStorage.clear()
+  }, [dispatch, idUser, navigate, readyState, sendJsonMessage])
+  //Auto login
+  const [limitTime, setLimitTime] = useState(false)
+  useEffect(() => {
+    if (accessToken) {
+      const interval = setInterval(async () => {
+        const accessTokenGet = await fetch('http://localhost:3000/v1/user/autoLogin', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${accessToken}`
+          }
+        })
+        const dataAccessToken = await accessTokenGet.json()
+        if (dataAccessToken.messageError) {
+          const dataSend = {
+            getNewAccessToken: true
+          }
+          const refreshTokenGet = await fetch('http://localhost:3000/v1/user/autoLogin', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${refreshToken}`
+            },
+            body: JSON.stringify(dataSend)
+          })
+          const dataRefreshToken = await refreshTokenGet.json()
+          if (dataRefreshToken.messageError) setLimitTime(true)
+          else {
+            const inforUser = {
+              accessToken: dataRefreshToken.token,
+              refreshToken: dataRefreshToken.refreshToken,
+              id: dataRefreshToken.id,
+              isAdmin: dataRefreshToken.isAdmin,
+              myShop: dataRefreshToken.myShop,
+              listLikeProduct: dataRefreshToken.listLikeProduct
+            }
+            localStorage.setItem('accessToken', dataRefreshToken.token)
+            localStorage.setItem('refreshToken', dataRefreshToken.refreshToken)
+            dispatch(addIdUser(inforUser))
+          }
+        }
+      }, 60000)
+      return () => {
+        console.log(1)
+        clearInterval(interval)
+      }
+    }
+  }, [accessToken, refreshToken, dispatch])
+  // vẫn còn reload khiến cho clearTnterval hoạt động làm hỏng thời gian reset token
+  if (limitTime) handleSignOut()
   useEffect(() => {
     if (lastMessage) {
       const content = lastMessage.data.split('].[')
@@ -135,7 +224,12 @@ function NavbarPage() {
                         clickToggleNotification={clickToggleNotification}
                         handleReadAllNotification={handleReadAllNotification}
                       />
-                      <InformationUser navigate={navigate} readyState={readyState} sendJsonMessage={sendJsonMessage} />
+                      <InformationUser
+                        navigate={navigate}
+                        readyState={readyState}
+                        sendJsonMessage={sendJsonMessage}
+                        handleSignOut={handleSignOut}
+                      />
                     </>
                   )}
                 </Nav>

@@ -23,6 +23,7 @@ const users = new Schema(
       type: String,
       required: true
     },
+    tokenRefresh: String,
     avatar: String,
     firstName: String,
     lastName: String,

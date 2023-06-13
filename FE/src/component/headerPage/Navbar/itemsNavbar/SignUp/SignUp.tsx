@@ -12,13 +12,13 @@ const SignUp = ({ setModal }: data) => {
   const handldeSignUp = useCallback(() => {
     setModal({
       stateModal: true,
-      content: 'sign in'
+      content: 'sign up'
     })
   }, [setModal])
   return (
     <div className='itemNav kumbhSans ms-2'>
       <Nav.Link style={{ color: '#000' }} onClick={handldeSignUp}>
-        Sign in
+        Sign up
       </Nav.Link>
       <img src={person} alt='person' />
     </div>

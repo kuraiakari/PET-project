@@ -2,7 +2,13 @@ import { Request, Response } from 'express'
 import multer from 'multer'
 import path from 'path'
 
-import { GenerateSalt, GeneratePassword, ValidatePassword, GenerateSignature } from '../../utils'
+import {
+  GenerateSalt,
+  GeneratePassword,
+  ValidatePassword,
+  GenerateSignature,
+  GenerateSignatureRefresh
+} from '../../utils'
 import users from '../../database/models/user'
 import products from '../../database/models/products'
 import stores from '../../database/models/stores'
@@ -11,7 +17,10 @@ class UserControllers {
   //updateAll
   // async updateAll(req: any, res: any) {
   //   console.log(1)
-  //   users.updateMany({}, {$set: {"listNotification": []}})
+  //   users.updateMany({}, {$set: {"tokenRefresh": {
+  //     token: '',
+  //     expirationTime: ''
+  //   }}})
   //   res.json('Update successful')
   // }
   async create(req: any, res: any) {
@@ -36,12 +45,20 @@ class UserControllers {
         const validPassword = await ValidatePassword(req.body.password, user.password, user.salt)
         if (validPassword) {
           const token = await GenerateSignature({ email: user.email, _id: user._id, isAdmin: user.isAdmin })
+          user.tokenRefresh = await GenerateSignatureRefresh({
+            email: user.email,
+            _id: user._id,
+            isAdmin: user.isAdmin,
+            timeLeft: '172800000'
+          })
+          await users.updateOne({ email: req.body.email }, user)
           let listLikeProduct: any[] = []
           user.listLikeProduct.forEach((product: any) => {
             listLikeProduct.push(product._id)
           })
           const dataUser = {
             token,
+            refreshToken: user.tokenRefresh,
             id: user._id,
             isAdmin: user.isAdmin,
             myShop: user.myShop,
@@ -51,6 +68,34 @@ class UserControllers {
         } else res.json({ messageError: 'Incorrect password' })
       }
     })
+  }
+  async autologin(req: any, res: any) {
+    const inputToken = req.get('Authorization').slice(7)
+    const data: any = await users.findOne({ _id: req.user._id })
+    if (data && req.body.getNewAccessToken && data.tokenRefresh === inputToken) {
+      const token = await GenerateSignature({ email: data.email, _id: data._id, isAdmin: data.isAdmin })
+      const dateNow = Date.now()
+      data.tokenRefresh = await GenerateSignatureRefresh({
+        email: req.user.email,
+        _id: req.user._id,
+        isAdmin: req.user.isAdmin,
+        timeLeft: (req.user.exp * 1000 - dateNow).toString()
+      })
+      await users.updateOne({ _id: req.user._id }, data)
+      let listLikeProduct: any[] = []
+      data.listLikeProduct.forEach((product: any) => {
+        listLikeProduct.push(product._id)
+      })
+      const dataReturn = {
+        token,
+        refreshToken: data.tokenRefresh,
+        id: data._id,
+        isAdmin: data.isAdmin,
+        myShop: data.myShop,
+        listLikeProduct
+      }
+      res.json(dataReturn)
+    } else res.json('Nothing')
   }
   getProfile(req: any, res: any) {
     // console.log(req.user)
@@ -152,8 +197,8 @@ class UserControllers {
     for (const product of listProduct) {
       try {
         const data = await products.findOne({ _id: product.idProduct })
-        if (data)
-          if (product.amount > data?.amountProduct) {
+        if (data && data.amountProduct)
+          if (product.amount > data.amountProduct) {
             res.json('Not enough products')
             return
           }
@@ -285,7 +330,7 @@ class UserControllers {
     }
     if (data) {
       data.listNotification.forEach((notification) => {
-        if(!notification.wasSeen) quantityNotSeen++
+        if (!notification.wasSeen) quantityNotSeen++
       })
       ans.quantityNotSeen = quantityNotSeen
       ans.listNotification = data.listNotification

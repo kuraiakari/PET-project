@@ -2,6 +2,7 @@ import { createAction, createReducer } from '@reduxjs/toolkit'
 
 interface initalStateUser {
   accessToken: string
+  refreshToken: string
   id: string
   isAdmin: boolean
   myShop: string
@@ -10,12 +11,11 @@ interface initalStateUser {
 
 const initalState = {
   accessToken: localStorage.getItem('accessToken') ? localStorage.getItem('accessToken') : '',
-  id: localStorage.getItem('id') ? localStorage.getItem('id') : '',
-  isAdmin: localStorage.getItem('isAdmin') ? (localStorage.getItem('isAdmin') === 'true' ? true : false) : false,
-  myShop: localStorage.getItem('myShop') ? localStorage.getItem('myShop') : '',
-  listLikeProduct: localStorage.getItem('listLikeProduct')
-    ? localStorage.getItem('listLikeProduct')?.split(',')
-    : new Array<string>()
+  refreshToken: localStorage.getItem('refreshToken') ? localStorage.getItem('refreshToken') : '',
+  id: '',
+  isAdmin: false,
+  myShop: '',
+  listLikeProduct: new Array<string>()
 }
 export const addIdUser = createAction<initalStateUser>('user/iduser')
 export const addProductToListLikeProduct = createAction<string>('user/addListLikeProduct')
@@ -23,6 +23,7 @@ export const removeProductToListLikeProduct = createAction<string>('user/removeL
 const userReducer = createReducer(initalState, (builder) => {
   builder.addCase(addIdUser, (initalState, action) => {
     initalState.accessToken = action.payload.accessToken
+    initalState.refreshToken = action.payload.refreshToken
     initalState.id = action.payload.id
     initalState.isAdmin = action.payload.isAdmin
     initalState.myShop = action.payload.myShop
