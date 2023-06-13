@@ -30,7 +30,7 @@ const Cart = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(accessToken, data)
+        // console.log(accessToken, data)
         if (!data.messageError) {
           setAvatar(data.avatar)
           setFullName(
