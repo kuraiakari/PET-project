@@ -6,6 +6,7 @@ import user from './user'
 
 const router = express.Router()
 
+
 router.use('/products', products)
 router.use('/store', store)
 router.use('/user', user)
