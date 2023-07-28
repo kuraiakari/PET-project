@@ -25,6 +25,7 @@ const ListProduct = () => {
       .then((response) => response.json())
       .catch(() => console.log('Not internet'))
       .then((data) => {
+        console.log(data)
         if (data.messageError) setListProduct(data.messageError)
         else setListProduct(data)
       })
