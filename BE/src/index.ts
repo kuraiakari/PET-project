@@ -7,14 +7,15 @@ import http from 'http'
 import { WebSocket, WebSocketServer } from 'ws'
 
 import { PORT_HTTP } from './config'
-import { databaseConnectionMongoDB, databaseConnectionPostgreSQL } from './database'
+import { databaseConnectionMongoDB } from './database'
+//, databaseConnectionPostgreSQL
 import SocketService from '../src/controllers/socketServer/socket'
 import router from './router'
 const StartApp = async () => {
   const app = express()
 
   await databaseConnectionMongoDB()
-  await databaseConnectionPostgreSQL()
+  // await databaseConnectionPostgreSQL()
 
   const server = http.createServer()
   const wsServer = new WebSocketServer({ server })

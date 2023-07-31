@@ -1,1 +1,2 @@
-export { databaseConnectionMongoDB, databaseConnectionPostgreSQL } from './connection'
+export { databaseConnectionMongoDB } from './connection'
+//databaseConnectionPostgreSQL

@@ -13,24 +13,24 @@ export const databaseConnectionMongoDB = async () => {
   }
 }
 
-export const databaseConnectionPostgreSQL = async () => {
-  try {
-    const client = new pg.Client({
-      user: PG_USER,
-      host: PG_HOST,
-      database: PG_DATABASE,
-      password: PG_PASSWORD,
-      port: PG_PORT
-    })
+// export const databaseConnectionPostgreSQL = async () => {
+//   try {
+//     const client = new pg.Client({
+//       user: PG_USER,
+//       host: PG_HOST,
+//       database: PG_DATABASE,
+//       password: PG_PASSWORD,
+//       port: PG_PORT
+//     })
 
-    await client.connect()
-    console.log('Connect successfuly PostgreSQL')
-  } catch (error) {
-    console.log('Connect error')
-    console.log(error)
-    process.exit(1)
-  }
-}
+//     await client.connect()
+//     console.log('Connect successfuly PostgreSQL')
+//   } catch (error) {
+//     console.log('Connect error')
+//     console.log(error)
+//     process.exit(1)
+//   }
+// }
 
 
 
