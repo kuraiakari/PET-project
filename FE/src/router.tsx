@@ -8,8 +8,8 @@ import History from './component/MainContent/Page/History/History'
 import Profile from './component/MainContent/Page/Profile/Profile'
 import MyShop from './component/MainContent/Page/MyShop/MyShop'
 import LikeProducts from './component/MainContent/Page/LikeProducts/LikeProducts'
-import Footer from './component/Footer/Footer'
-import Headerpage from './component/HeaderPage'
+import Footer from './component/footer/footer'
+import Headerpage from './component/headerPage'
 
 //BackToTop
 import ActionScrollToTop from './utils/hooks/BackToTop/ActionToTop'

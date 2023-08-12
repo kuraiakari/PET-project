@@ -1,5 +1,5 @@
 export interface itemFilter {
-  content: string;
-  icon: any;
+  content: string
+  icon: any
   description: string
 }
