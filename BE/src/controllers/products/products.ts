@@ -35,7 +35,8 @@ class ProductsControllers {
     }
     if (req.query.search) {
       optionProduct = {
-        ...optionProduct , $or: [{ nameProduct: req.query.search }, { typeProduct: req.query.search }]
+        ...optionProduct,
+        $or: [{ nameProduct: req.query.search }, { typeProduct: req.query.search }]
       }
     }
     if (req.query.sorting) {
@@ -90,6 +91,7 @@ class ProductsControllers {
       amountProduct: 0,
       ...req.body
     }
+    // console.log(dataProduct)
     if (req.files) {
       if (req.files.length > 0) {
         ;(req.files as []).forEach((file) => {
@@ -105,12 +107,16 @@ class ProductsControllers {
     const handleSave = stores
       .findOne({ nameStore: dataProduct.store, shopOwner: req.user._id })
       .exec(async (err: any, store: any) => {
+        console.log(store)
         if (!store) res.status(404).json({ messageError: 'Not found store' })
         else {
           const createData = await products.findOne({ _id: req.params.id, store: dataProduct.store })
-          dataProduct = {
-            ...dataProduct,
-            amountProduct: Number(createData?.amountProduct) + Number(dataProduct.amountProduct)
+          // console.log(Number(createData?.amountProduct))
+          if (createData) {
+            dataProduct = {
+              ...dataProduct,
+              amountProduct: Number(createData?.amountProduct) + Number(dataProduct.amountProduct)
+            }
           }
           const data = await products.updateOne({ _id: req.params.id, store: dataProduct.store }, dataProduct)
           if (!data.matchedCount) res.status(404).json({ messageError: 'Not found product' })
@@ -180,15 +186,18 @@ class ProductsControllers {
       if (product) {
         if (!product.totalRating) product.totalRating = 0
         let checkUserWasReview = false
+        //kiểm tra review đã được đánh giá hay chưa
         product.quantityReview.forEach((review: any) => {
           if (review.userId === req.user._id) {
             checkUserWasReview = true
+            // nếu đã đánh giá tiến hành cập nhập lại điểm, ( - cũ , + mới ra tính trung bình)
             product.totalRating = Number(product.totalRating) - review.rating
             review.rating = req.body.rating
             product.totalRating += req.body.rating
             product.ratingProduct = Number((product.totalRating / product.quantityReview.length).toFixed(1))
           }
         })
+        //sau khi hết vòng lặp không tìm thấy, nhận định đánh giá mới.
         if (!checkUserWasReview) {
           const data = {
             userId: req.user._id,

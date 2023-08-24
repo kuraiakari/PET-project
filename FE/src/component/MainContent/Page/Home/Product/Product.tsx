@@ -31,7 +31,7 @@ const Product = (props: ProductItem) => {
     const listImageProduct = product.imageProduct.split(',')
     return (
       <>
-        <div className='col-xl-2 ps-2 pe-2'>
+        <div className='col-xl-3 ps-2 pe-2'>
           <Link to={`/products/${category}/${product._id}`} className='product'>
             {product.promotionProduct > 0 && (
               <div

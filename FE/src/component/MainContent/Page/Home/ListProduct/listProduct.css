@@ -4,12 +4,35 @@
   overflow: hidden;
   width: 100%;
 }
+
+.bg-1 {
+  /* width: 827px; */
+  height: 354px;
+  margin-right: 17px;
+}
+
+.bg-2 {
+  /* width: 419px; */
+  height: 354px;
+}
+@media screen and (max-width: 1590px) {
+  .bg-1 {
+    height: 297px;
+    margin-right: 17px;
+  }
+
+  .bg-2 {
+    height: 297px;
+  }
+}
+
 .listProduct {
   display: flex;
   flex-wrap: wrap;
   overflow: hidden;
   width: 100%;
 }
+
 .headerAnswerSearch {
   width: calc(100% - 8px);
   border: 1px solid #000;
@@ -17,6 +40,7 @@
   margin-bottom: 16px;
   margin-left: 8px;
 }
+
 .buttonMoreProduct {
   cursor: pointer;
   display: inline-block;
@@ -24,6 +48,7 @@
   color: #fff;
   text-align: center;
 }
+
 /* .buttonMoreProduct:hover {
   background-color: rgba(0, 96, 255, 0.12) !important;
   opacity: 1 !important;

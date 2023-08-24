@@ -8,7 +8,7 @@ import {
   ValidatePassword,
   GenerateSignature,
   GenerateSignatureRefresh
-} from '../../utils'
+} from '../../utils/'
 import users from '../../database/models/user'
 import products from '../../database/models/products'
 import stores from '../../database/models/stores'
@@ -39,6 +39,7 @@ class UserControllers {
     })
   }
   async login(req: Request, res: Response) {
+    console.log(req.body.email)
     users.findOne({ email: req.body.email }, async function (err: any, user: any) {
       if (!user) res.json({ messageError: 'Not found user' })
       else {

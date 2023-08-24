@@ -36,8 +36,8 @@ const ListProduct = () => {
         {!category && !valueSearch && !sortProduct && (
           <div className='d-flex flex-column justify-content-start'>
             <div className='d-flex mb-37'>
-              <img src={bg1} alt='bg1' style={{ width: '827px', height: '356px', marginRight: '17px' }} />
-              <img src={bg2} alt='bg2' style={{ width: '419px', height: '354px' }} />
+              <img src={bg1} alt='bg1' className='bg-1' />
+              <img src={bg2} alt='bg2' className='bg-2' />
             </div>
             <div className='JejuMyeongjoRegular' style={{ fontSize: '40px', lineHeight: '40px', marginBottom: '41px' }}>
               Product
