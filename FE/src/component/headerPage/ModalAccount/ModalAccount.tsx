@@ -342,7 +342,7 @@ function Modal({ modal, setModal }: any) {
             </div>
           </>
         )}
-        {modal.content === 'sign in' && messSucces && (
+        {modal.content === 'sign up' && messSucces && (
           <div>
             <div className='success mb-5'>
               <span>Your registration has been successfully completed. Press Continue to sign in</span>

@@ -28,5 +28,5 @@
 
 > > > Was build refresh token and access token but have error. SetInterval in FE not synchronized expiresIn accessToken so the case where the access token has expired but is not newly created. Leads to other functions using the old accessToken. Received an expired token error(Example: reload page, setInterval was clear and not update access token)
 
-
->> loi dang ki tai khoan
+> > loi dang ki tai khoan
+> > handle after cant buy product becuse not enough quanlity (FE)
