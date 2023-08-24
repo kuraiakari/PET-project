@@ -12,6 +12,7 @@ import './cart.css'
 
 interface dataReturn {
   messageSuccess: string
+  messageError: string
   arrayIdOwnerShop: []
 }
 const Cart = () => {
@@ -88,8 +89,10 @@ const Cart = () => {
       dispatch(removeAllProduct())
       navigate('/')
     }
+    //handler not enough quanlity product
     setSuccessBuy({
       messageSuccess: '',
+      messageError: '',
       arrayIdOwnerShop: []
     })
   }
@@ -130,7 +133,7 @@ const Cart = () => {
       )}
       {successBuy && (
         <Modal show={!!successBuy}>
-          <Modal.Body>{successBuy.messageSuccess}</Modal.Body>
+          <Modal.Body>{successBuy.messageSuccess || successBuy.messageError}</Modal.Body>
           <Modal.Footer>
             <Button onClick={handleClose}>Close</Button>
           </Modal.Footer>

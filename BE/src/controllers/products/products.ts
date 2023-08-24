@@ -21,8 +21,8 @@ interface products {
 
 class ProductsControllers {
   async getProducts(req: Request, res: Response) {
-    const test = await products.find({})
-    console.log(test)
+    // const test = await products.find({})
+    // console.log(test)
     let optionProduct = {}
     let optionSortProduct = {}
     if (req.params.category !== undefined && req.params.category !== 'undefined') {
@@ -72,7 +72,7 @@ class ProductsControllers {
       const handleSave = stores
         .findOne({ nameStore: dataProduct.store, shopOwner: req.user._id })
         .exec(async (err: any, store: any) => {
-          console.log(store)
+          // console.log(store)
           if (!store) res.status(500).json({ messageError: 'Not found store' })
           else {
             const data = await products.create(dataProduct)

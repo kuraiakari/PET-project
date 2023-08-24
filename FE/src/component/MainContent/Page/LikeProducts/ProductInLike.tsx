@@ -13,14 +13,14 @@ interface product {
 }
 export default function LikeProduct({ index, idProduct }: idProduct) {
   const [dataProduct, setDataProduct] = useState<Array<product>>()
-  console.log(idProduct)
+  // console.log(idProduct)
   const imgProduct = dataProduct ? dataProduct[0].imageProduct.split(',')[0] : ''
   // console.log(dataProduct)
   useEffect(() => {
     fetch(`http://localhost:3000/v1/products/product/${idProduct}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        // console.log(data)
         if (data.messageError === 'NotFound') setDataProduct(undefined)
         else setDataProduct(data)
       })

@@ -203,14 +203,14 @@ class UserControllers {
       }
       return productAns
     })
-
+    console.log(listProduct)
     //check sum amount of order with amount of shop. (check before create order)
     for (const product of listProduct) {
       try {
         const data = await products.findOne({ _id: product.idProduct })
         if (data && data.amountProduct)
           if (product.amount > data.amountProduct) {
-            res.json('Not enough products')
+            res.json({ messageError: 'Not enough products' })
             return
           }
       } catch (err) {
