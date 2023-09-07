@@ -89,7 +89,7 @@ class ProductsControllers {
       res.status(500).json(err)
     }
   }
-  update(req: any, res: Response) {
+  updateInforProduct(req: any, res: Response) {
     let img = ''
     let dataProduct = {
       amountProduct: 0,
@@ -239,6 +239,8 @@ class ProductsControllers {
       console.log(err)
     }
   }
+
+  async UpdateCouponProduct(req: any, res: any) {}
 }
 
 export default ProductsControllers

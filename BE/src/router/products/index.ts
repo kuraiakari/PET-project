@@ -14,6 +14,6 @@ router.get('/product/:idproduct', productsControllers.getProducts)
 router.get('/:category/:idproduct', productsControllers.getProducts)
 router.post('/create', verifyAdmin, productsControllers.upload, productsControllers.create)
 router.post('/review', verifyUser, productsControllers.upload, productsControllers.review)
-router.put('/update/:id', verifyAdmin, productsControllers.upload, productsControllers.update)
+router.put('/update/:id', verifyAdmin, productsControllers.upload, productsControllers.updateInforProduct)
 router.delete('/delete/:id', verifyAdmin, productsControllers.delete)
 export default router
