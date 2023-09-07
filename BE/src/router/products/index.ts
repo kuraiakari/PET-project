@@ -6,6 +6,8 @@ import { verifyAdmin, verifyUser } from '../middlewares'
 const router = express.Router()
 const productsControllers = new ProductsControllers()
 
+// router.post('/updateField', productsControllers.addNewField)
+
 router.get('/', productsControllers.getProducts)
 router.get('/:category', productsControllers.getProducts)
 router.get('/product/:idproduct', productsControllers.getProducts)

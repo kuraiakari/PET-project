@@ -1,20 +1,13 @@
 {
-  "exclude": [
-    "node_modules",
-  ],
+  "exclude": ["node_modules"],
   "ts-node": {
     "esm": true,
-    "experimentalSpecifierResolution": "node",
+    "experimentalSpecifierResolution": "node"
   },
   "compilerOptions": {
     "target": "es6",
     "module": "ES2022",
-    "lib": [
-      "dom",
-      "es6",
-      "es2017",
-      "esnext.asynciterable"
-    ],
+    "lib": ["dom", "es6", "es2017", "esnext.asynciterable"],
     "sourceMap": true,
     "outDir": "./dist",
     "moduleResolution": "node",
@@ -26,12 +19,10 @@
     "resolveJsonModule": true,
     "strict": true,
     "strictPropertyInitialization": false,
-    "typeRoots": [
-      "./src/types",
-      "./node_modules/@types"
-    ],
+    "typeRoots": ["./src/types", "./node_modules/@types"],
     "baseUrl": "src/",
     "noImplicitReturns": false,
-    "noFallthroughCasesInSwitch": true
-  },
+    "noFallthroughCasesInSwitch": true,
+    "allowJs": true
+  }
 }

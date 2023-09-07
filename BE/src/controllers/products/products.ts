@@ -1,4 +1,4 @@
-import { Request, response, Response } from 'express'
+import { Request, Response } from 'express'
 import multer from 'multer'
 import path from 'path'
 
@@ -20,6 +20,10 @@ interface products {
 }
 
 class ProductsControllers {
+  // async addNewField(req: any, res: any) {
+  //   await products.updateMany({}, { $set: { couponProduct: [] } })
+  //   res.json('Create success')
+  // }
   async getProducts(req: Request, res: Response) {
     // const test = await products.find({})
     // console.log(test)
