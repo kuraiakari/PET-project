@@ -288,11 +288,12 @@ class ProductsControllers {
         //loop through all rows in the sheet
         for (var j = 1; j < sheet['data'].length; j++) {
           //add the row to the rows array
-          const [code_sale, value, time] = sheet['data'][j]
+          const [code_sale, value, time, state] = sheet['data'][j]
           couponProduct.push({
             code_sale,
             value,
-            time
+            time,
+            state
           })
         }
       }
@@ -300,6 +301,30 @@ class ProductsControllers {
       const dataUpdate = { couponProduct }
       await products.updateOne({ _id: req.params.id }, dataUpdate)
       res.json('Update success')
+    }
+  }
+  async postCoupon(req: any, res: any) {
+    const nowDate = new Date()
+    // console.log(req.params.id, req.body.code_sale)
+    const product = await products.findOne({ _id: req.params.id })
+    const result = product?.couponProduct.findIndex((code: any) => code.code_sale === req.body.code_sale)
+    if (result === -1) {
+      res.json('Code sai')
+      return
+    } else if (result) {
+      const date = new Date(product?.couponProduct[result].time.split('/').reverse().join('-') + 'T00:00:00')
+      if (date < nowDate) {
+        res.json('Code het han')
+        return
+      } else {
+        if (product?.couponProduct[result].state === 'da su dung') {
+          res.json('Code da su dung')
+        } else {
+          res.json(product?.couponProduct[result])
+        }
+      }
+    } else {
+      res.json('co loi')
     }
   }
 }
