@@ -82,7 +82,7 @@ const Product = (props: ProductItem) => {
     // console.log(props.product)
     return (
       <>
-        <div className='col-xl-2 ps-2 pe-2'>
+        <div className='col-xl-3 ps-2 pe-2'>
           <button className='createproduct' onClick={handleShowModalCreateProduct}>
             <div className='headerCreateProduct'>
               <div className='iconCreate'>

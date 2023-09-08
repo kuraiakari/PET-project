@@ -12,6 +12,7 @@ import './detailProduct.css'
 import Breadcrumds from '../Breadcrumb/Breadcrumb'
 import EditProduct from './editProduct'
 import ReviewCustomer from './ReviewCustomer'
+import { FileUpload, FileUploadProps } from './FileUpload/FileUpload'
 
 const DetailProduct = () => {
   const { category, idProduct } = useParams()
@@ -119,6 +120,40 @@ const DetailProduct = () => {
   const [showEditProduct, setShowEditProduct] = useState(false)
   const handleCloseModalEditProduct = () => setShowEditProduct(false)
   const handleShowModalEditProduct = () => setShowEditProduct(true)
+
+  //handle coupon product
+  const [addCouponProduct, setAddCouponProduct] = useState(false)
+  const handleCloseModalAddCouponProduct = () => setAddCouponProduct(false)
+  const handleSendCouponProduct = () => {
+    const formData = new FormData()
+    if (filexlsx) formData.append('code', filexlsx)
+    fetch(`http://localhost:3000/v1/products/updateCoupon/${idProduct}`, {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${accessToken}`
+      },
+      body: formData
+    })
+      .then((response) => response.json())
+      .then(() => {
+        setAddCouponProduct(false)
+      })
+    // setAddCouponProduct(false)
+  }
+  const handleShowModalAddCouponProduct = () => setAddCouponProduct(true)
+  const [filexlsx, setFilexlex] = useState<File>()
+  const fileUploadProp: FileUploadProps = {
+    accept: 'xlsx/*',
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => {
+      if (event.target.files !== null && event.target?.files?.length > 0) {
+        setFilexlex(event.target.files[0])
+      }
+    },
+    onDrop: (event: React.DragEvent<HTMLElement>) => {
+      setFilexlex(event.dataTransfer.files[0])
+    }
+  }
+
   //handle delete product
   const handleDeleteProduct = () => {
     fetch(`http://localhost:3000/v1/products/delete/${idProduct}`, {
@@ -340,6 +375,20 @@ const DetailProduct = () => {
                     className='kumbhSans'
                     style={{
                       fontWeight: 700,
+                      backgroundColor: '#000',
+                      borderRadius: 0,
+                      border: 'none',
+                      width: '100%',
+                      marginBottom: '15px'
+                    }}
+                    onClick={handleShowModalAddCouponProduct}
+                  >
+                    Add coupon
+                  </Button>
+                  <Button
+                    className='kumbhSans'
+                    style={{
+                      fontWeight: 700,
                       backgroundColor: '#fff',
                       borderRadius: 0,
                       color: '#000',
@@ -364,6 +413,30 @@ const DetailProduct = () => {
                         handleCloseModalEditProduct={handleCloseModalEditProduct}
                       />
                     </Modal.Body>
+                  </Modal>
+                  <Modal show={addCouponProduct} onHide={handleCloseModalAddCouponProduct}>
+                    <Modal.Header closeButton>
+                      <Modal.Title>Add Coupon Product</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                      <FileUpload {...fileUploadProp} />
+                    </Modal.Body>
+                    <Modal.Footer>
+                      <Button
+                        className='kumbhSans'
+                        style={{
+                          fontWeight: 700,
+                          backgroundColor: '#000',
+                          borderRadius: 0,
+                          border: 'none',
+                          width: '100%',
+                          marginBottom: '15px'
+                        }}
+                        onClick={handleSendCouponProduct}
+                      >
+                        Add coupon
+                      </Button>
+                    </Modal.Footer>
                   </Modal>
                 </>
               )}
