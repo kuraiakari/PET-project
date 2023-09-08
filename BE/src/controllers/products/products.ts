@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import multer from 'multer'
 import path from 'path'
+import xlsx from 'node-xlsx'
 
 import products from '../../database/models/products'
 import stores from '../../database/models/stores'
@@ -183,6 +184,30 @@ class ProductsControllers {
       cb(null, true)
     }
   }).array('imageProduct')
+  storageFile = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, './uploads')
+    },
+    filename: function (req, file, cb) {
+      const fileTypes = /xlsx/
+      const mimeType = fileTypes.test(file.mimetype)
+      const extname = fileTypes.test(path.extname(file.originalname))
+
+      if (mimeType && extname) {
+        return cb(null, Date.now() + '-' + file.originalname)
+      }
+      cb(null, Date.now() + '-' + file.originalname)
+    }
+  })
+  uploadFile = multer({
+    storage: this.storageFile,
+    fileFilter: (req, file, cb: any) => {
+      const ext = path.extname(file.originalname)
+      if (ext !== '.xlsx') {
+        return cb('Không phải file xlsx', false)
+      } else cb(null, true)
+    }
+  }).single('code')
   async review(req: any, res: any) {
     try {
       // console.log(req.user._id, req.body)
@@ -240,7 +265,43 @@ class ProductsControllers {
     }
   }
 
-  async UpdateCouponProduct(req: any, res: any) {}
+  async UpdateCouponProduct(req: any, res: any) {
+    if (req.file) {
+      const product = await products.findOne({ _id: req.params.id })
+      if (!product) {
+        res.json('Cant found product')
+        return
+      }
+      const store = await stores.findOne({ nameStore: product.store })
+      if (!store) {
+        res.json('Cant found store')
+        return
+      }
+      if (store.shopOwner !== req.user._id) {
+        res.json('Cant authenzition')
+        return
+      }
+      const obj = xlsx.parse('./uploads/' + req.file.filename)
+      const couponProduct = []
+      for (var i = 0; i < obj.length; i++) {
+        var sheet = obj[i]
+        //loop through all rows in the sheet
+        for (var j = 1; j < sheet['data'].length; j++) {
+          //add the row to the rows array
+          const [code_sale, value, time] = sheet['data'][j]
+          couponProduct.push({
+            code_sale,
+            value,
+            time
+          })
+        }
+      }
+      couponProduct.push(...product.couponProduct)
+      const dataUpdate = { couponProduct }
+      await products.updateOne({ _id: req.params.id }, dataUpdate)
+      res.json('Update success')
+    }
+  }
 }
 
 export default ProductsControllers

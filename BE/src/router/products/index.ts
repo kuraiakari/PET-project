@@ -16,4 +16,5 @@ router.post('/create', verifyAdmin, productsControllers.upload, productsControll
 router.post('/review', verifyUser, productsControllers.upload, productsControllers.review)
 router.put('/update/:id', verifyAdmin, productsControllers.upload, productsControllers.updateInforProduct)
 router.delete('/delete/:id', verifyAdmin, productsControllers.delete)
+router.put('/updateCoupon/:id', verifyAdmin, productsControllers.uploadFile, productsControllers.UpdateCouponProduct)
 export default router
