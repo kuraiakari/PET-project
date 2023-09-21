@@ -170,6 +170,10 @@ const DetailProduct = () => {
         }
       })
   }
+  const linkUrl =
+    listImageProduct && listImageProduct[0].indexOf('tiki') === -1
+      ? 'http://localhost:3000/' + listImageProduct[indexImg]
+      : listImageProduct[0]
   return (
     <>
       {!productDetail && (
@@ -185,11 +189,7 @@ const DetailProduct = () => {
           />
           <div className='detailProduct ps-0'>
             <div>
-              <img
-                src={'http://localhost:3000/' + listImageProduct[indexImg]}
-                alt='product'
-                className='imgProductDetail'
-              />
+              <img src={linkUrl} alt='product' className='imgProductDetail' />
               <div style={{ marginTop: '18px' }}>
                 {productDetail[0].imageProduct.split(',').map((img: any, index: number) => {
                   if (index < productDetail[0].imageProduct.split(',').length - 1)

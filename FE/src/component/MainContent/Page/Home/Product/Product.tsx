@@ -29,6 +29,8 @@ const Product = (props: ProductItem) => {
     const category = product.categoryProduct
     // console.log(product.store)
     const listImageProduct = product.imageProduct.split(',')
+    const linkUrl =
+      listImageProduct[0].indexOf('tiki') === -1 ? 'http://localhost:3000/' + listImageProduct[0] : listImageProduct[0]
     return (
       <>
         <div className='col-xl-3 ps-2 pe-2'>
@@ -44,7 +46,7 @@ const Product = (props: ProductItem) => {
                 SALE {product.promotionProduct}%
               </div>
             )}
-            <img src={'http://localhost:3000/' + listImageProduct[0]} alt='product' className='imgProduct' />
+            <img src={linkUrl} alt='product' className='imgProduct' />
             <div className='titleProduct kumbhSans'>
               <div className='nameProduct' style={{ fontWeight: 700, fontSize: '15px' }}>
                 {product.nameProduct.charAt(0).toUpperCase() + product.nameProduct.slice(1)}

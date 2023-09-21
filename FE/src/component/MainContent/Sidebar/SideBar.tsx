@@ -10,6 +10,7 @@ import phone from './iconSidebar/phone.png'
 import shirt from './iconSidebar/shirt.png'
 import dress from './iconSidebar/dress.png'
 import accessories from './iconSidebar/accessories.png'
+import laptop from './iconSidebar/icons8-laptop-24.png'
 
 import { itemCategory } from './typeData/itemCategory.type'
 import { itemFilter } from './typeData/itemFilter.type'
@@ -74,6 +75,11 @@ function Sidebar() {
         content: 'FashionAccessories',
         icon: accessories,
         description: 'Fashion Accessories'
+      },
+      {
+        content: 'Laptop',
+        icon: laptop,
+        description: 'Laptop'
       }
     ],
     []
