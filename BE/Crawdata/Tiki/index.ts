@@ -1,16 +1,22 @@
 import axios from 'axios'
+const GetDataFromTiki = axios.create({
+  baseURL: 'https://tiki.vn/',
+  timeout: 10000,
+  headers: { 'X-Requested-With': 'XMLHttpRequest' }
+})
 import products from '../../src/database/models/products'
 import stores from '../../src/database/models/stores'
 import { databaseConnectionMongoDB } from '../../src/database'
 const getData = async () => {
   await databaseConnectionMongoDB()
   const formApi = (index: number) => {
-    return `https://tiki.vn/api/personalish/v1/blocks/listings?limit=40&include=advertisement&aggregations=2&version=home-persionalized&category=1846&page=${index}&sort=default&urlKey=laptop-may-vi-tinh-linh-kien`
+    return `api/personalish/v1/blocks/listings?limit=40&include=advertisement&aggregations=2&version=home-persionalized&category=1846&page=${index}&sort=default&urlKey=laptop-may-vi-tinh-linh-kien`
   }
   //   const data = await products.deleteMany({ categoryProduct: 'Laptop' })
   //   console.log(data)
+  const listProducts = []
   for (let index = 1; index <= 50; index++) {
-    const data = await axios(formApi(index))
+    const data = await GetDataFromTiki.get(formApi(index))
     data.data.data.forEach(async (element: any) => {
       if (!element.quantity_sold) return
       const product = {
@@ -31,17 +37,18 @@ const getData = async () => {
         categoryProduct: 'Laptop',
         store: 'Read Online'
       }
-      const store = await stores.findOne({ nameStore: product.store })
-      if (store) {
-        const data = await products.create(product)
-        if (data) {
-          store.listProducts.push(product)
-          await stores.updateOne({ nameStore: product.store }, store)
-        }
-      }
+      listProducts.push(product)
+      // const store = await stores.findOne({ nameStore: product.store })
+      // if (store) {
+      //   const data = await products.create(product)
+      //   if (data) {
+      //     store.listProducts.push(product)
+      //     await stores.updateOne({ nameStore: product.store }, store)
+      //   }
+      // }
     })
   }
-  console.log('Done')
+  console.log('Done', listProducts.length)
 }
 
 getData()
