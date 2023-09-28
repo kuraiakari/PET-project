@@ -25,7 +25,11 @@ const ProductInCart = (props: any) => {
         <div className='col-xl-3 d-flex justify-content-center'>
           <img
             className='imgProductInCart'
-            src={'http://localhost:3000/' + props.product.imgProduct}
+            src={
+              props.product.imgProduct.indexOf('tiki') === -1
+                ? 'http://localhost:3000/' + props.product.imgProduct
+                : props.product.imgProduct
+            }
             alt='img product'
           />
         </div>

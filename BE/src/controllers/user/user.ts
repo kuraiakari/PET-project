@@ -39,7 +39,7 @@ class UserControllers {
     })
   }
   async login(req: Request, res: Response) {
-    console.log(req.body.email)
+    // console.log(req.body.email)
     users.findOne({ email: req.body.email }, async function (err: any, user: any) {
       if (!user) res.json({ messageError: 'Not found user' })
       else {
@@ -80,6 +80,7 @@ class UserControllers {
     if (data && req.body.getNewAccessToken && data.tokenRefresh === inputToken) {
       const token = await GenerateSignature({ email: data.email, _id: data._id, isAdmin: data.isAdmin })
       const dateNow = Date.now()
+      // console.log(dateNow)
       data.tokenRefresh = await GenerateSignatureRefresh({
         email: req.user.email,
         _id: req.user._id,
@@ -203,7 +204,7 @@ class UserControllers {
       }
       return productAns
     })
-    console.log(listProduct)
+    // console.log(listProduct)
     //check sum amount of order with amount of shop. (check before create order)
     for (const product of listProduct) {
       try {
@@ -313,7 +314,7 @@ class UserControllers {
     if (data) {
       data.listNotification.forEach((notification) => {
         if (notification.id === req.body.idNotification) {
-          console.log(notification.id, req.body.wasSeen)
+          // console.log(notification.id, req.body.wasSeen)
           notification.wasSeen = req.body.wasSeen
         }
       })

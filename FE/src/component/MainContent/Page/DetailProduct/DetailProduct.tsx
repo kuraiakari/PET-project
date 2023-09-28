@@ -36,6 +36,7 @@ const DetailProduct = () => {
   const moveToReview = () => {
     review.current?.scrollIntoView()
   }
+  console.log(idProduct)
   useEffect(() => {
     fetch(`http://localhost:3000/v1/products/${category}/${idProduct}`)
       .then((response) => response.json())
@@ -48,11 +49,13 @@ const DetailProduct = () => {
           }
         }, 1000)
       })
-    fetch(`http://localhost:3000/v1/store/${myShop}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setCheckNameStore(data.nameStore)
-      })
+    if (myShop) {
+      fetch(`http://localhost:3000/v1/store/${myShop}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setCheckNameStore(data.nameStore)
+        })
+    }
   }, [idProduct, myShop, accessToken, id, category])
   let listImageProduct = ''
   // console.log(productDetail)
@@ -256,7 +259,7 @@ const DetailProduct = () => {
                     }}
                     onClick={moveToReview}
                   >
-                    {`(See ${productDetail[0].quantityReview.length} reviews)`}
+                    {`(See ${productDetail[0].comments.length} reviews)`}
                   </button>
                   <div className='ms-2' style={{ lineHeight: '25px' }}>
                     /

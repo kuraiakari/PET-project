@@ -26,6 +26,15 @@
   }
 }
 
+@media screen and (max-width: 1400px) {
+  .bg-2 {
+    display: none;
+  }
+  .bg-1 {
+    width: 100%;
+  }
+}
+
 .listProduct {
   display: flex;
   flex-wrap: wrap;

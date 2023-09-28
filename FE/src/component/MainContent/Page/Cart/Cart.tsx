@@ -65,7 +65,7 @@ const Cart = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data)
+        // Chú ý nếu không hiện thông báo
         if (data.messageSuccess === 'Create new order successfully') {
           for (const mess of data.arrayOwnerShop) {
             sendJsonMessage({

@@ -15,17 +15,11 @@ class StoreControllers {
       } else res.json(err)
     })
   }
-  getStore(req: Request, res: Response) {
-    // console.log(req.params.id, req.body.nameStore)
-    stores
-      .findOne({ $or: [{ _id: req.params.id }, { nameStore: req.body.nameStore }] })
-      .exec(function (err: any, store: any) {
-        if (err) res.status(400).json({ messageError: 'Not found store' })
-        else {
-          if (store) res.status(500).json(store)
-          else res.status(400).json({ messageError: 'Not found store' })
-        }
-      })
+  async getStore(req: Request, res: Response) {
+    // console.log(req.params.id)
+    const data = await stores.findOne({ _id: req.params.id })
+    if (data) res.status(200).json(data)
+    else res.status(400).json('Not found store')
   }
   async update(req: any, res: Response) {
     let img = ''

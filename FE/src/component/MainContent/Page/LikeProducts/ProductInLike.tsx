@@ -20,8 +20,8 @@ export default function LikeProduct({ index, idProduct }: idProduct) {
     fetch(`http://localhost:3000/v1/products/product/${idProduct}`)
       .then((response) => response.json())
       .then((data) => {
-        // console.log(data)
-        if (data.messageError === 'NotFound') setDataProduct(undefined)
+        console.log(data)
+        if (data.messageError === 'Not Found') setDataProduct(undefined)
         else setDataProduct(data)
       })
   }, [idProduct])
@@ -39,7 +39,11 @@ export default function LikeProduct({ index, idProduct }: idProduct) {
             {dataProduct[0].nameProduct.charAt(0).toUpperCase() + dataProduct[0].nameProduct.slice(1)}
           </div>
           <div className='col-xl-4 d-flex justify-content-center'>
-            <img className='imgProductInCart' src={'http://localhost:3000/' + imgProduct} alt='img product' />
+            <img
+              className='imgProductInCart'
+              src={imgProduct.indexOf('tiki') === -1 ? 'http://localhost:3000/' + imgProduct : imgProduct}
+              alt='img product'
+            />
           </div>
           <div className='col-xl-4 d-flex justify-content-center'>
             <Rating defaultValue={dataProduct[0].ratingProduct} readOnly precision={0.5} />

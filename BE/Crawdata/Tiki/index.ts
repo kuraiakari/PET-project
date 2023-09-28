@@ -7,17 +7,27 @@ const GetDataFromTiki = axios.create({
 import products from '../../src/database/models/products'
 import stores from '../../src/database/models/stores'
 import { databaseConnectionMongoDB } from '../../src/database'
+const resetData = async () => {
+  const data = await products.deleteMany({ categoryProduct: 'Laptop' })
+  console.log(data)
+  const store = await stores.findOne({ nameStore: 'Read Online' })
+  if (store) {
+    const data = store.listProducts.filter((test) => {
+      return test.categoryProduct !== 'Laptop'
+    })
+    store.listProducts = data
+    await stores.updateOne({ nameStore: 'Read Online' }, store)
+  }
+}
 const getData = async () => {
   await databaseConnectionMongoDB()
+  // await resetData()
   const formApi = (index: number) => {
     return `api/personalish/v1/blocks/listings?limit=40&include=advertisement&aggregations=2&version=home-persionalized&category=1846&page=${index}&sort=default&urlKey=laptop-may-vi-tinh-linh-kien`
   }
-  //   const data = await products.deleteMany({ categoryProduct: 'Laptop' })
-  //   console.log(data)
-  const listProducts = []
-  for (let index = 1; index <= 50; index++) {
+  for (let index = 1; index <= 5; index++) {
     const data = await GetDataFromTiki.get(formApi(index))
-    data.data.data.forEach(async (element: any) => {
+    for (const element of data.data.data) {
       if (!element.quantity_sold) return
       const product = {
         nameProduct: element.name,
@@ -37,18 +47,18 @@ const getData = async () => {
         categoryProduct: 'Laptop',
         store: 'Read Online'
       }
-      listProducts.push(product)
-      // const store = await stores.findOne({ nameStore: product.store })
-      // if (store) {
-      //   const data = await products.create(product)
-      //   if (data) {
-      //     store.listProducts.push(product)
-      //     await stores.updateOne({ nameStore: product.store }, store)
-      //   }
-      // }
-    })
+      const store = await stores.findOne({ nameStore: product.store })
+      if (store) {
+        await products.create(product)
+        const data = await products.findOne({ nameProduct: product.nameProduct })
+        if (data) {
+          store.listProducts.push(data)
+          await stores.updateOne({ nameStore: product.store }, store)
+        }
+      }
+    }
   }
-  console.log('Done', listProducts.length)
+  console.log('Done')
 }
 
 getData()

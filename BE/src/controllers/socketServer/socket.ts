@@ -16,9 +16,9 @@ class SocketService {
     if (type === 'signout') {
       // delete refresh token when user logs out
       // console.log(toIdUser)
-      const data: any = await users.findOne({ _id: toIdUser})
+      const data: any = await users.findOne({ _id: toIdUser })
       if (data) data.tokenRefresh = ''
-      await users.updateOne({ _id: toIdUser}, data)
+      await users.updateOne({ _id: toIdUser }, data)
     }
     if (type === 'signin' || type === 'signout') {
       const conenect = this.mapSocket.get('admin')
@@ -48,7 +48,8 @@ class SocketService {
       }
       this.mapSocket.forEach((value: any, key: string) => {
         if (key === toIdUser) {
-          const message = content.avatar + '].[' + content.message + '].[' + date + '].[' + quantity + '].[' + id + '].[' + 'false'
+          const message =
+            content.avatar + '].[' + content.message + '].[' + date + '].[' + quantity + '].[' + id + '].[' + 'false'
           value.send(message)
         }
       })
@@ -75,18 +76,20 @@ class SocketService {
     }
     if (type === 'buyProduct') {
       const content = dataMessFromClient.content
+      console.log(content)
       const toIdUser = dataMessFromClient.content.to
       this.broadcastMessage(type, toIdUser, content)
     }
   }
   static async connectionSocket() {
     SocketService.wsServer.on('connection', (connection: WebSocket) => {
-      console.log('connected to socket')
+      console.log('86: connected to socket')
       //khởi tạo 1 admin ảo
       if (!this.mapSocket.get('admin')) this.mapSocket.set('admin', connection)
 
       connection.on('error', console.error)
       connection.on('message', (data: any, isBinary: any) => {
+        console.log(1)
         this.handleMessage(data, connection)
       })
     })

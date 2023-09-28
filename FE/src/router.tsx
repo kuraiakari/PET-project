@@ -31,7 +31,7 @@ const Fullweb = () => {
   return (
     <div className='fullweb'>
       <Headerpage />
-      <div className='container' style={{ margin: '0 auto', display: 'block', width: '1524px' }}>
+      <div className='container' style={{ margin: '0 auto' }}>
         <div className='row contentPage min-vh-100'>
           <Outlet />
         </div>

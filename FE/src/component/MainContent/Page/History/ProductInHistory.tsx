@@ -29,7 +29,11 @@ const ProductInHistory = ({ product, soluong, id, accessToken }: any) => {
           {product.productOrder.nameProduct.charAt(0).toUpperCase() + product.productOrder.nameProduct.slice(1)}
         </div>
         <div className='col-xl-2 d-flex justify-content-center'>
-          <img className='imgProductInCart' src={'http://localhost:3000/' + imgProduct} alt='img product' />
+          <img
+            className='imgProductInCart'
+            src={imgProduct.indexOf('tiki') === -1 ? 'http://localhost:3000/' + imgProduct : imgProduct}
+            alt='img product'
+          />
         </div>
         <div className='col-xl-2 d-flex justify-content-center'>{product.amountOrder}</div>
         <div className='col-xl-2 d-flex justify-content-center'>

@@ -16,18 +16,19 @@ interface inforShop {
 const MyShop = () => {
   const [inforShop, setInforShop] = useState<inforShop>()
   const myshop = useSelector((state: any) => state.user.myShop)
-  // console.log(inforShop)
   useEffect(() => {
-    fetch(`http://localhost:3000/v1/store/${myshop}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setTimeout(() => {
-          data.imgStore = data.imgStore.replace(',', '')
-          setInforShop(data)
-        }, 1000)
-      })
+    if (myshop) {
+      fetch(`http://localhost:3000/v1/store/${myshop}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setTimeout(() => {
+            console.log(data)
+            data.imgStore = data.imgStore.replace(',', '')
+            setInforShop(data)
+          }, 4000)
+        })
+    }
   }, [myshop])
-  // if (inforShop) console.log(inforShop)
   return (
     <>
       {!myshop && <div>Currently , you do not have your store ^^</div>}
@@ -120,8 +121,8 @@ const MyShop = () => {
                 List product:
               </div>
               <div className='listProduct' style={{ padding: 0 }}>
-                {inforShop?.listProducts?.map((product: product) => {
-                  return <Product key={product._id} product={product} createProduct={false} />
+                {inforShop?.listProducts?.map((product: product, index: number) => {
+                  return <Product key={index} product={product} createProduct={false} />
                 })}
                 <Product product={{ store: inforShop?.nameStore } as product} createProduct={true} />
               </div>
