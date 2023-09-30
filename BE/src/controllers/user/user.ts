@@ -185,6 +185,7 @@ class UserControllers {
   //   })
   // }
   async createOrder(req: any, res: any) {
+    console.log(req.body.products)
     const order = {
       listProducts: []
     }
@@ -225,6 +226,7 @@ class UserControllers {
       // console.log(product.amount)
       await products
         .findOne({ _id: product.idProduct }, async (err: any, oldProduct: any) => {
+          console.log(1)
           if (oldProduct) {
             const data = {
               productOrder: oldProduct,
@@ -237,33 +239,27 @@ class UserControllers {
               soldProduct: oldProduct.soldProduct + product.amount
             }
             await products.updateOne({ _id: product.idProduct }, dataProduct)
-            const store = await stores
-              .findOne({ nameStore: dataProduct.store }, async (err: any, store: any) => {
-                // console.log('ban dau:', store)
-                if (data) {
-                  const inforOrder = {
-                    idOwner: store.shopOwner.toString(),
-                    nameProduct: oldProduct.nameProduct,
-                    amount: product.amount
-                  }
-                  arrayOwnerShop.push(inforOrder)
-                }
-                if (!store) {
-                  res.status(404).json({ messageError: 'Not found store' })
-                } else {
-                  await store.listProducts.forEach((productStore: any, index: any) => {
-                    if (productStore._id.toString() === product.idProduct) {
-                      store.listProducts[index] = dataProduct
-                    }
-                  })
-                  // console.log('sau khi:', store)
-                  const dataTest1 = await stores.updateOne({ nameStore: dataProduct.store }, store)
+            const store = await stores.findOne({ nameStore: dataProduct.store })
+            if (!store) {
+              res.status(404).json({ messageError: 'Not found store' })
+            }
+            // console.log('ban dau:', store)
+            else {
+              const inforOrder = {
+                idOwner: store.shopOwner?.toString(),
+                nameProduct: oldProduct.nameProduct,
+                amount: product.amount
+              }
+              console.log(inforOrder)
+              arrayOwnerShop.push(inforOrder)
+              store.listProducts.forEach((productStore: any, index: any) => {
+                if (productStore._id.toString() === product.idProduct) {
+                  store.listProducts[index] = dataProduct
                 }
               })
-              .clone()
-              .catch(function (err) {
-                console.log(err)
-              })
+              // console.log('sau khi:', store)
+              const dataTest1 = await stores.updateOne({ nameStore: dataProduct.store }, store)
+            }
           }
         })
         .clone()
@@ -284,8 +280,10 @@ class UserControllers {
             messageSuccess: 'Create new order successfully',
             arrayOwnerShop: arrayOwnerShop
           }
-          // console.log(dataReturn)
-          res.json(dataReturn)
+          console.log(dataReturn)
+          setTimeout(() => {
+            res.json(dataReturn)
+          }, 2000)
         })
         .clone()
         .catch(function (err) {

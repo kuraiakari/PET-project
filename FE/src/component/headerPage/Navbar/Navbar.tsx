@@ -103,6 +103,7 @@ function NavbarPage() {
           }
         })
         const dataAccessToken = await accessTokenGet.json()
+        console.log(2)
         // console.log(dataAccessToken)
         if (dataAccessToken.messageError) {
           const dataSend = {
@@ -147,9 +148,8 @@ function NavbarPage() {
         }
       }
       handleAutoLogin()
-      const interval = setInterval(() => handleAutoLogin, 60000)
+      const interval = setInterval(() => handleAutoLogin(), 60000)
       return () => {
-        console.log(1)
         clearInterval(interval)
       }
     }
